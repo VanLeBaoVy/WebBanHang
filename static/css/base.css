@@ -1,0 +1,53 @@
+:root {
+  --white-color: #fff;
+  --back-color: #000;
+  ---text-color: #333;
+}
+* {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  /* HACK */
+  font-size: 62.5%; /*10px*/ /*khi muon su dung 12px => 1.2rem*/
+  line-height: 1.6rem;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0); /* Màu nền ban đầu */
+  color: black; /* Màu chữ */
+  border: none; /* Xóa viền */
+  padding: 0 10px; /*Khoảng cách trong nút */
+  /* font-size: 40px; Kích thước chữ */
+  cursor: pointer; /* Thay đổi con trỏ chuột */
+  outline: none; /* Xóa hiệu ứng màu viền mặc định khi nhấn */
+  text-align: center;
+}
+
+button:focus {
+  outline: none; /* Xóa viền khi nút được chọn */
+}
+
+input:focus{
+  outline: none;
+}
+
+/* button:active {
+  background-color: #2980b9; /* Màu khi bấm vào nút */
+
+.grid {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.d-flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

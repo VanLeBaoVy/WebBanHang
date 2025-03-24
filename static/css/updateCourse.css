@@ -1,0 +1,207 @@
+:root {
+    --highText__banner: #00b67a;
+    --btn__color: #21253c;
+}
+.content-sport {
+    color: var(--btn__color);
+    margin-top: calc(var(--header-height) + 20px);
+    display: flex;
+    min-height: calc(100vh - 77px);
+    box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
+    line-height: normal;
+}
+.sport-sidebar__title {
+    border-top: 1px solid var(--highText__banner);
+    font-weight: bold;
+    font-size: x-large;
+    border-top-left-radius: 10px;
+}
+
+.sport-sidebar__list {
+    font-size: 1.4rem;
+}
+
+.sport-sidebar__item {
+    border-radius: 10px;
+    padding:0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--highText__banner);
+}
+.sport-sidebar__item>div {
+    padding: 10px;
+    line-height: normal;
+    font-size: 1.6rem;
+    text-align: start;
+    height: 100%;
+}
+
+.sport-sidebar__item:hover {
+    background-color: var(--highText__banner);
+    color: white;
+    cursor: pointer;
+}
+
+.sport-maincontent__title {
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: x-large;
+    padding: 20px;
+    border-left: 5px solid transparent;
+    border-image: linear-gradient(to bottom, #00b67a, #21253c,#00b67a) 1;
+    border-bottom: 1px solid var(--highText__banner);
+    width: 100%;
+}
+
+
+/* ------------------------------------- */
+.filter__select-box__all {
+    font-size: 1.6rem;
+    font-weight: lighter;
+    color: #00b67a;
+}
+
+input[type="checkbox"] {
+    /* width: 20px;
+    height: 20px; */
+    accent-color: #00a46d; 
+    /* border: 1px solid rgba(0, 0, 0, .26); */
+    
+  }
+
+  /* ----------------------- */
+
+  .filter--choose {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+
+
+
+
+  /* -------------------- */
+
+.purchaseHistory {
+    background-color: white;
+    margin-bottom: 100px;
+}
+
+.purchase-title__item:hover {
+    border-bottom: 2px solid var(--highText__banner);
+    color: var(--highText__banner);
+}
+
+.purchase-order {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.purchaseOderNavSelected {
+    border-bottom: 2px solid var(--highText__banner);
+    color: var(--highText__banner);
+}
+
+/* -------------------------- */
+
+.order__explore--seeFull:hover {
+    border: 1px solid var(--highText__banner);
+    color:  var(--highText__banner);
+}
+
+/* ----------------- */
+
+.__infor__product--img,.__product__infor--name {
+    cursor: pointer;
+}
+
+.__infor__product--img:hover,.__product__infor--name:hover {
+    /* text-decoration: underline; */
+    color: var(--highText__banner);
+}
+
+.purchaseHistory {
+    color: var(--btn__color);
+}
+.purchase-title>p {
+    font-weight: bold;
+}
+
+/* ------------------- */
+.contain {
+    color: var(--btn__color);
+}
+
+/* -------------------- */
+.vienTren {
+    border-top: 15px solid transparent;
+  border-image: linear-gradient(to right, #00b67a, #21253c,#00b67a) 1;
+}
+
+#chitiet-fullname {
+    font-weight: bold;
+}
+
+
+#popup_thanhtoan>div{
+    border-radius: 10px;
+    width: 500px;
+    padding: 20px;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    /* gap: 10px; */
+    transform: translate(-50%, 0);
+    background-color: white;
+    font-size: 1.6rem;
+    
+}
+
+
+#infor-thanhtoanSumary {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#phuongthucSumary {
+    margin-left: 5px;
+    font-size: 1.6rem;
+}
+
+#chuyenkhoanSumary {
+    font-size: 1.9rem;
+    padding: 30px 40px;
+}
+
+#chuyenkhoanSumary>span {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+#chuyenkhoanSumary div{
+    margin: 10px;
+}
+
+#theVisaSumary {
+    padding: 30px 40px;
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+
+#theVisaSumary button{
+    font-size: 1.9rem;
+    padding: 10px 15px;
+    border: 1px solid var(--btn__color);
+    border-radius: 15px;
+    margin-top: 10px;
+    transition: transform 0.2 ease-in-out;
+}
+
+
+#xacNhanMua {
+    font-size: 1.9rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: var(--btn__color);
+    border-color: var(--btn__color);
+}
