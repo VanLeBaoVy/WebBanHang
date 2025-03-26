@@ -4,7 +4,7 @@
 }
 .content-sport {
     color: var(--btn__color);
-    margin-top: calc(var(--header-height) + 20px);
+    margin-top: calc(var(--header-height) - 70px);
     display: flex;
     min-height: calc(100vh - 77px);
     box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.2);

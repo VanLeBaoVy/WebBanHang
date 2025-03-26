@@ -742,9 +742,9 @@
 /* ---------------------------------- */
 /* --------------------------------- */
 .banner {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   /* padding-bottom: 20px; */
-  width: 100%;
+  width: 98%;
   overflow: hidden;
 }
 
@@ -1157,3 +1157,121 @@
   background-color: #c82333;
 }
 /* ---------------------------------- */
+
+
+/* Ẩn modal mặc định */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: right;
+  align-items: center;
+  z-index: 100;
+  margin-top: 130px;
+}
+
+/* Hiển thị modal khi có class show-modal */
+.show-modal {
+  display: flex;
+}
+
+/* Thêm lớp nền phủ toàn màn hình mà không ảnh hưởng modal */
+.modal::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Nền đen mờ */
+  z-index: -1; /* Đặt phía sau modal */
+}
+
+/* Hộp chứa giỏ hàng */
+.cart {
+  background: #fff;
+  width: 380px;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề giỏ hàng */
+.title-cart {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-cart i {
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+/* Danh sách giỏ hàng */
+.list-cart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Hình ảnh khi giỏ hàng trống */
+.empty-cart img {
+  width: 180px;
+  height: auto;
+}
+
+/* Thông báo khi giỏ hàng trống */
+.empty-cart h1 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Phần thanh toán */
+.payment {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tổng tiền */
+.total-payment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 0;
+  color: #333;
+}
+
+/* Nút thanh toán */
+.btnPayment {
+  background: #ff7f00;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btnPayment:hover {
+  background: #e06a00;
+}
