@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="../static/css/base.css" />
+  <link rel="stylesheet" href="../static/css/demo.css">
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <link rel="stylesheet" href="../static/css/login3.css" />
+  <link rel="stylesheet" href="../static/css/thanhtoan.css">
+  <link rel="stylesheet" href="../static/css/giohang.css">
+  <link rel="stylesheet" href="../static/css/style-mobile.css"/>
+  <link rel="stylesheet" href="../static/css/course_infor.css">
+  <link rel="stylesheet" href="../static/css/interface_btn.css">
+  <link rel="stylesheet" href="../static/css/updateCourse.css">
+  <link rel="stylesheet" href="../static/css/purchaseSumary.css">
+  <link rel="stylesheet" href="../static/font/fontawesome-free-6.6.0-web/css/all.css" />
+  <title>Sports shop</title>
+</head>
+
+<body>
+  <div>
+    <div class="header">
+      <div class="header-nav">
+        <div class="nav-list nav-list1">
+          <button class="btn__Home_Logo">
+            <img src="../static/img/logo.jpg" alt="logo" class="img-logo" />
+          </button>
+          <div class="area_sport-btn">
+            <button type="button" class="sport-dropdown-btn" id="sport-dropdown-btn" onclick="toggleDropdown('sport__dropdown--list')">
+              Các loại dụng cụ
+              <span class="dropdown-icon">&#9662;</span>
+            </button>
+            <button type="button" id="__back" style="display: none;" class="sport-dropdown-btn">
+              Trở lại
+            </button>
+            <ul class="sport__dropdown--list" id="sport__dropdown--list">
+              <li class="course__dropdown--item" onclick="sportDropDownBtn()">Tất cả loại dụng cụ</li>
+              <li class="course__dropdown--item" id="course__dropdown--item1" onclick="clickSidebar('1')">Bóng thể thao</li>
+              <li class="course__dropdown--item" id="course__dropdown--item2" onclick="clickSidebar('2')">Dụng cụ tập luyện & thể hình</li>
+              <li class="course__dropdown--item" id="course__dropdown--item3" onclick="clickSidebar('3')">Dụng cụ thể thao dưới nước</li>
+              <li class="course__dropdown--item" id="course__dropdown--item4" onclick="clickSidebar('4')">Dụng cụ cầu lông, tennis, bóng bàn</li>
+              <li class="course__dropdown--item" id="course__dropdown--item5" onclick="clickSidebar('5')">Dụng cụ thể thao đối kháng</li>
+              <li class="course__dropdown--item" id="course__dropdown--item6" onclick="clickSidebar('6')">Trang phục & phụ kiện thể thao</li>
+            </ul>
+          </div>
+        </div>
+        <div class="nav-list nav-list2">
+          <div class="nav-search">
+            <button class="search-item icon-search" id="icon-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input class="search-item input-search" id="input-search" type="text" placeholder="Tim Kiem" />
+            <button class="search-item filter-search" id="filter-search" onclick="modeFilter()">
+              <i class="fa-solid fa-filter"></i>
+            </button>
+          </div>
+        </div>
+        <div class="nav-list nav-list3">
+          <button class="nav-list3--item icon-notice">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+          <div class="nav-list3--item icon__cart-shopping">
+            <div id="bulbleLength" style="color: red; position: absolute; top: 0px; right: 0px;">0</div>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+
+          <div class="1234 nav-list3--item">
+            <button class="nav-list3--item login" id="btn-login">Đăng ký | Đăng nhập</button>
+            <div class="container-1234" id="id-container-1234" style="margin-left: 50%;">
+              <i class="fa-regular fa-circle-user"></i>
+              <div class="inner-1234">
+                <div class="inner-iu">
+                  <div class="iu-inner-icon">
+                    <i class="fa-regular fa-circle-user"></i>
+                  </div>
+                  <div class="iu-inner-name">
+                    <div style="font-weight: bold;" id="1234-username">username</div>
+                    <div id="1234-EP">email or phonenumber</div>
+                  </div>
+                </div>
+                <div class="inner-ex-infor" id="infor-1234">Thông Tin Tài Khoản</div>
+                <div class="inner-ex-infor" id="inforcart-1234">Lịch Sử Mua Hàng</div>
+                <div class="inner-logout" id="1234-logout">
+                  <p>Đăng xuất</p>
+                  <i class="fa-solid fa-sign-out"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- đănh nhập đăng ký popup -->
+      <!-- login -->
+      <div id="login-user">
+        <div class="login-container" id="login-user-inner">
+          <div class="inner-login-container" id="inner-login-user">
+          <div class="form-layout">
+            <header>
+              <button class="close-login-item" onclick="closeFormLogin();">x</button>
+              <h1 class="inner-title"><span id="change-text-login-item">Đăng nhập</span> tài khoản</h1>
+              <p id="inner-login-text-item">Đến với chúng tôi bạn sẽ không cảm thấy hối tiếc</p>
+            </header>
+            <main id="main-login-inner">
+              
+              <div id="inner-from-IU">
+                <form name="frmSignUp" onsubmit="showSignUp(event)">
+                  <div class="form-group">
+                    <label for="fullname-signUp">Tên tài khoản của bạn:</label>
+                    <input type="text" id="fullname-signUp" placeholder="Tên tài khoản">
+                  </div>
+                  <div class="form-group">
+                    <label for="password-signUp">Mật khẩu của bạn:</label>
+                    <input type="password" id="password-signUp" placeholder="Mật khẩu">
+                  </div>
+                  <button type="submit" class="btn-login-UI">Đăng nhập</button>
+              </div>
+              </form>
+              <div class="login-content-btns">
+                <p>Hoặc <span id="inner-p-login-content-btns">đăng nhập</span> với:</p>
+                <button class="btn-login-item-ex">
+                  <i class="fa-brands fa-google"></i>
+                </button>
+                <button class="btn-login-item-ex">
+                  <i class="fa-brands fa-facebook"></i>
+                </button>
+                <button class="btn-login-item-ex">
+                  <i class="fa-brands fa-instagram"></i>
+                </button>
+                <button class="btn-login-item-ex">
+                  <i class="fa-brands fa-github"></i>
+                </button>
+              </div>
+            </main>
+          </div>
+          <div class="toggle-layout">
+            <div class="toggle-container">
+              <div class="toggle">
+                  <div class="toggle-panel toggle-left">
+                      <button class="hidden" id="login">Sign In</button>
+                  </div>
+                  <div class="toggle-panel toggle-right">
+                      <div class="inner-login-logo">
+                        <img src="../static/img/logo.jpg" alt="Logo">
+                      </div>
+                      <p>Chào mừng đến với trang web của chúng tôi</p>
+                      <div class="inner-btn">
+                        <p id="item-text-p" style="margin-right: 10px;">Bạn chưa có tài khoản?</p>
+                        <button style="width: 30%;margin: 0;" onclick="changeIU(event)" class="btn-login-UI"
+                        id="main-login-inner-btn-login" status-btn="signUP">Đăng ký</button>                  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- end login -->
+    </div>
+    <div class="container" id="container">
+        <div class="home-wrapper">
+          <div class="banner">
+            <div class="banner-slide">
+              <img src="../static/img/banner1.jpg" alt="Quảng cáo 1" class="fade">
+              <img src="../static/img/banner2.jpg" alt="Quảng cáo 2" class="fade">
+              <img src="../static/img/banner3.jpg" alt="Quảng cáo 3" class="fade">
+            </div>
+            <div class="banner-controls">
+              <button class="prev" onclick="prevSlide()">&#10094;</button>
+              <button class="next" onclick="nextSlide()">&#10095;</button>
+            </div>
+            <div class="dots">
+              <span class="dot active" onclick="showSlide(0)"></span>
+              <span class="dot" onclick="showSlide(1)"></span>
+              <span class="dot" onclick="showSlide(2)"></span>
+            </div>
+          </div>
+        </div>
+        <div class="content-sport grid" id="content-sport">
+          <div class="sport-sidebar">
+            <div class="sport-sidebar__title" id="sport-sidebar__title"><p onclick="showTopicOverview()">LOẠI DỤNG CỤ</p>
+              <div class="filter__select-box__all" id="filterrrrr" > 
+                <input type="checkbox" class="filter__select" id="filter__select-box__all" />
+                <p style="margin: 0;">chọn tất cả</p>
+              </div>
+            </div>
+            <div class="sport-sidebar__list" id="sport-sidebar__list">
+              <div class="sport-sidebar__item" id="sport-sidebar__item1">
+                <input type="checkbox" class="filter__select-box filter__select-box__item" id="filter__checkbox__1">
+                <div onclick="toggleDropdown('1__list');changeColorMainSportOnSelect('1'); displayMainSportSidebarProduct('1')">
+                  Bóng thể thao
+                </div>
+              </div>
+              <ul class="sidebarlist 1__list" id="1__list">
+                <li class="sidebaritem 1__item" id="__item1_1">
+                  <input type="checkbox" value="1_1" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_1__child__checkbox" onclick="performSearch()">
+                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_1');changeColorMainSportOnSelect('1')">
+                    <div>Bóng rổ</div>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </li>
+                <li class="sidebaritem 1__item" id="__item1_2">
+                  <input type="checkbox" value="1_2" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_2__child__checkbox" onclick="performSearch()">
+                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_2');changeColorMainSportOnSelect('1')">
+                    <div>Bóng đá</div>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </li>
+                <li class="sidebaritem 1__item" id="__item1_3">
+                  <input type="checkbox" value="1_3" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_3__child__checkbox" onclick="performSearch()">
+                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_3');changeColorMainSportOnSelect('1')">
+                    <div>Bóng rổ</div>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </li>
+                <li class="sidebaritem 1__item" id="__item1_4">
+                  <input type="checkbox" value="1_4" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_4__child__checkbox" onclick="performSearch()">
+                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_4');changeColorMainSportOnSelect('1')">
+                    <div>Bóng bàn</div>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="sport-maincontent">
+            <div class="sport-maincontent__title" id="sport-maincontent__title">Các sản phẩm hiện có</div>
+            <div>
+              <div class="filter--choose" id="filter--choose">
+                <div class="filter--choose__item"> Khoảng giá: <input class="filter--choose__input" type="number" id="loctheogiadau" placeholder="từ: vnd "/> - <input class="filter--choose__input" type="number" id="loctheogiaduoi" placeholder="Đến: vnd"/> </div>
+                <div class="filter--choose__item filter--choose__item2"> Giá: <i onclick="filterSortASC()" class="fa-solid fa-arrow-up-wide-short"></i><i onclick="filterSortDESC()" class="fa-solid fa-arrow-down-wide-short"></i></div>
+              </div>
+              <div class="sport-maincontent__show-product" id="product-list">
+              </div>
+            </div>
+            <div id="pagination" class="pagination"></div>
+          </div>
+        </div>
+        <div class="view-product"></div>
+    </div>
+    <div id="container_infor"></div>
+    <div id="puchase_sumary"></div>
+    
+    <div class="footer">
+      <div class="grid">
+        <div class="ft_item">
+          <img src="../static/img/logo.jpg" alt="" style="width: 80%;">
+          <p>Dụng cụ thể thao của chúng tôi được thiết kế thông minh, 
+            linh hoạt để bạn có thể nâng cao kỹ năng, sức khoẻ một cách dễ dàng và hiệu quả.</p>
+          <div>
+            <i style="margin: 0 5px; cursor: pointer;font-size: 2rem;" class="fa-brands fa-facebook"></i>
+            <i style="margin: 0 5px; cursor: pointer;font-size: 2rem;" class="fa-brands fa-youtube"></i>
+            <i style="margin: 0 5px; cursor: pointer;font-size: 2rem;" class="fa-brands fa-square-instagram"></i>
+            <i style="margin: 0 5px; cursor: pointer;font-size: 2rem;" class="fa-brands fa-square-twitter"></i>
+          </div>
+        </div>
+        <div class="ft_item">
+          <h3>Về chúng tôi</h3>
+          <ul>
+            <li>Giới thiệu</li>
+            <li>Điều khoản sử dụng</li>
+            <li>Trợ giúp</li>
+          </ul>
+        </div>
+        <div class="ft_item">
+          <h3>Dụng cụ thể thao</h3>
+          <ul>
+            <li>Bóng thể thao</li> 
+            <li>Dụng cụ tập luyện & thể hình</li>
+            <li>Dụng cụ thể thao dưới nước</li> 
+            <li>Dụng cụ cầu lông, tennis, bóng bàn</li> 
+            <li>Dụng cụ thể thao đối kháng</li> 
+            <li>Trang phục & phụ kiện thể thao</li>
+          </ul>
+        </div>
+        <div class="ft_item">
+          <h3>Thông tin liên hệ</h3>
+          <ul>
+            <li><i class="fa-regular fa-building"></i> 273, An Dương Vương, Phường 3, Quận 5, TP. Hồ Chí Minh</li>
+            <li><i class="fa-solid fa-tty"></i> 1900.633.331 hoặc 077.567.6116 (8h30-21h thứ 2 - thứ 6, 8h30-11h30 thứ 7)</li>
+            <li><i class="fa-regular fa-envelope"></i> support@sportshop.io</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ft-copyright grid">
+        <div style="margin-left: 20px;"> 
+          Bản quyền © 2024 Sports store Group Ltd
+        </div>
+        <div class="ft-copyrightLast">
+          <div>Điều khoản</div>
+          <div>Chính sách</div>
+          <div>Bảo mật</div>
+        </div>
+      </div>
+    </div>
+    <div class="iconfooter">
+    </div>
+    <div id="notification-container"></div>
+    <div id="set-infor-1234"></div>
+
+    <!-- Giỏ hàng -->
+    <div class="modal">
+      <div class="cart show-cart">
+          <div class="content-cart">
+              <div class="title-cart">
+                  = Giỏ hàng =
+                  <i class="fa-solid fa-cart-shopping"></i>
+              </div>
+              <div class="list-cart-item">
+                  <div class="empty-cart" style="height: 400px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                      <img src="../static/img/rb_5858.png" alt="" style="height: 300px; width: 300px; display: block;">
+                      <h1 style="font-size: 20px; font-weight: 500;">Rất tiếc, bạn chưa chọn món!</h1>
+                  </div>
+              </div>
+              <div class="payment">
+                  <div class="total-payment">
+                    <span>Tổng tiền</span>
+                    <span class="total-price-cart">0 đ</span>
+                  </div>
+                  <button class="btnPayment">Thanh toán</button>
+              </div>
+          </div>
+      </div>
+    </div>
+  
+  
+
+    <!-- <div id="overlay" class="overlay"> 
+
+      <div class="loading-spinner"></div>
+
+    </div> -->
+  </div>
+    <script src="../static/js/login.js"></script>
+    <script src="../static/js/index.js"></script>
+    <script src="../static/js/branchs.js"></script>
+    <script>
+      const slidesContainer = document.querySelector(".banner-slide");
+      const slides = document.querySelectorAll(".banner-slide img");
+      const totalSlides = slides.length;
+
+      // Tạo bản sao của hình đầu tiên và thêm vào cuối danh sách
+      const firstClone = slides[0].cloneNode(true);
+      slidesContainer.appendChild(firstClone);
+
+      let currentIndex = 0;
+      let isTransitioning = false; // Tránh spam click khi đang chuyển slide
+
+      // Hàm hiển thị slide
+      function showSlide(index) {
+        if (isTransitioning) return; // Ngăn chặn spam click
+        isTransitioning = true;
+
+        currentIndex = index;
+        slidesContainer.style.transition = "transform 0.5s ease-in-out";
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Nếu đến bản sao của hình đầu tiên, reset lại vị trí mà không có hiệu ứng
+        setTimeout(() => {
+          if (currentIndex === totalSlides) {
+              slidesContainer.style.transition = "none"; // Tắt animation
+              slidesContainer.style.transform = "translateX(0)"; // Đặt lại vị trí
+              currentIndex = 0;
+          }
+          isTransitioning = false;
+        }, 500);
+      }
+
+      // Hàm để chuyển đến slide tiếp theo
+      function nextSlide() {
+        showSlide(currentIndex + 1);
+      }
+
+      // Hàm để chuyển đến slide trước đó
+      function prevSlide() {
+      if (currentIndex === 0) {
+        currentIndex = totalSlides - 1; // Quay về cuối danh sách (vòng lặp)
+        slidesContainer.style.transition = "none"; // Tắt animation
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        setTimeout(() => {
+            showSlide(currentIndex - 1);
+        }, 50);
+      } else {
+        showSlide(currentIndex - 1);
+      }
+    }
+
+    // Tự động chuyển slide mỗi 3 giây
+    setInterval(nextSlide, 3000);
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const cartIcon = document.querySelector(".icon__cart-shopping");
+          const modal = document.querySelector(".modal");
+          const cart = document.querySelector(".cart");
+
+          // Khi nhấn vào icon giỏ hàng, hiển thị modal
+          cartIcon.addEventListener("click", function () {
+            modal.classList.add("show-modal");
+          });
+
+          // Khi nhấn ra ngoài giỏ hàng thì ẩn đi
+          modal.addEventListener("click", function (event) {
+            if (!cart.contains(event.target)) {
+                modal.classList.remove("show-modal");
+            }
+          });
+        });
+        const filterProduct = document.getElementById("filter-search");
+        filterProduct.addEventListener("click", () => {
+            const productContent = document.querySelector(".content-sport");
+            const fixedPosition = window.pageYOffset + productContent.getBoundingClientRect().top - 90;
+            window.scrollTo({ top: fixedPosition, behavior: "smooth" });  
+        });
+        
+    </script>
+    
+</body>
+
+</html>

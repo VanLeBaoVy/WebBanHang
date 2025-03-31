@@ -1,0 +1,160 @@
+:root {
+    --highText__banner: #00b67a;
+    --btn__color: #21253c;
+}
+.container {
+    line-height: normal;
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+}
+.home-wrapper {
+    width: 100%;
+    margin-top: 77px;
+    padding: 0px;
+    line-height: normal;
+    color: #21253c;
+}
+.banner {
+    position: relative;
+    /* width: 80%; */
+    height: 40%;
+    overflow: hidden;
+    margin: 10px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner-slide {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+    white-space: nowrap; 
+}
+
+.banner-slide img {
+    width: 100%; 
+    flex: 0 0 100%; 
+    object-fit: cover; 
+}
+.slide-in {
+    transform: translateX(0%);
+}
+
+.slide-out {
+    transform: translateX(-100%);
+}
+
+
+.banner-slide img.visible {
+    display: block;
+}
+
+.banner-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.banner-controls button {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.dots {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb; 
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot.active {
+    background-color: #ff7f00;
+}
+
+
+
+
+
+
+
+
+
+
+/* ---------------------- */
+.footer {
+    color: var(--btn__color);
+    padding: 80px 0px;
+    line-height: normal;
+    background-color: #f3f4f5;
+}
+.footer> div{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+}
+.ft_item {
+    padding: 10px;
+    width: 25%;
+}
+.ft_item img{
+    border-radius: 100%;
+}
+
+.ft_item>h3 {
+    font-size: 2.5rem;
+}
+.ft_item ul{
+    margin: 0; 
+    padding: 0 10px;
+    list-style-type: none;
+}
+.ft_item li {
+    /* padding: 10px 0; */
+    margin: 20px 0;
+    cursor: pointer;
+}
+.ft_item li:hover {
+    color: var(--highText__banner);
+}
+.ft_item>p {
+    padding: 10px 20px 10px 0;
+}
+
+.ft_item:last-child li:hover {
+    color: var(--btn__color);
+    cursor: text;
+}
+
+
+.ft-copyright {
+    margin-top: 40px;
+}
+
+.ft-copyrightLast {
+    display: flex;
+}
+
+.ft-copyrightLast div {
+    margin: 0 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.ft-copyrightLast div:hover {
+    color: var(--highText__banner);
+}

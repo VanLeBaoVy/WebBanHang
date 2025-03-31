@@ -1,0 +1,56 @@
+:root {
+    --highText__banner: #00b67a;
+    --btn__color: #21253c;
+}
+
+#puchase_sumary {
+    z-index: 101;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#puchase_sumary > div {
+    background-color: white;
+    height: 100%;
+    min-height: auto;
+    overflow: auto;
+}
+
+#infor-thanhtoan {
+    background-color: white;
+}
+
+.thanhtoan-item {
+    background-color: white;
+}
+
+#quaylaibtn {
+    font-size: 1.9rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+#quaylaibtn:hover {
+    color: var(--highText__banner);
+    border-color: var(--highText__banner);
+}
+
+#thanhtoanSubmit {
+    background-color: var(--highText__banner);
+    border-color: var(--highText__banner);
+}
+
+
+#xacNhanMua {
+    background-color: var(--highText__banner);
+    border-color: var(--highText__banner);
+}

@@ -1,0 +1,43 @@
+:root { 
+    --selected-background__color: #3498db;
+    --selected-font__color: white;
+    --cancel-border: gray;
+    --cancel-background__color: white;
+    --cancel-font__color: gray;
+    --submit-border__color: red;
+    --submit-background__color: red;
+    --submit-font__color: white;
+}
+
+.cancel__btn {
+    background-color: var(--cancel-background__color);
+    color: var(--cancel-font__color);
+    border: 1px solid var(--cancel-border);
+}
+.cancel__btn:hover {
+    border: 1px solid var(--selected-background__color);
+    color: #3498db;
+    cursor: pointer;
+}
+.submit__btn {
+    background-color: var(--submit-background__color);
+    color: var(--submit-font__color);
+    border: 1px solid var(--submit-border__color);
+}
+.submit__btn:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+.save__btn {
+    background-color: var(--selected-background__color);
+    color: var(--submit-font__color);
+    border: 1px solid var(--selected-background__color);
+}
+.save__btn:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+
+
+

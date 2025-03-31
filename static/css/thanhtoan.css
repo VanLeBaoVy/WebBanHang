@@ -1,0 +1,458 @@
+:root {
+    --highText__banner: #00b67a;
+    --btn__color: #21253c;
+    --background__color: #f7f9fb;
+}
+
+
+#AddressThanhToan {
+}
+
+.thanhtoan-item__product__img {
+    /* width: 30%;
+    object-fit: contain; */
+}
+
+.thanhtoan-item__product__name {
+    /* padding: 20px; */
+    /* text-align: left; */
+
+    /* flex: 4; */
+}
+
+.thanhtoan-item__product__price {
+}
+
+.thanhtoan-item__product__soluong {
+}
+
+.thanhtoan-item__product__thanhtien {
+}
+
+.thanhtoan-item__product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+}
+
+.thanhtoan-item__productTotal {
+    display: flex;
+    justify-content: end;
+    gap: 50px;
+}
+
+/* Thiết lập chung */
+.from-input {
+    /* display: block; */
+    margin-top: 15px;
+    background: none;
+    position: relative;
+    width: 100%;
+    height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 0px 10px;
+    /* border-radius: 5px; */
+}
+
+.buton-input input {
+    background: none;
+    width: 100%;
+    height: 100%;
+    font-size: 1.6rem;
+    /* margin-left: 5px; */
+    /* border: 1px solid rgba(0,0,0,0.3); */
+    border: none;
+    /* border-radius: 10px; */
+    /* z-index: 1; */
+}
+
+.buton-input input:focus+.input-label-item {
+    top: 0;
+    left: 10px;
+    font-size: 1.4rem;
+    /* color: var(--text-color); */
+    /* background: var(--white-color); */
+    padding: 0 5px;
+    transform: translate3d(0, -50%, 0);
+    z-index: 10;
+    /* width: 100%; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+}
+
+.has-value {
+    left: 10px;
+    padding: 0px;
+    background: white;
+    color: rgba(0, 0, 0, .54);
+    font-size: 1.4rem;
+    /* overflow: hidden; */
+    pointer-events: none;
+    position: absolute;
+    /* text-overflow: ellipsis; */
+    top: 0%;
+    transform: translate3d(0, -50%, 0);
+    transition: all .3s;
+    white-space: nowrap;
+    /* z-index: 10; */
+}
+
+.input-label-item {
+    left: 10px;
+    padding: 0px;
+    background: white;
+    color: rgba(0, 0, 0, .54);
+    font-size: 1.6rem;
+    /* overflow: hidden; */
+    pointer-events: none;
+    position: absolute;
+    /* text-overflow: ellipsis; */
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    transition: all .3s;
+    white-space: nowrap;
+    /* z-index: 10; */
+}
+
+.buton-input input.has-value+.input-label-item {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: var(--text-color, #007bff);
+    background: var(--white-color, #fff);
+    padding: 0 5px;
+    z-index: 10;
+}
+
+.buton-input {
+    background: white;
+    height: 100%;
+    width: 100%;
+    /* z-index: 1; */
+}
+
+
+
+#popup-addVisa {
+    display: none;
+    position: fixed;
+    width: 500px;
+    padding: 20px;
+    /* height: 80%; */
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: white;
+    font-size: 2rem;
+}
+
+#address_popup-thanhtoan {
+    display: none;
+    position: fixed;
+    width: 400px;
+    padding: 20px;
+    /* height: 80%; */
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: white;
+    font-size: 2rem;
+}
+
+
+/* address địa chỉ popup */
+/* #address_popup{
+    display: block;
+    position: fixed;
+    top: 30%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    padding: 20px 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    /* gap: 10px;   */
+/* } */
+
+#diachi {
+    margin: 5px;
+    width: 100%;
+    height: 30px;
+    border: 2px solid brown;
+    border-radius: 10px;
+}
+
+.address_item select {
+    margin: 5px;
+    width: 100%;
+    height: 30px;
+    border: 2px solid brown;
+    border-radius: 10px;
+    /* background-color: rgba(0, 0, 0, 0.05);
+    width: 100px;
+    height: 700px;
+} */
+}
+
+#popup_thanhtoan{
+    z-index: 200; 
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0; 
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#popup_thanhtoan img{
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+}
+
+.popup_thanhtoan-item{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.5);
+}
+
+/* ----------------------------- */
+#thanhtoan {
+    /* gap: 10px; */
+    background-color: #f7f9fb;
+    color: var(--btn__color);
+    margin-top: 77px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    /* align-items: center; */
+}
+
+.header__thanhtoan {
+    margin-top: 10px;
+    background-color: white; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+}
+
+.header__thanhtoan>h1 {
+    padding: 10px; 
+    margin: 15px 0;
+    font-size: 4rem;
+}
+
+#infor-thanhtoan {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.thanhtoan-item {   
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+}
+.inforThanhToan_Location__header {
+    display: flex;
+    font-size: 1.9rem;
+    padding: 10px;
+    margin: 0;
+}
+.inforThanhToan_Location__header>div {
+    color: var(--highText__banner);
+    padding-left: 4px;
+    /* margin: 0; */
+}
+
+.thanhtoan_item__location {
+    font-size: 1.6rem;
+    display: flex;
+}
+
+.thanhtoan_item__location > div {
+    padding: 10px;
+}
+.thanhtoan_item__address {
+    flex: 1;
+    margin-left: 30px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.thanhtoan_item__address_select {
+    flex: 1;
+}
+.thanhtoan_item__address select {
+    padding: 0;
+    border: none;
+    color: var(--btn__color);
+    font-size: 1.6rem;
+    outline: none;
+    font-weight: bold;
+}
+
+.thanhtoan_item__address_add {
+    padding: 0 10px;
+    display: flex;
+    align-items: flex-end;
+    color: var(--btn__color);
+    cursor: pointer;
+    transition: transform 0.2 ease-in-out;
+}
+
+.thanhtoan_item__address_add:hover {
+    color: var(--highText__banner);
+}
+
+/* ------------------------- */
+
+.thanhtoan__listProduct__header {
+    font-size: 1.6rem;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid var(--btn__color);
+    /* box-shadow: 0 4px 8px  rgba(0,0,0,0.2); */
+}
+
+.thanhtoan__listProduct__header>div {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.__listProduct__header1  {
+    width: 60%;
+}
+.__listProduct__header2 {
+    width: 10%;
+}
+.__listProduct__header3 {
+    width: 10%;
+}
+.__listProduct__header4 {
+    width: 20%;
+}
+
+#thanhtoan__listProduct {
+    border-bottom: 1px solid var(--btn__color);
+}
+
+.thanhtoan-item__productTotal {
+    padding: 20px 10px 10px ; 
+
+}
+
+.thanhtoan-item__product {
+    padding:  20px 10px;
+    display: flex;
+}
+
+.thanhtoan-item__product__inforPr {
+    width: 60%;
+    display: flex;
+}
+
+.thanhtoan-item__product__price {
+    width: 10%;
+}
+.thanhtoan-item__product__soluong {
+    width: 10%;
+}
+.thanhtoan-item__product__thanhtien {
+    width: 20%;
+}
+
+.thanhtoan-item__product__img {
+    width: 30%;
+}
+
+.thanhtoan-item__product__name {
+    padding: 10px;
+    flex: 1;
+    text-align: start;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.thanhtoan-item__product__price {
+    text-align: center;
+    padding: 10px;
+}
+.thanhtoan-item__product__soluong {
+    padding: 10px; 
+    text-align: center;
+}
+.thanhtoan-item__product__thanhtien {
+    padding: 10px; 
+    text-align: center;
+}
+
+.thanhtoan_phuongthuc{
+    border-top: 15px solid transparent;
+  border-image: linear-gradient(to right, #00b67a, #21253c,#00b67a) 1;
+    font-size: 1.9rem;
+    padding: 30px 40px;
+    font-weight: bold;
+}
+
+#phuongthuc {
+    margin-left: 5px;
+    font-size: 1.6rem;
+}
+
+#chuyenkhoan {
+    font-size: 1.9rem; 
+    padding: 30px 40px;
+}
+#chuyenkhoan>span {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+#chuyenkhoan div{
+    margin: 10px;
+}
+
+.thanhtoan__dathang {
+    padding: 10px 40px; 
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#thanhtoanSubmit {
+    font-size: 1.9rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: var(--btn__color);
+    border-color: var(--btn__color);
+}
+
+#theVisa {
+    padding: 30px 40px;
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+
+#theVisa button{
+    font-size: 1.9rem;
+    padding: 10px 15px;
+    border: 1px solid var(--btn__color);
+    border-radius: 15px;
+    margin-top: 10px;
+    transition: transform 0.2 ease-in-out;
+}
+
+#theVisa button:hover {
+    border-color: var(--highText__banner);
+    color: var(--highText__banner);
+    transform: scale(1.03);
+}
+
+.sauthanhtoan:hover {
+    cursor: pointer;
+}
