@@ -207,6 +207,9 @@
         width: auto;
         left: 70%;
     }
+    .sport-maincontent__show-product .product-item {
+        width: calc(100% / 2 - 10px);
+    }
 }
 
 @media (max-width: 600px) {
@@ -431,5 +434,8 @@
     .sport__dropdown--list {
         width: auto;
         left: 50%;
+    }
+    .sport-maincontent__show-product .product-item {
+        width: calc(100% - 10px);
     }
 }

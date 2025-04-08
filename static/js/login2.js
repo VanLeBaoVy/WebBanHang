@@ -1,4 +1,49 @@
-
+const accounts = [
+    {
+        accountId: 'ACC001',
+        password: 'pass123',
+        username: 'user1',
+        status: 'active',
+    },
+    {
+        accountId: 'ACC002',
+        password: 'pass456',
+        username: 'user2',
+        status: 'active',
+    },
+    {
+        accountId: 'ACC003',
+        password: 'pass789',
+        username: 'user3',
+        status: 'active',
+    }
+];
+const customers = [
+    {
+        id: 1,
+        name: 'Nguyễn Văn A',
+        address: 'Hà Nội',
+        phoneNumber: '0912345678',
+        accountId: 'ACC001',
+        email: 'customer1@example.com',
+    },
+    {
+        id: 2,
+        name: 'Trần Thị B',
+        address: 'TP.HCM',
+        phoneNumber: '0987654321',
+        accountId: 'ACC002',
+        email: 'customer2@example.com',
+    },
+    {
+        id: 3,
+        name: 'Lê Văn C',
+        address: 'Đà Nẵng',
+        phoneNumber: '0123456789',
+        accountId: 'ACC003',
+        email: 'customer3@example.com',
+    }
+];
 function showNotification(message, type = 'success') {
 	const container = document.getElementById('notification-container');
 	const notification = document.createElement('div');
@@ -30,22 +75,38 @@ function showNotification(message, type = 'success') {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (localStorage.getItem('idLogin') !== null) {
-		queryUserByUsername(localStorage.getItem('idLogin'), (user)=> {
-			if (user.status === 'Bị khóa') {
-				logout1234();
-			}
-		});
-		document.getElementById('btn-login').style.display = 'none';
-		document.getElementById('id-container-1234').style.display = 'block';
-	} else {
-		document.getElementById('btn-login').style.display = 'block';
-		document.getElementById('id-container-1234').style.display = 'none';
-	}
-	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
-		document.getElementById("bulbleLength").textContent = user.cart.size; // Cập nhật số lượng sản phẩm trong giỏ hàng
-	}
-	);
+	// if (localStorage.getItem('idLogin') !== null) {
+	// 	queryUserByUsername(localStorage.getItem('idLogin'), (user)=> {
+	// 		if (user.status === 'Bị khóa') {
+	// 			logout1234();
+	// 		}
+	// 	});
+	// 	document.getElementById('btn-login').style.display = 'none';
+	// 	document.getElementById('id-container-1234').style.display = 'block';
+	// } else {
+	// 	document.getElementById('btn-login').style.display = 'block';
+	// 	document.getElementById('id-container-1234').style.display = 'none';
+	// }
+	// queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	// 	document.getElementById("bulbleLength").textContent = user.cart.size; // Cập nhật số lượng sản phẩm trong giỏ hàng
+	// }
+	// );
+    const getUserByUsername = (username) => {
+        return accounts.find(account => account.username === username);
+    };
+    // Kiểm tra xem đã đăng nhập hay chưa
+    const idLogin = localStorage.getItem('idLogin');
+    if (idLogin !== null) {
+        const user = getUserByUsername(idLogin);
+        if (user && user.status === 'Bị khóa') {
+            logout1234();
+        }
+        document.getElementById('btn-login').style.display = 'none';
+        document.getElementById('id-container-1234').style.display = 'block';
+    } else {
+        document.getElementById('btn-login').style.display = 'block';
+        document.getElementById('id-container-1234').style.display = 'none';
+    }
 });
 function showFormLogin() {
 	document.getElementById('login-user-inner').style.display = "block";
@@ -118,7 +179,6 @@ function changeIU(event) {
 		document.getElementById('change-text-login-item').textContent = 'Đăng nhập';
 		document.getElementById('inner-p-login-content-btns').textContent = 'đăng nhập';
 		document.getElementById('inner-login-text-item').textContent = 'Đến với chúng tôi bạn sẽ không cảm thấy hối tiếc';
-		document.querySelector('.inner-login-container').classList.remove('active');
 		loginAccountUser(event, 0);
 	} else {
 		document.getElementById('item-text-p').textContent = 'Bạn đã có tài khoản?';
@@ -127,7 +187,6 @@ function changeIU(event) {
 		document.getElementById('change-text-login-item').textContent = 'Đăng ký';
 		document.getElementById('inner-p-login-content-btns').textContent = 'đăng ký';
 		document.getElementById('inner-login-text-item').textContent = 'Sẽ thật đáng tiết nếu bạn không đến với chúng tôi';
-		document.querySelector('.inner-login-container').classList.add('active');
 		loginAccountUser(event, 1);
 	}
 }
@@ -231,6 +290,76 @@ function forgetPassword(event) {
               </button>
           </div>
                 `;
+	const frm = document.forms['frmForgetPassWord'];
+		frm.addEventListener('submit', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+					
+			// Lấy username từ input "fullname-ForgetPassWord"
+			const username = document.getElementById('fullname-ForgetPassWord').value.trim();
+			if (!username) {
+				showNotification("Vui lòng nhập tên tài khoản", "error");
+				return;
+			}
+					
+			// Lấy trạng thái phương thức liên hệ (email hay số điện thoại)
+			// Lưu ý: Ban đầu, status-method-NE-ForgetPassWord có giá trị "numberPhone"
+			// => Hiển thị input email. Nếu chuyển đổi, giá trị sẽ thành "email" và hiển thị input số điện thoại.
+			const methodBtn = document.getElementById('change-method-NE-ForgetPassWord');
+			const method = methodBtn.getAttribute('status-method-NE');
+					
+			let contactValue = "";
+			if (method === 'numberPhone') {
+				// Nếu status là "numberPhone", giao diện hiển thị input email
+				contactValue = document.getElementById('email-ForgetPassWord').value.trim();
+			} else {
+				// Ngược lại, giao diện hiển thị input số điện thoại
+				contactValue = document.getElementById('phoneNumber-ForgetPassWord').value.trim();
+			}
+					
+			if (!contactValue) {
+				showNotification("Vui lòng nhập thông tin liên hệ", "error");
+				return;
+			}
+					
+			// Tìm tài khoản trong mảng accounts (so sánh username với accountId)
+			const account = accounts.find(acc => acc.username === username);
+			const accountIndex = accounts.findIndex(acc => acc.username === username);
+			if (!account) {
+				showNotification("không tìm thấy username", "error");
+				return;
+			}
+					
+			// Tìm thông tin khách hàng trong mảng customers dựa trên accountId
+			const customer = customers.find(cus => cus.accountId === account.accountId);
+			if (!customer) {
+				showNotification("không tìm thấy username", "error");
+				return;
+			}
+					
+			// Kiểm tra thông tin liên hệ: 
+			// Nếu đang dùng email (method === 'numberPhone') thì so sánh với customer.email
+			// Nếu đang dùng số điện thoại (method === 'email') thì so sánh với customer.phoneNumber
+			if (method === 'numberPhone') {
+				if (customer.email !== contactValue) {
+					showNotification("không tìm thấy username", "error");
+					return;
+				}
+			} else {
+				if (customer.phoneNumber !== contactValue) {
+					showNotification("không tìm thấy username", "error");
+					return;
+				}
+			}
+					
+			// Nếu kiểm tra đúng, tạo mật khẩu mới ngẫu nhiên
+			const newPassword = generateRandomPassword();
+			// Cập nhật mật khẩu mới vào mảng accounts
+			accounts[accountIndex] = { ...accounts[accountIndex], password: newPassword };
+					
+			// Thông báo mật khẩu mới cho người dùng
+			showNotification(`Mật khẩu mới của bạn là: ${newPassword}`, "success");
+		});
 }
 
 function methodForgetPassword(event) {
@@ -253,7 +382,15 @@ function methodForgetPassword(event) {
     `;
 	}
 }
-
+// Hàm tạo mật khẩu mới ngẫu nhiên (mặc định 8 ký tự)
+function generateRandomPassword(length = 8) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
 function backForgetPassword(event) {
 	event.preventDefault();
 	event.stopPropagation();
@@ -292,7 +429,6 @@ function backForgetPassword(event) {
                 </div>
                 `;
 }
-
 function checkFrm(nameid, strText, str2Text) {
 	if (nameid.value === "") {
 		nameid.classList.add('error');
@@ -312,34 +448,67 @@ function showSignUp(event) {
 	const passwordSignUp = document.forms['frmSignUp']['password-signUp'];
 	if (checkFrm(fullNameSignUp, 'Tên tài khoản không được rỗng', 'Tên tài khoản') === false) return false;
 	if (checkFrm(passwordSignUp, 'Mật khẩu không được rỗng', 'Mật khẩu') === false) return false;
-		queryUser((users) => {
-			let check = false;
-			users.forEach((user) => {
-				if (user.username === fullNameSignUp.value && user.password === passwordSignUp.value ) {
-					if (user.status	=== "Bị khóa") {
-					showNotification('Tài khoản của bạn bị khóa', 'error');
-					} else {
-						localStorage.setItem('idLogin', user.username);
-					document.getElementById('btn-login').style.display = 'none';
-					document.getElementById('id-container-1234').style.display = 'block';
-					check = true;
-					document.forms['frmSignUp'].reset();
-					showNotification('Đăng nhập thành công', 'success');
-					closeFormLogin();
-					}
-				}
-			});
-			if (!check) {
-				fullNameSignUp.classList.add('error');
-				fullNameSignUp.setAttribute('placeholder', 'Tên tài khoản hoặc mật khẩu không đúng');
-				fullNameSignUp.value = '';
-				fullNameSignUp.focus();
-				passwordSignUp.value = '';
+		// queryUser((users) => {
+		// 	let check = false;
+		// 	users.forEach((user) => {
+		// 		if (user.username === fullNameSignUp.value && user.password === passwordSignUp.value ) {
+		// 			if (user.status	=== "Bị khóa") {
+		// 			showNotification('Tài khoản của bạn bị khóa', 'error');
+		// 			} else {
+		// 				localStorage.setItem('idLogin', user.username);
+		// 			document.getElementById('btn-login').style.display = 'none';
+		// 			document.getElementById('id-container-1234').style.display = 'block';
+		// 			check = true;
+		// 			document.forms['frmSignUp'].reset();
+		// 			showNotification('Đăng nhập thành công', 'success');
+		// 			closeFormLogin();
+		// 			}
+		// 		}
+		// 	});
+		// 	if (!check) {
+		// 		fullNameSignUp.classList.add('error');
+		// 		fullNameSignUp.setAttribute('placeholder', 'Tên tài khoản hoặc mật khẩu không đúng');
+		// 		fullNameSignUp.value = '';
+		// 		fullNameSignUp.focus();
+		// 		passwordSignUp.value = '';
+		// 	}
+		// });
+		const account = accounts.find(acc => 
+			acc.username === fullNameSignUp.value && acc.password === passwordSignUp.value
+		);
+	
+		if (account) {
+			if (account.status === "Bị khóa") {
+				showNotification('Tài khoản của bạn bị khóa', 'error');
+			} else {
+				// Nếu cần, bạn vẫn có thể lưu thông tin đăng nhập vào localStorage hoặc xử lý theo ý muốn khác
+				localStorage.setItem('idLogin', account.accountId);
+				document.getElementById('btn-login').style.display = 'none';
+				document.getElementById('id-container-1234').style.display = 'block';
+				document.forms['frmSignUp'].reset();
+				showNotification('Đăng nhập thành công', 'success');
+				closeFormLogin();
 			}
-		});
+		} else {
+			fullNameSignUp.classList.add('error');
+			fullNameSignUp.setAttribute('placeholder', 'Tên tài khoản hoặc mật khẩu không đúng');
+			fullNameSignUp.value = '';
+			fullNameSignUp.focus();
+			passwordSignUp.value = '';
+		}
 }
-
-
+function checkEmail(val){
+    var regex = [
+        /^([0-9]|[a-z])+@gmail.com$/i,
+        /^([0-9]|[a-z])+@sv.sgu.edu.vn$/i,
+    ];
+    for(var i = 0; i < regex.length; i++){
+        if(regex[i].test(val)){
+            return true;
+        }
+    }
+    return false;
+}
 function showSignIn(event) {
 	event.preventDefault();
 	event.stopPropagation();
@@ -391,52 +560,113 @@ function showSignIn(event) {
 	// Kiểm tra tài khoản đã tồn tại chưa
 	// checkUserName(fullNameSignIn.value, (result) => {	
 	// Nếu tài khoản chưa tồn tại, tạo user và lưu vào DB
-	let check = false;
-	queryUser((users) => {
-		users.forEach((user) => {
-			if (user.username === fullNameSignIn.value) {
-				check = true;
-			}
-		});
-		if (check) {
-			fullNameSignIn.classList.add('error');
-			fullNameSignIn.setAttribute('placeholder', 'Tên tài khoản đã tồn tại');
-			fullNameSignIn.value = '';
-			fullNameSignIn.focus();
-		} else {
-			fullNameSignIn.classList.remove('error');
-			fullNameSignIn.setAttribute('placeholder', 'Tên tài khoản');
-			const userLogin = changeMethodNE.getAttribute('status-method-NE') === 'numberPhone'
-				? new user(fullNameSignIn.value, passwordSignIn.value, emailSignIn.value, null, [], [], [], [], null, "Hoạt Động", getUTCPlus7Date())
-				: new user(fullNameSignIn.value, passwordSignIn.value, null, phoneNumberSignIn.value, [], [], [], [], null, "Hoạt Động", getUTCPlus7Date());
-			console.log("Dữ liệu user:", userLogin);
-			// saveUserToDB(user);
-			connectUserDB((db) => {
-				addUser(db, userLogin);
-			});
-			document.forms['frmSignIn'].reset();
-			loginAccountUser(event, 0);
-			closeFormLogin();
-			showNotification('Đăng ký thành công', 'success');
-		}
+	//let check = false;
+	// queryUser((users) => {
+	// 	users.forEach((user) => {
+	// 		if (user.username === fullNameSignIn.value) {
+	// 			check = true;
+	// 		}
+	// 	});
+	// 	if (check) {
+	// 		fullNameSignIn.classList.add('error');
+	// 		fullNameSignIn.setAttribute('placeholder', 'Tên tài khoản đã tồn tại');
+	// 		fullNameSignIn.value = '';
+	// 		fullNameSignIn.focus();
+	// 	} else {
+	// 		fullNameSignIn.classList.remove('error');
+	// 		fullNameSignIn.setAttribute('placeholder', 'Tên tài khoản');
+	// 		const userLogin = changeMethodNE.getAttribute('status-method-NE') === 'numberPhone'
+	// 			? new user(fullNameSignIn.value, passwordSignIn.value, emailSignIn.value, null, [], [], [], [], null, "Hoạt Động", getUTCPlus7Date())
+	// 			: new user(fullNameSignIn.value, passwordSignIn.value, null, phoneNumberSignIn.value, [], [], [], [], null, "Hoạt Động", getUTCPlus7Date());
+	// 		console.log("Dữ liệu user:", userLogin);
+	// 		// saveUserToDB(user);
+	// 		connectUserDB((db) => {
+	// 			addUser(db, userLogin);
+	// 		});
+	// 		document.forms['frmSignIn'].reset();
+	// 		loginAccountUser(event, 0);
+	// 		closeFormLogin();
+	// 		showNotification('Đăng ký thành công', 'success');
+	// 	}
+	// });
+	const isExisting = accounts.some(acc => acc.username === fullNameSignIn.value);
+    if (isExisting) {
+		fullNameSignIn.classList.add('error');
+		fullNameSignIn.setAttribute('placeholder', 'Tên tài khoản đã tồn tại');
+		fullNameSignIn.value = '';
+		fullNameSignIn.focus();
+		return false;
+	}
+	// Tạo accountId mới
+	const nextId = accounts.length + 1;
+	const newAccountId = `ACC${String(nextId).padStart(3, '0')}`;
+
+	// Thêm vào mảng accounts
+	accounts.push({
+		accountId: newAccountId,
+		password: passwordSignIn.value,
+		username: fullNameSignIn.value,
+		status: 'active',
 	});
+
+	// Thêm vào mảng customers
+	customers.push({
+		id: nextId,
+		name: fullNameSignIn.value,
+		address: '',
+		phoneNumber: phoneNumberSignIn ? phoneNumberSignIn.value : '',
+		accountId: newAccountId,
+		email: emailSignIn ? emailSignIn.value : '',
+	});
+
+	console.log("Thêm account:", accounts[accounts.length - 1]);
+	console.log("Thêm customer:", customers[customers.length - 1]);
+	document.forms['frmSignIn'].reset();
+	showNotification('Đăng ký thành công', 'success');
+	closeFormLogin();
 }
+/////////////////////////////////////////////////////////////////////////////////////////
 
 function open1234() {
 	document.getElementsByClassName('inner-1234')[0].style.display = 'block';
-	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
-		console.log("User:", user);
-		if (user.fullname === null || user.fullname === '') {
-			document.getElementById('1234-username').textContent = user.username;
-		} else {
-			document.getElementById('1234-username').textContent = user.fullname;
-		}
-		if (user.email !== null) {
-			document.getElementById('1234-EP').textContent = user.email;
-		} else {
-			document.getElementById('1234-EP').textContent = user.phone;
-		}
-	});
+	// queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	// 	console.log("User:", user);
+	// 	if (user.fullname === null || user.fullname === '') {
+	// 		document.getElementById('1234-username').textContent = user.username;
+	// 	} else {
+	// 		document.getElementById('1234-username').textContent = user.fullname;
+	// 	}
+	// 	if (user.email !== null) {
+	// 		document.getElementById('1234-EP').textContent = user.email;
+	// 	} else {
+	// 		document.getElementById('1234-EP').textContent = user.phone;
+	// 	}
+	// });
+	const idLogin = localStorage.getItem('idLogin');
+	// Tìm user trong mảng accounts
+	const account = accounts.find(acc => acc.accountId === idLogin);
+
+	// Tìm thông tin bổ sung trong mảng customers (dựa theo accountId)
+	const customer = customers.find(cus => cus.accountId === idLogin);
+
+	if (!account || !customer) {
+		console.warn("Không tìm thấy user hoặc customer tương ứng với idLogin:", idLogin);
+		return;
+	}
+
+	// Ưu tiên hiển thị fullname nếu có, nếu không thì dùng accountId
+	if (!customer.name || customer.name.trim() === '') {
+		document.getElementById('1234-username').textContent = account.username;
+	} else {
+		document.getElementById('1234-username').textContent = customer.name;
+	}
+
+	// Ưu tiên hiển thị email, nếu không có thì dùng phoneNumber
+	if (customer.email && customer.email.trim() !== '') {
+		document.getElementById('1234-EP').textContent = customer.email;
+	} else {
+		document.getElementById('1234-EP').textContent = customer.phoneNumber;
+	}
 }
 
 function logout1234() {
@@ -446,7 +676,9 @@ function logout1234() {
 	window.location.reload();
 	showNotification('Đăng xuất thành công', 'success');
 }
-
+function displayNoneFilterSearch() {
+    document.getElementById("filter-search").style.display = "none";
+}
 function openinfor1234() {
 	displayNoneFilterSearch();
 	document.getElementById('container').innerHTML = `
@@ -526,12 +758,24 @@ function openinfor1234() {
     </div>
 	`;
 	document.forms['frminfor']['username-infor'].value = localStorage.getItem('idLogin');
-	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
-		document.forms['frminfor']['fullname-infor'].textContent = user.fullname;
-		if (user.fullname === null) { document.forms['frminfor']['fullname-infor'].value = ''; } else { document.forms['frminfor']['fullname-infor'].value = user.fullname; }
-		if (user.email === null) { document.forms['frminfor']['email-infor'].value = ''; } else { document.forms['frminfor']['email-infor'].value = user.email; }
-		if (user.phone === null) { document.forms['frminfor']['phone-infor'].value = ''; } else { document.forms['frminfor']['phone-infor'].value = user.phone; }
-	});
+	// queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	// 	document.forms['frminfor']['fullname-infor'].textContent = user.fullname;
+	// 	if (user.fullname === null) { document.forms['frminfor']['fullname-infor'].value = ''; } else { document.forms['frminfor']['fullname-infor'].value = user.fullname; }
+	// 	if (user.email === null) { document.forms['frminfor']['email-infor'].value = ''; } else { document.forms['frminfor']['email-infor'].value = user.email; }
+	// 	if (user.phone === null) { document.forms['frminfor']['phone-infor'].value = ''; } else { document.forms['frminfor']['phone-infor'].value = user.phone; }
+	// });
+	const idLogin = localStorage.getItem('idLogin');
+	// Tìm user trong mảng accounts
+	const account = accounts.find(acc => acc.accountId === idLogin);
+	const customer = customers.find(cus => cus.accountId === idLogin);
+	const user = {
+        fullname: (customer && customer.name) ? customer.name : '',
+        email: (customer && customer.email) ? customer.email : '',
+        phone: (customer && customer.phoneNumber) ? customer.phoneNumber : ''
+    };
+	if (user.fullname === null) { document.forms['frminfor']['fullname-infor'].value = ''; } else { document.forms['frminfor']['fullname-infor'].value = user.fullname; }
+	if (user.email === null) { document.forms['frminfor']['email-infor'].value = ''; } else { document.forms['frminfor']['email-infor'].value = user.email; }
+	if (user.phone === null) { document.forms['frminfor']['phone-infor'].value = ''; } else { document.forms['frminfor']['phone-infor'].value = user.phone; }
 	showaddress();
 	window.scrollTo(0,0);
 }
@@ -555,21 +799,62 @@ function changepassword1234(event) {
 		renewpassword.classList.remove('error');
 		renewpassword.setAttribute('placeholder', 'Nhập lại mật khẩu mới');
 	}
-	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
-		if (user.password === oldpassword.value) {
-			user.password = newpassword.value;
-			upDateUser(user.username, user);
-			document.forms['frmChangePassword'].reset();
-			showNotification('Đổi mật khẩu thành công', 'success');
-		} else {
-			oldpassword.classList.add('error');
-			oldpassword.setAttribute('placeholder', 'Mật khẩu cũ không đúng');
-			oldpassword.value = '';
-			oldpassword.focus();
-		}
-	});
-}
+	// queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	// 	if (user.password === oldpassword.value) {
+	// 		user.password = newpassword.value;
+	// 		upDateUser(user.username, user);
+	// 		document.forms['frmChangePassword'].reset();
+	// 		showNotification('Đổi mật khẩu thành công', 'success');
+	// 	} else {
+	// 		oldpassword.classList.add('error');
+	// 		oldpassword.setAttribute('placeholder', 'Mật khẩu cũ không đúng');
+	// 		oldpassword.value = '';
+	// 		oldpassword.focus();
+	// 	}
+	// });
+	const idLogin = localStorage.getItem('idLogin');
+	// Tìm user trong mảng accounts
+	const account = accounts.find(acc => acc.accountId === idLogin);
+	if (!account) {
+		console.warn("Không tìm thấy user tương ứng với idLogin:", idLogin);
+		return;
+	}
+	if (account.password === oldpassword.value) {
+		account.password = newpassword.value;
+		upDateUser(account.username, account);
+		document.forms['frmChangePassword'].reset();
+		showNotification('Đổi mật khẩu thành công', 'success');
+	} else {
+ 		oldpassword.classList.add('error');
+ 		oldpassword.setAttribute('placeholder', 'Mật khẩu cũ không đúng');
+ 		oldpassword.value = '';
+ 		oldpassword.focus();
+ 	}
 
+}
+function upDateUser(username, updatedUser) {
+    // Tìm vị trí user trong mảng accounts theo accountId
+    const accountIndex = accounts.findIndex(acc => acc.username === username);
+    if (accountIndex === -1) {
+        console.error("Không tìm thấy user với username:", username);
+        showNotification('Không tìm thấy user với username', 'error');
+        return;
+    }
+    
+    // Cập nhật thông tin trong accounts (merge dữ liệu cũ với dữ liệu mới)
+    accounts[accountIndex] = { ...accounts[accountIndex], ...updatedUser };
+
+    // Tìm và cập nhật thông tin trong mảng customers (giả sử các thuộc tính cần cập nhật cũng có trong customer)
+    const customerIndex = customers.findIndex(cus => cus.username === username);
+    if (customerIndex !== -1) {
+        customers[customerIndex] = { ...customers[customerIndex], ...updatedUser };
+    }
+
+    console.log("Cập nhật thành công cho account:", accounts[accountIndex]);
+    if (customerIndex !== -1) {
+        console.log("Cập nhật thành công cho customer:", customers[customerIndex]);
+    }
+}
 function updateinfor1234(event) {
 	event.preventDefault();
 	event.stopPropagation();
@@ -595,23 +880,47 @@ function updateinfor1234(event) {
 		phone.focus();
 		check = false;
 	}
-	console.log(check);
+	// console.log(check);
+	// if (check) {
+	// 	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	// 		user.fullname = fullname.value;
+	// 		user.email = email.value;
+	// 		user.phone = phone.value;
+	// 		console.log(user.address.length);
+	// 		if (user.address.length > 0) {
+	// 			upDateUser(user.username, user);
+	// 			showNotification('Cập nhật thông tin thành công', 'success');
+	// 		} else {
+	// 			showNotification('Cập nhật thông tin không thành công, vui lòng thêm địa chỉ', 'warning');
+	// 			document.forms['frminfor']['diachi'].focus();
+	// 		}
+	// 	});
+	// } else {
+	// 	showNotification('Cập nhật thông tin không thành công', 'warning');
+	// }
+	const idLogin = localStorage.getItem('idLogin');
+	// Tìm user trong mảng accounts
 	if (check) {
-		queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
-			user.fullname = fullname.value;
-			user.email = email.value;
-			user.phone = phone.value;
-			console.log(user.address.length);
-			if (user.address.length > 0) {
-				upDateUser(user.username, user);
-				showNotification('Cập nhật thông tin thành công', 'success');
-			} else {
-				showNotification('Cập nhật thông tin không thành công, vui lòng thêm địa chỉ', 'warning');
-				document.forms['frminfor']['diachi'].focus();
-			}
-		});
+		const account = accounts.find(acc => acc.accountId === idLogin);
+		const customer = customers.find(cus => cus.accountId === idLogin);
+		if (!account || !customer) {
+			console.warn("Không tìm thấy user hoặc customer tương ứng với idLogin:", idLogin);
+			return;
+		}
+		// Cập nhật thông tin trong mảng accounts (merge dữ liệu cũ với dữ liệu mới)
+		customer.name = fullname.value;
+		customer.email = email.value;
+		customer.phoneNumber = phone.value;
+		console(account.address.length);
+		if (account.address.length > 0) {
+			upDateUser(account.accountId, account);
+			showNotification('Cập nhật thông tin thành công', 'success');
+		} else {
+			showNotification('Cập nhật thông tin không thành công, vui lòng thêm địa chỉ', 'warning');
+			document.forms['frminfor']['diachi'].focus();
+		}
 	} else {
-		showNotification('Cập nhật thông tin không thành công', 'warning');
+	 	showNotification('Cập nhật thông tin không thành công', 'warning');
 	}
 }
 
