@@ -18,7 +18,7 @@ function innerPurchaseHistory() {
     displayNoneFilterSearch();
     const container = document.getElementById("container");
     container.innerHTML = "";
-  
+    document.querySelector(".modal").classList.remove("show-modal");
     const purchase = document.createElement("div");
     purchase.classList.add("purchaseHistory");
     purchase.innerHTML = `
@@ -48,7 +48,7 @@ function innerPurchaseHistory() {
   }
   
   function innerAllOrder() {
-    queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+    localStorage.getItem('idLogin'), (user) => {
       if (user && user.orders) {
         // Đảo ngược danh sách đơn hàng trước khi hiển thị
         const reversedOrders = [...user.orders].reverse();
@@ -56,7 +56,7 @@ function innerPurchaseHistory() {
       } else {
         console.error("Không tìm thấy thông tin đơn hàng!");
       }
-    });
+    };
   }
   
   

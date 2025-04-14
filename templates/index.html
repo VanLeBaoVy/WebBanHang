@@ -354,10 +354,12 @@
               </div>
               <div class="payment">
                   <div class="total-payment">
+                    <span class="total-price-cart-label">Tổng số lượng</span>
+                    <span class="total-quantity-cart"  id="totalProduct">0</span>
                     <span>Tổng tiền</span>
-                    <span class="total-price-cart">0 đ</span>
+                    <span class="total-price-cart" id="totalPrice">0 đ</span>
                   </div>
-                  <button class="btnPayment" id="btnPayment">Thanh toán</button>
+                  <button class="btnPayment" id="btnPayment" onclick="payCart();">Thanh toán</button>
               </div>
           </div>
       </div>
@@ -377,48 +379,89 @@
     <script src="../static/js/product.js"></script>
     <script src="../static/js/purchaseHistory2.js"></script>
     <script src="../static/js/Payment.js"></script>
+    <script src="../static/js/toast-msg.js"></script>
     <script>
-        // Khai báo slide show
-        let currentIndex = 0;
-        const slides = document.querySelectorAll('.banner-slide img');
-        const dots = document.querySelectorAll('.dot');
+        const dots = document.querySelectorAll(".dot");
+        const slidesContainer = document.querySelector(".banner-slide");
+        const prevButton = document.querySelector(".prev");
+        const nextButton = document.querySelector(".next");
 
-        // Hàm để hiển thị slide
-        function showSlide(index) {
-            const prevIndex = currentIndex;
-            currentIndex = (index + slides.length) % slides.length;
+      const slides = document.querySelectorAll(".banner-slide img");
+      const totalSlides = slides.length;
 
-            slides.forEach((slide, i) => {
-                slide.classList.remove('visible', 'flip-in', 'flip-out');
-                if (i === currentIndex) {
-                    slide.classList.add('visible', 'flip-in');
-                }
-                if (i === prevIndex) {
-                    slide.classList.add('flip-out');
-                }
-            });
+      // Tạo bản sao của hình đầu tiên và thêm vào cuối danh sách
+      const firstClone = slides[0].cloneNode(true);
+      slidesContainer.appendChild(firstClone);
 
-            dots.forEach((dot, i) => {
+      let currentIndex = 0;
+      let isTransitioning = false; // Tránh spam click khi đang chuyển slide
+
+      // Hàm hiển thị slide
+      function showSlide(index) {
+        if (isTransitioning) return; // Ngăn chặn spam click
+        isTransitioning = true;
+
+        currentIndex = index;
+        slidesContainer.style.transition = "transform 0.5s ease-in-out";
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, i) => {
                 dot.classList.remove('active');
                 if (i === currentIndex) {
                     dot.classList.add('active');
                 }
             });
-        }
 
-        // Hàm để chuyển đến slide tiếp theo
-        function nextSlide() {
-            showSlide(currentIndex + 1);
-        }
+        // Nếu đến bản sao của hình đầu tiên, reset lại vị trí mà không có hiệu ứng
+        setTimeout(() => {
+          if (currentIndex === totalSlides) {
+              slidesContainer.style.transition = "none"; // Tắt animation
+              slidesContainer.style.transform = "translateX(0)"; // Đặt lại vị trí
+              currentIndex = 0;
+              dots.forEach((dot) => dot.classList.remove('active')); // Xóa tất cả các dấu chấm
+              dots[0].classList.add('active'); // Đánh dấu dấu chấm đầu tiên là active
+          }
+          isTransitioning = false;
+        }, 500);
+      }
 
-        // Hàm để chuyển đến slide trước đó
-        function prevSlide() {
+      // Hàm để chuyển đến slide tiếp theo
+      function nextSlide() {
+        showSlide(currentIndex + 1);
+      }
+
+      // Hàm để chuyển đến slide trước đó
+      function prevSlide() {
+      if (currentIndex === 0) {
+        currentIndex = totalSlides - 1; // Quay về cuối danh sách (vòng lặp)
+        slidesContainer.style.transition = "none"; // Tắt animation
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        setTimeout(() => {
             showSlide(currentIndex - 1);
-        }
+        }, 50);
+      } else {
+        showSlide(currentIndex - 1);
+      }
+    }
 
-        // Thiết lập slide show tự động
-        showSlide(currentIndex);
-        setInterval(nextSlide, 3000);
+    // Tự động chuyển slide mỗi 3 giây
+    setInterval(nextSlide, 3000);
+        // document.addEventListener("DOMContentLoaded", function () {
+        //   const cartIcon = document.querySelector(".icon__cart-shopping");
+        //   const modal = document.querySelector(".modal");
+        //   const cart = document.querySelector(".cart");
+
+        //   // Khi nhấn vào icon giỏ hàng, hiển thị modal
+        //   cartIcon.addEventListener("click", function () {
+        //     modal.classList.add("show-modal");
+        //   });
+
+        //   // Khi nhấn ra ngoài giỏ hàng thì ẩn đi
+        //   modal.addEventListener("click", function (event) {
+        //     if (!cart.contains(event.target)) {
+        //         modal.classList.remove("show-modal");
+        //     }
+        //   });
+        // });
 
         const filterProduct = document.getElementById("filter-search");
         filterProduct.addEventListener("click", () => {

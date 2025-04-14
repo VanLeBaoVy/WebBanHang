@@ -18,7 +18,7 @@ const accounts = [
         status: 'active',
     }
 ];
-const customers = [
+let customers = [
     {
         id: 1,
         name: 'Nguyễn Văn A',
@@ -44,6 +44,8 @@ const customers = [
         email: 'customer3@example.com',
     }
 ];
+localStorage.setItem('accounts', JSON.stringify(accounts));
+localStorage.setItem('customers', JSON.stringify(customers));
 function showNotification(message, type = 'success') {
 	const container = document.getElementById('notification-container');
 	const notification = document.createElement('div');
@@ -179,6 +181,7 @@ function changeIU(event) {
 		document.getElementById('change-text-login-item').textContent = 'Đăng nhập';
 		document.getElementById('inner-p-login-content-btns').textContent = 'đăng nhập';
 		document.getElementById('inner-login-text-item').textContent = 'Đến với chúng tôi bạn sẽ không cảm thấy hối tiếc';
+		document.querySelector('.inner-login-container').classList.remove('active');
 		loginAccountUser(event, 0);
 	} else {
 		document.getElementById('item-text-p').textContent = 'Bạn đã có tài khoản?';
@@ -187,6 +190,7 @@ function changeIU(event) {
 		document.getElementById('change-text-login-item').textContent = 'Đăng ký';
 		document.getElementById('inner-p-login-content-btns').textContent = 'đăng ký';
 		document.getElementById('inner-login-text-item').textContent = 'Sẽ thật đáng tiết nếu bạn không đến với chúng tôi';
+		document.querySelector('.inner-login-container').classList.add('active');
 		loginAccountUser(event, 1);
 	}
 }
@@ -681,6 +685,7 @@ function displayNoneFilterSearch() {
 }
 function openinfor1234() {
 	displayNoneFilterSearch();
+	document.querySelector(".modal").classList.remove("show-modal");
 	document.getElementById('container').innerHTML = `
 	<div  style=" display: flex; margin-top: 97px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); flex-wrap: wrap;" class="grid">
     <div style="font-size: 3rem; padding: 15px; width: 100%;">Thông tin tài khoản của bạn</div>
@@ -764,8 +769,10 @@ function openinfor1234() {
 	// 	if (user.email === null) { document.forms['frminfor']['email-infor'].value = ''; } else { document.forms['frminfor']['email-infor'].value = user.email; }
 	// 	if (user.phone === null) { document.forms['frminfor']['phone-infor'].value = ''; } else { document.forms['frminfor']['phone-infor'].value = user.phone; }
 	// });
-	const idLogin = localStorage.getItem('idLogin');
+	let userCurrent = JSON.parse(localStorage.getItem('userCurrent'));
+	const idLogin = userCurrent.idLogin || null;
 	// Tìm user trong mảng accounts
+	let customers = JSON.parse(localStorage.getItem('customers')) || [];	
 	const account = accounts.find(acc => acc.accountId === idLogin);
 	const customer = customers.find(cus => cus.accountId === idLogin);
 	const user = {
@@ -821,7 +828,7 @@ function changepassword1234(event) {
 	}
 	if (account.password === oldpassword.value) {
 		account.password = newpassword.value;
-		upDateUser(account.username, account);
+		upDateUser(account.idLogin, account);
 		document.forms['frmChangePassword'].reset();
 		showNotification('Đổi mật khẩu thành công', 'success');
 	} else {
@@ -832,11 +839,11 @@ function changepassword1234(event) {
  	}
 
 }
-function upDateUser(username, updatedUser) {
+function upDateUser(id, updatedUser) {
     // Tìm vị trí user trong mảng accounts theo accountId
-    const accountIndex = accounts.findIndex(acc => acc.username === username);
+    const accountIndex = accounts.findIndex(acc => acc.accountId === id);
     if (accountIndex === -1) {
-        console.error("Không tìm thấy user với username:", username);
+        console.error("Không tìm thấy user với id:", idLogin);
         showNotification('Không tìm thấy user với username', 'error');
         return;
     }
@@ -845,11 +852,12 @@ function upDateUser(username, updatedUser) {
     accounts[accountIndex] = { ...accounts[accountIndex], ...updatedUser };
 
     // Tìm và cập nhật thông tin trong mảng customers (giả sử các thuộc tính cần cập nhật cũng có trong customer)
-    const customerIndex = customers.findIndex(cus => cus.username === username);
+    const customerIndex = customers.findIndex(cus => cus.accountId === id);
     if (customerIndex !== -1) {
         customers[customerIndex] = { ...customers[customerIndex], ...updatedUser };
+		localStorage.setItem('customers', JSON.stringify(customers));
     }
-
+	localStorage.setItem('accounts', JSON.stringify(accounts));
     console.log("Cập nhật thành công cho account:", accounts[accountIndex]);
     if (customerIndex !== -1) {
         console.log("Cập nhật thành công cho customer:", customers[customerIndex]);
@@ -911,8 +919,7 @@ function updateinfor1234(event) {
 		customer.name = fullname.value;
 		customer.email = email.value;
 		customer.phoneNumber = phone.value;
-		console(account.address.length);
-		if (account.address.length > 0) {
+		if (customer.address.length > 0) {
 			upDateUser(account.accountId, account);
 			showNotification('Cập nhật thông tin thành công', 'success');
 		} else {
@@ -1003,7 +1010,7 @@ function runAddress() {
 									console.log(cc);
 									let address = cc + ", " + data.data[index].name + ", " + data.data[index].level2s[index2].name + ", " + data.data[index].level2s[index2].level3s[index3].name;
 									if (cc !== "") {
-										queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+										localStorage.getItem('idLogin'), (user) => {
 											if (!Array.isArray(user.address)) {
 												user.address = []; // Nếu không phải mảng, khởi tạo mảng trống
 											}
@@ -1013,7 +1020,7 @@ function runAddress() {
 											showNotification('Thêm địa chỉ thành công', 'success');
 											showaddress();
 
-										});
+										};
 										document.getElementById('id-ex-infor-address').style.display = 'none';
 										// openinfor1234();
 										document.getElementById('id-show-infor-address').style.display = "";
@@ -1036,25 +1043,25 @@ function deleteaddress1234() {
 	const address = document.forms['frminfor']['addree-infor-1234'];
 	const index = address.value;
 	// dlelete address index
-	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	localStorage.getItem('idLogin'), (user) => {
 		user.address.splice(index, 1);
 		upDateUser(user.username, user);
 		showNotification('Xóa địa chỉ thành công', 'success');
 		showaddress();
-	});
+	};
 }
 
 function showaddress() {
 	const address = document.forms['frminfor']['addree-infor-1234'];
 	address.innerHTML = ``;
-	queryUserByUsername(localStorage.getItem('idLogin'), (user) => {
+	localStorage.getItem('idLogin'), (user) => {
 		console.log('showaddress', user.address.length);
 		if (Array.isArray(user.address)) {
 			user.address.forEach((item, index) => {
 				address.innerHTML += `<option value="${index}">${item}</option>`;
 			});
 		}
-	});
+	};
 }
 
 function showpupupaddress() {
