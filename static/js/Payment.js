@@ -1,6 +1,6 @@
 
 function callBackdata(callback) {
-    fetch('dvhcvn.json').then(response => {
+    fetch('../static/dvhcvn.json').then(response => {
         if (!response.ok) {
             console.log("lỗi load file dvhcvn.json");
         }

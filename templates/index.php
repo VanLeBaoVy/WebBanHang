@@ -375,7 +375,8 @@
   </div>
     <!-- <script src="../static/js/index.js"></script> -->
     <script src="../static/js/branchs.js"></script>
-    <script src="../static/js/login2.js"></script>
+    <script src="../static/js/login3.js"></script>
+    <script src="../static/connectDB/loginEvent.js"></script>
     <script src="../static/js/product.js"></script>
     <script src="../static/js/purchaseHistory2.js"></script>
     <script src="../static/js/Payment.js"></script>
