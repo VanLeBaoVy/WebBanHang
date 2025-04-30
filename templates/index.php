@@ -24,7 +24,7 @@
     <div class="header">
       <div class="header-nav">
         <div class="nav-list nav-list1">
-          <button class="btn__Home_Logo" onclick="window.location.href='demo.html'">
+          <button class="btn__Home_Logo" onclick="window.location.href='index.php'">
             <img src="../static/img/logo.jpg" alt="logo" class="img-logo" />
           </button>
           <div class="area_sport-btn">
@@ -375,8 +375,9 @@
   </div>
     <!-- <script src="../static/js/index.js"></script> -->
     <script src="../static/js/branchs.js"></script>
-    <script src="../static/js/login3.js"></script>
+    <script src="../static/connectDB/purchaseHistoryEvent.js"></script>
     <script src="../static/connectDB/loginEvent.js"></script>
+    <script src="../static/js/login3.js"></script>
     <script src="../static/js/product.js"></script>
     <script src="../static/js/purchaseHistory2.js"></script>
     <script src="../static/js/Payment.js"></script>

@@ -37,7 +37,7 @@ let productCategories = [
     }
   ];
   localStorage.setItem("productCategories", JSON.stringify(productCategories));
-  let products = [
+products = [
     {
       id: "P001",
       name: "Nike Air Zoom Mercurial Superfly 10 Academy TF Mad Ambition 2929000",
@@ -634,25 +634,24 @@ function toggleDropdown(idelement) {
   //     }
   // }
   function interface_cart(gia, sl, item) {
+    if (!dataLoaded) {
+      showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
+      return false;
+    }
     item.forEach((lengthProduct, id) => {
       console.log(lengthProduct, "----------", id);
     });
-    let userCurrent = localStorage.getItem("userCurrent") ? JSON.parse(localStorage.getItem("userCurrent")) : null;
-    let idLogin = userCurrent.idLogin || null;
-    let customers = JSON.parse(localStorage.getItem("customers")) || [];
-    for (let i = 0; i < customers.length; i++) {
-      console.log(customers[i]);
-    }
+    let idLogin = localStorage.getItem("idLogin") || null;
+    console.log(idLogin);
     // Tìm user theo accountId
-    let user = customers.find(customer => customer.accountId === idLogin);
-  
+    let user = profiles.find(pro => pro.id === idLogin);
     if (!user) {
       showNotification('Không tìm thấy thông tin người dùng', 'error');
       return;
     }
-  
+    
     // Kiểm tra các thông tin bắt buộc
-    if (!user.name || !user.phoneNumber || !user.address) {
+    if (!user.fullname || !user.phone_number) {
       showNotification('Vui lòng cập nhật thông tin cá nhân để thanh toán', 'error');
     } else {
       printThanhToan(gia, sl, item);

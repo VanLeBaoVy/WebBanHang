@@ -6,16 +6,16 @@ $conn = $db->conn;
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (!isset($data['id'])) {
-    echo json_encode(["success" => false, "message" => "Thiếu ID"]);
+if (!isset($data['status'])) {
+    echo json_encode(["success" => false, "message" => "Thiếu trạng thái đơn hàng"]);
     exit;
 }
-
 $id = intval($data['id']);
-
+$status = $data['status'];
+$reason = $data['reason'];
 try {
-    $stmt = $conn->prepare("DELETE FROM address WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $stmt = $conn->prepare("UPDATE `orders` SET status = ?, reason = ?, updated_at = NOW() WHERE id = ?");
+    $stmt->bind_param("ssi",$status,$reason, $id);
     $stmt->execute();
 
     echo json_encode(["success" => true]);
