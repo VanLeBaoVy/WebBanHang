@@ -1,0 +1,126 @@
+/* Đặt chiều cao cố định cho sidebar */
+.sidebar {
+    width: 250px;
+    /* Đặt chiều rộng cố định */
+    height: 100vh;
+    /* Chiều cao toàn màn hình */
+    overflow: hidden;
+    /* Ngăn cuộn */
+    position: fixed;
+    /* Cố định sidebar */
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Đẩy nội dung xuống dưới nếu cần */
+    background: #212529;
+    padding: 1rem;
+    color: white;
+
+}
+
+/* Đẩy nội dung chính sang bên phải */
+.content {
+    margin-left: 250px;
+    /* Đẩy nội dung chính sang bên phải bằng chiều rộng của sidebar */
+    width: calc(100% - 250px);
+    /* Đảm bảo nội dung chính chiếm phần còn lại */
+    padding: 20px;
+}
+
+.table-container {
+    max-height: 450px;
+    width: 100%;
+    overflow-y: auto;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th,
+td {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+thead tr:first-child th {
+    position: sticky;
+    top: 0;
+    background-color: #c9c9c9;
+    border-bottom: 2px solid #dee2e6;
+    z-index: 3;
+}
+
+thead tr:nth-child(2) th {
+    position: sticky;
+    top: 40px;
+    /* đúng bằng chiều cao của dòng tiêu đề đầu */
+    background-color: #c9c9c9;
+    z-index: 2;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.btn-primary {
+    background-color: #000 !important;
+    /* Màu nền mới */
+    border-color: #eeeae8 !important;
+    /* Màu viền */
+    color: #fff !important;
+    /* Màu chữ */
+}
+
+.btn-primary:hover {
+    background-color: #323131 !important;
+    /* Màu khi hover */
+    border-color: #191919 !important;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    background-color: #fff;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #000;
+    /* Màu xanh lá khi được chọn */
+    border: 2px solid #000;
+    /* Màu viền khi được chọn */
+}
+
+.custom-modal {
+    background-color: #f8d7da;
+    /* Màu nền hồng nhạt */
+    color: #842029;
+    /* Màu chữ đỏ đậm */
+    border: 1px solid #f5c2c7;
+    /* Viền đỏ nhạt */
+}
+#productImagePreview, #editProductImagePreview {
+    max-width: 150px; /* Giới hạn chiều rộng tối đa */
+    max-height: 150px; /* Giới hạn chiều cao tối đa */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    display: block;
+    margin: 10px auto; /* Căn giữa ảnh */
+    border: 1px solid #ddd; /* Viền ảnh */
+    padding: 5px;
+    border-radius: 5px;
+}
