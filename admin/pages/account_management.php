@@ -7,9 +7,9 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=account_managem
   exit();
 }
 $result = checkUserPermissions($_SESSION['permissions'], 'index.php?page=account_management');
-$addPermission = $result['add'] ? '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">Thêm tài khoản </button>' : '';
-$updatePermission = $result['update'] ? '<button type="button" id="btn_edit_update" class="btn btn-primary" onclick="submitEdit(event)">Lưu tài khoản</button>' : '';
-$deletePermission = $result['delete'] ? '<button type="button" id="btn_edit_benned" class="btn btn-danger"onclick="submitBanned(event)">Mở/Khóa tài khoản</button>' : '';
+$addPermission = $result['add'] ? '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">Thêm tài khoản </button>' : '<button class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#addAccountModal">Thêm tài khoản </button>';
+$updatePermission = $result['update'] ? '<button type="button" id="btn_edit_update" class="btn btn-primary" onclick="submitEdit(event)">Lưu tài khoản</button>' : '<button type="button" id="btn_edit_update" class="btn btn-primary d-none" onclick="submitEdit(event)">Lưu tài khoản</button>';
+$deletePermission = $result['delete'] ? '<button type="button" id="btn_edit_benned" class="btn btn-danger"onclick="submitBanned(event)">Mở/Khóa tài khoản</button>' : '<button type="button" id="btn_edit_benned" class="btn btn-danger d-none"onclick="submitBanned(event)">Mở/Khóa tài khoản</button>';
 ?>
   <!-- Tiêu đề -->
   <h2 class="mb-4">Quản Lý Tài Khoản</h2>
@@ -72,7 +72,7 @@ $deletePermission = $result['delete'] ? '<button type="button" id="btn_edit_benn
                 <option value="">Chọn quyền</option>
                 <?php
                 // Lấy danh sách quyền từ API
-                $url = 'http://localhost/PHP-code/my_project/admin/api/role/getrole.php';
+                $url = 'http://localhost/PHP-code/webbanhang/admin/api/role/getrole.php';
                 $response = file_get_contents($url);
                 $roles = json_decode($response, true);
                 foreach ($roles as $role) {

@@ -52,12 +52,12 @@ if ($_SESSION['role'] != 1) {
                         <label for="roleName" class="form-label">Tên Quyền</label>
                         <input type="text" class="form-control" id="roleName" name="roleName" placeholder="Nhập tên quyền" required>
                     </div>
-                    <?php 
-                    $permissionsData = json_decode(file_get_contents('http://localhost/PHP-code/my_project/admin/api/role/getpermission.php'), true);
+                    <?php
+                    $permissionsData = json_decode(file_get_contents('http://localhost/PHP-code/webbanhang/admin/api/role/getpermission.php'), true);
                     $permissions = array_column($permissionsData, 'name', 'id');
                     $actions = ['add' => 'Thêm', 'update' => 'Sửa', 'delete' => 'Xóa'];
-                    foreach ($permissions as $permissionId => $permissionName): 
-                        if ($permissionId == 4) continue; ?>
+                    foreach ($permissions as $permissionId => $permissionName):
+                        if ($permissionId == 4 || $permissionId == 3) continue; ?>
                         <div class="mb-3 d-flex align-items-center gap-3">
                             <label class="form-label mb-0" style="min-width: 150px;"><?= $permissionName ?></label>
                             <div class="d-flex gap-3">
@@ -70,6 +70,15 @@ if ($_SESSION['role'] != 1) {
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <div class="mb-3 d-flex align-items-center gap-3">
+                        <label class="form-label mb-0" style="min-width: 150px;">Quản lý đơn hàng</label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="addpermission3Update" name="permissions[3][status]" value="1">
+                                <label class="form-check-label" for="addpermission3Update">Có</label>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Thống kê -->
                     <div class="mb-3 d-flex align-items-center gap-3">
                         <label class="form-label mb-0" style="min-width: 150px;">Thống kê</label>
@@ -104,12 +113,12 @@ if ($_SESSION['role'] != 1) {
                         <input type="text" class="form-control" id="editRoleName" name="roleName" placeholder="Nhập tên quyền" required>
                     </div>
 
-                    <?php 
-                    $permissionsData = json_decode(file_get_contents('http://localhost/PHP-code/my_project/admin/api/role/getpermission.php'), true);
+                    <?php
+                    $permissionsData = json_decode(file_get_contents('http://localhost/PHP-code/webbanhang/admin/api/role/getpermission.php'), true);
                     $permissions = array_column($permissionsData, 'name', 'id');
                     $actions = ['add' => 'Thêm', 'update' => 'Sửa', 'delete' => 'Xóa'];
-                    foreach ($permissions as $permissionId => $permissionName): 
-                        if ($permissionId == 4) continue; ?>
+                    foreach ($permissions as $permissionId => $permissionName):
+                        if ($permissionId == 4 || $permissionId == 3 ) continue; ?>
                         <div class="mb-3 d-flex align-items-center gap-3">
                             <label class="form-label mb-0" style="min-width: 150px;"><?= $permissionName ?></label>
                             <div class="d-flex gap-3">
@@ -123,6 +132,15 @@ if ($_SESSION['role'] != 1) {
                         </div>
                     <?php endforeach; ?>
 
+                    <div class="mb-3 d-flex align-items-center gap-3">
+                        <label class="form-label mb-0" style="min-width: 150px;">Quản lý đơn hàng</label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="editpermission3Update" name="permissions[3][status]" value="1">
+                                <label class="form-check-label" for="editpermission3Update">Có</label>
+                            </div>                        
+                        </div>
+                    </div>
                     <!-- Thống kê -->
                     <div class="mb-3 d-flex align-items-center gap-3">
                         <label class="form-label mb-0" style="min-width: 150px;">Thống kê</label>

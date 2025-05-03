@@ -18,6 +18,7 @@ if ((isset($_POST['login'])) && $_POST['login'] == 'Login') {
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
             $_SESSION['permissions'] = $db->getUserPermissions($username);
+            $_SESSION['user_id'] = $db->getUserId($username);
             header("Location: index.php");
             exit();
         } elseif ($role === 'banned') {

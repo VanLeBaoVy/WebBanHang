@@ -24,13 +24,14 @@ if (!isset($_SESSION['username']) ) {
    <div class="content">
       <?php include("templates/content.php"); ?>
    </div>
-   
+   <div class="toast-container" id="toastContainer"></div>
 </div>
 </body>
 <script src="assets/js/sidebar.js"></script>
 <script src="assets/js/role.js"></script>
 <script src="assets/js/account.js"></script>
 <script src="assets/js/product.js"></script>
+<script src="assets/js/order.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/js/home.js"></script>

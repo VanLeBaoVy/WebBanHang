@@ -227,4 +227,32 @@ class DatabaseUser
         return $result->num_rows > 0;
     }
     
+    public function getUserId($username) {
+        $stmt = $this->connection->prepare("SELECT id FROM webbanhang.account WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc()['id'];
+        }
+        return null;
+    }
+
+    public function getFullnameById($userId)
+    {
+        $stmt = $this->connection->prepare("SELECT fullname FROM webbanhang.profile WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['fullname'];
+    }
+
+    public function getAddresbyIdaddress($addressId)
+    {
+        $stmt = $this->connection->prepare("SELECT CONCAT(a.street, ', ', a.ward, ', ', a.district, ', ', a.city) AS full_address FROM address a WHERE a.id = ?");
+        $stmt->bind_param("i", $addressId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+            return $result->fetch_assoc()['full_address'];
+    }
 }

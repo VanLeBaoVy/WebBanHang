@@ -27,6 +27,18 @@ if (!isset($_SESSION['username'])) {
         case "role_management":
             include(__DIR__ . '/../pages/role_management.php');
             break;
+        case "category_management":
+            include(__DIR__ . '/../pages/category_management.php');
+            break;
+        case "brand_management":
+            include(__DIR__ . '/../pages/brand_management.php');
+            break;
+        case "supplier_management":
+            include(__DIR__ . '/../pages/supplier_management.php');
+            break;
+        case "import_management":
+            include(__DIR__ . '/../pages/import_management.php');
+            break;
         default:
             include(__DIR__ . '/../pages/home.php');
             break;

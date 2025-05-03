@@ -29,26 +29,11 @@ try {
     $description = $data['description'] ?? '';
     $category_id = $data['category_id'];
     $brand = $data['brand'];
-    $imageBase64 = $data['imageBase64'] ?? null;
-
-    // Lưu ảnh nếu có
-    $imageUrl = null;
-    if ($imageBase64) {
-        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageBase64));
-        $imageName = uniqid() . '.png';
-        $imagePath = '../../../uploads/' . $imageName;
-
-        if (file_put_contents($imagePath, $imageData)) {
-            $imageUrl = 'uploads/' . $imageName;
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Không thể lưu ảnh sản phẩm']);
-            exit();
-        }
-    }
-
-
+    $status = $data['status'];
+    $supplier = $data['supplier_id'];
+    $imageBase64 = $data['url'] ?? '';
     // Thêm sản phẩm vào cơ sở dữ liệu
-    $result = $db->addProduct($name, $price, $description, $imageUrl, $category_id, $brand, '{}');
+    $result = $db->addProduct($name, $price, $description, $imageBase64, $category_id, $brand, $status, $supplier);
     if ($result) {
         // Lấy ID sản phẩm vừa thêm
         $productId = $db->getLastInsertId();
@@ -60,7 +45,7 @@ try {
                 exit();
             }
         }
-        
+
 
         echo json_encode(['success' => true, 'message' => 'Thêm sản phẩm thành công']);
     } else {

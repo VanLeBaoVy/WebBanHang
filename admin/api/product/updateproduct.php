@@ -31,25 +31,12 @@ try {
     $description = $data['description'] ?? '';
     $category_id = $data['category_id'];
     $brand = $data['brand'];
+    $status = $data['attributes'];
+    $supplier = $data['supplier_id'];
     $imageBase64 = $data['url'] ?? null;
 
-    // Lưu ảnh nếu có
-    $imageUrl = null;
-    if ($imageBase64) {
-        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageBase64));
-        $imageName = uniqid() . '.png';
-        $imagePath = '../../../uploads/' . $imageName;
-
-        if (file_put_contents($imagePath, $imageData)) {
-            $imageUrl = 'uploads/' . $imageName;
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Không thể lưu ảnh sản phẩm']);
-            exit();
-        }
-    }
-
     // Cập nhật sản phẩm
-    $updateProduct = $db->updateProduct($id, $name, $price, $description, $imageUrl, $category_id, $brand);
+    $updateProduct = $db->updateProduct($id, $name, $price, $description, $imageBase64, $category_id, $brand, $status, $supplier);
     if (!$updateProduct) {
         echo json_encode(['success' => false, 'message' => 'Lỗi khi cập nhật sản phẩm']);
         exit();
