@@ -99,5 +99,16 @@
             }
             return $products;
         }
+        public function getAllSize() {
+            $sql = "SELECT * FROM size";
+            $result = $this->conn->query($sql);
+            $sizes = [];
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $sizes[] = $row;
+                }
+            }
+            return $sizes;
+        }
     }
 ?>
