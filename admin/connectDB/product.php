@@ -494,4 +494,56 @@ class DatabaseProduct
         }
         return null; // Trả về null nếu không tìm thấy
     }
+    public function getAllImports()
+    {
+        $stmt = $this->connection->prepare("
+        SELECT i.id AS import_id, 
+               i.supplier_id, 
+               s.name AS supplier_name, 
+               i.employee_id, 
+               a.username AS employee_name, 
+               i.price AS total_price, 
+               i.status, 
+               i.created_at
+        FROM webbanhang.import i
+        JOIN webbanhang.supplier s ON i.supplier_id = s.id
+        JOIN webbanhang.account a ON i.employee_id = a.id
+    ");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $imports = [];
+        while ($row = $result->fetch_assoc()) {
+            $imports[] = $row;
+        }
+
+        return $imports;
+    }
+    public function getImportDetails($importId)
+    {
+        $stmt = $this->connection->prepare("
+        SELECT id.id AS detail_id, 
+               id.product_id, 
+               p.name AS product_name, 
+               id.size_id, 
+               s.size_number, 
+               id.import_price, 
+               id.amount, 
+               id.final_price
+        FROM webbanhang.import_detail id
+        JOIN webbanhang.product p ON id.product_id = p.id
+        JOIN webbanhang.size s ON id.size_id = s.id
+        WHERE id.import_id = ?
+    ");
+        $stmt->bind_param("i", $importId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $details = [];
+        while ($row = $result->fetch_assoc()) {
+            $details[] = $row;
+        }
+
+        return $details;
+    }
 }

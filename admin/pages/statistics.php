@@ -16,7 +16,30 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=statistics')) {
     <input type="date" id="startDate" class="form-control" style="width: 20%;" placeholder="Từ Ngày">
     <input type="date" id="endDate" class="form-control" style="width: 20%;" placeholder="Đến Ngày">
     <button class="btn btn-primary" id="filterButton">Thống Kê</button>
+    <button class="btn btn-primary" id="chitieuButton">Chi tiêu</button>
 </div>
+<!-- Thống kê thu, chi, lợi nhuận -->
+<div class="d-flex align-items-center mb-3">
+    <div class="card me-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Tổng Doanh Thu</h5>
+            <p class="card-text" id="totalIncome">0</p>
+        </div>
+    </div>
+    <div class="card me-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Tổng Chi Phí</h5>
+            <p class="card-text" id="totalExpense">0</p>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Lợi Nhuận</h5>
+            <p class="card-text" id="totalProfit">0</p>
+        </div>
+    </div>
+</div>
+
 <hr class="main-hr">
 
 <!-- Bảng thống kê -->
@@ -122,7 +145,95 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=statistics')) {
     </div>
 </div>
 
+<div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="supplierModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="supplierModalLabel">Thống Kê Nhập Hàng Theo Nhà Cung Cấp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Mã nhà cung cấp</th>
+                                <th>Tên nhà cung cấp</th>
+                                <th>Tổng số tiền nhập hàng</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplierTableBody">
+                            <!-- Nội dung sẽ được đổ bằng JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="importListModal" tabindex="-1" aria-labelledby="importListModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="importListModalLabel">Danh Sách Phiếu Nhập</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+
+            <div class="modal-body">
+                <p><strong>Nhà cung cấp:</strong> <span id="importSupplierName">---</span></p>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Mã Phiếu Nhập</th>
+                            <th>Ngày Tạo</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="importListTableBody">
+                        <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const incomeResponse = await fetch(`../admin/api/statistics/getallorder.php`);
+            const expenseResponse = await fetch(`../admin/api/statistics/getallimport.php`);
+
+            const incomeData = await incomeResponse.json();
+            const expenseData = await expenseResponse.json();
+
+            if (incomeData.success && expenseData.success) {
+                const totalIncome = incomeData.data.reduce((sum, order) => sum + order.total, 0);
+                const totalExpense = expenseData.data.reduce((sum, entry) => sum + entry.total_price, 0);
+                const totalProfit = totalIncome - totalExpense;
+
+                // Cập nhật HTML
+                document.getElementById('totalIncome').innerText = totalIncome.toLocaleString() + ' đ';
+                document.getElementById('totalExpense').innerText = totalExpense.toLocaleString() + ' đ';
+                document.getElementById('totalProfit').innerText = totalProfit.toLocaleString() + ' đ';
+
+            } else {
+                console.error('Error fetching income or expense data.');
+            }
+        } catch (error) {
+            console.error('Error calculating income, expense, or profit:', error);
+        }
+    });
+
+
     document.addEventListener('DOMContentLoaded', () => {
         const link = new URLSearchParams(window.location.search).get('page');
         console.log(link);
@@ -244,7 +355,7 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=statistics')) {
     }
 
     async function fecthOrderDetailS(id) {
-        
+
         try {
             const response = await fetch(`../admin/api/statistics/getallorder.php`);
             const data = await response.json();
@@ -284,9 +395,9 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=statistics')) {
             document.getElementById('d_none').classList.remove('d-none'); // Hiện lý do hủy đơn hàng nếu trạng thái là "Đã hủy"
         }
 
-    //     // Đặt lại giá trị của lý do hủy đơn hàng về mặc định
+        //     // Đặt lại giá trị của lý do hủy đơn hàng về mặc định
 
-    //     // Chi tiết sản phẩm
+        //     // Chi tiết sản phẩm
         const tbody = document.getElementById('order-details-body');
         tbody.innerHTML = ""; // Xoá cũ
 
@@ -332,4 +443,139 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=statistics')) {
             console.error('Error fetching order statistics:', error);
         }
     });
+
+    function groupBySupplier(imports) {
+        const grouped = {};
+
+        imports.forEach(entry => {
+            const supplierId = entry.supplier_id;
+
+            if (!grouped[supplierId]) {
+                grouped[supplierId] = {
+                    supplier_id: supplierId,
+                    supplier_name: entry.supplier_name,
+                    total_price: 0,
+                    imports: []
+                };
+            }
+
+            grouped[supplierId].total_price += entry.total_price;
+            grouped[supplierId].imports.push(entry); // Giữ nguyên mỗi phiếu và chi tiết của nó
+        });
+
+        return Object.values(grouped);
+    }
+
+    document.getElementById('chitieuButton').addEventListener('click', async () => {
+        try {
+            const response = await fetch(`../admin/api/statistics/getallimport.php`);
+            const data = await response.json();
+            if (data.success) {
+                console.log(data.data); // Log the data to see the structure
+                const groupedImports = groupBySupplier(data.data);
+                renderSupplierTable(groupedImports);
+                const supplierModal = new bootstrap.Modal(document.getElementById('supplierModal'));
+                supplierModal.show();
+            } else {
+                console.error('Error fetching order statistics:', data.message);
+            }
+        } catch (error) {
+            console.error('Error fetching order statistics:', error);
+        }
+    });
+
+    function renderSupplierTable(data) {
+        const tbody = document.getElementById('supplierTableBody');
+        tbody.innerHTML = ''; // Clear cũ nếu có
+
+        data.forEach(supplier => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${supplier.supplier_id}</td>
+            <td>${supplier.supplier_name}</td>
+            <td>${supplier.total_price.toLocaleString()} đ</td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function renderSupplierTable(data) {
+        const tbody = document.getElementById('supplierTableBody');
+        tbody.innerHTML = '';
+
+        data.forEach(supplier => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${supplier.supplier_id}</td>
+            <td>${supplier.supplier_name}</td>
+            <td>${supplier.total_price.toLocaleString()} đ</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="viewSupplierDetail(${supplier.supplier_id})">
+                    Xem chi tiết
+                </button>
+            </td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function showImportsBySupplier(supplierId, data) {
+        // Lọc các phiếu nhập theo nhà cung cấp
+        const supplierImports = data.filter(item => item.supplier_id === supplierId);
+
+        if (supplierImports.length === 0) {
+            showToast('Không có dữ liệu cho nhà cung cấp này!', 'error');
+            return;
+        }
+
+        // Dùng tên nhà cung cấp từ bản ghi đầu tiên
+        const supplierName = supplierImports[0].supplier_name;
+
+        // Hiển thị tên nhà cung cấp trong modal
+        document.getElementById('importSupplierName').innerText = supplierName;
+
+        // Render table
+        const tbody = document.getElementById('importListTableBody');
+        tbody.innerHTML = ''; // clear old rows
+
+        supplierImports.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${item.import_id}</td>
+            <td>${new Date(item.created_at).toLocaleString()}</td>
+            <td>${item.total_price.toLocaleString()} đ</td>
+            <td>${formatStatus2(item.status)}</td>
+        `;
+            tbody.appendChild(row);
+        });
+
+        // Hiển thị modal
+        const modal = new bootstrap.Modal(document.getElementById('importListModal'));
+        modal.show();
+    }
+
+    function viewSupplierDetail(supplierId) {
+
+        fetch(`../admin/api/statistics/getallimport.php`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showImportsBySupplier(supplierId, data.data);
+                } else {
+                    console.error('Error fetching supplier details:', data.message);
+                }
+            })
+            .catch(error => console.error('Error fetching supplier details:', error));
+    }
+
+    function formatStatus2(status) {
+            switch (status.toLowerCase()) {
+                case 'processing':
+                    return '<span class="badge bg-warning text-dark">Đang xử lý</span>';
+                case 'complete':
+                    return '<span class="badge bg-success">Hoàn thành</span>';
+                default:
+                    return status;
+            }
+    }
 </script>
