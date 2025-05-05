@@ -318,6 +318,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
                         return [];
                     });
 
+                sizeSelect.innerHTML = '<option value="">Chọn kích thước</option>';
                 sizes.forEach(size => {
                     const option = document.createElement('option');
                     option.value = size.id;
@@ -332,7 +333,6 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
                 const productSelect = detailRow.querySelector('.productSelect');
                 productSelect.addEventListener('change', async () => {
                     const productId = productSelect.value;
-
                     if (!productId) {
                         sizeSelect.innerHTML = '<option value="">Chọn kích thước</option>';
                         return;
@@ -732,6 +732,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
                 });
 
             console.log(sizes.data);
+            sizeSelect.innerHTML = '<option value="">Chọn kích thước</option>';
             sizes.data.forEach(size => {
                 sizeSelect.innerHTML += `<option value="${size.id}">${size.size_number}</option>`;
             });

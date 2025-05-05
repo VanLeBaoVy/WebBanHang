@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $inputData['updateRoleId'],
         $inputData['updateFullname'],
         $inputData['updatePhoneNumber'],
-        $inputData['updateAvatar'],
         $inputData['updateCreated'],
     );
     if ($result) {
