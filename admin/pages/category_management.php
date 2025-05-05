@@ -248,7 +248,7 @@ $deletePermission = $result['delete'] ? '<button class="btn btn-danger btn-sm">X
                 const categoryId = row.children[0].textContent.trim();
 
                 // Show confirmation modal
-                if (confirm('Bạn có chắc chắn muốn xóa?')) {
+                if (showConfirm('Bạn có chắc chắn muốn xóa loại này không?')) {
                 // Proceed with deletion
                 fetch(`${deleteApiUrl}?categoryId=${categoryId}`, {
                     method: 'GET',

@@ -44,7 +44,7 @@ async function renderAccount(accounts) {
     }
 
     const rows = accounts.map(account => `
-        <tr data-bs-toggle="modal" data-bs-target="#updateAccountModal" data-id="${account.id}">
+        <tr data-bs-toggle="modal" data-bs-target="#updateAccountModal" data-id="${account.id}" data-role-id="${account.role_id}">
             <td>${account.username}</td>
             <td>${account.email}</td>
             <td>${account.role}</td>
@@ -349,3 +349,27 @@ function submitBanned(event) {
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sortAccount = document.getElementById('sortAccount'); // Dropdown lọc theo quyền
+    const tableBodyAccount = document.getElementById('tableBodyAccount'); // Bảng danh sách tài khoản
+
+    // Lắng nghe sự kiện thay đổi trên dropdown
+    sortAccount.addEventListener('change', () => {
+        const selectedRoleId = sortAccount.value; // Lấy giá trị được chọn từ dropdown
+
+        // Lấy tất cả các hàng trong bảng
+        const rows = tableBodyAccount.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const roleId = row.getAttribute('data-role-id'); // Lấy giá trị role_id từ thuộc tính data-role-id của hàng
+
+            // Kiểm tra xem hàng có thuộc quyền được chọn hay không
+            if (selectedRoleId === '' || roleId === selectedRoleId) {
+                row.style.display = ''; // Hiển thị hàng nếu thuộc quyền được chọn hoặc không có quyền nào được chọn
+            } else {
+                row.style.display = 'none'; // Ẩn hàng nếu không thuộc quyền được chọn
+            }
+        });
+    });
+});

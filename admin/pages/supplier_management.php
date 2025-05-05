@@ -288,7 +288,7 @@ function fetchSuppliers() {
         if (e.target && e.target.classList.contains("btn-danger")) {
             const row = e.target.closest("tr");
             const supplierId = row.dataset.id;
-            if (confirm("Bạn có chắc chắn muốn xóa nhà cung cấp này?")) {
+            if (showConfirm("Bạn có chắc chắn muốn xóa nhà cung cấp này?")) {
                 fetch(`../admin/api/product/deletesuplier.php?id=${supplierId}`, {
                     method: 'GET',
                     headers: {

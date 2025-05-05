@@ -169,11 +169,11 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
             </div>
             <div class="modal-footer" id="editImportModalFooter">
                 <div id="dungdenone">
-                <?php echo $deletePermission; ?>
-                <?php echo $updatePermission; ?>
+                    <?php echo $deletePermission; ?>
+                    <?php echo $updatePermission; ?>
                 </div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
         </div>
     </div>
 </div>
@@ -199,7 +199,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
     async function renderImportTable(data) {
         const tableBody = document.getElementById("tableBodyImport");
         tableBody.innerHTML = '';
-        
+
         if (!data || data.length === 0) {
             tableBody.innerHTML = '<tr><td colspan="7" class="text-center">Không có dữ liệu</td></tr>';
             return;
@@ -257,8 +257,8 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
             if (importData.status === 'complete') {
                 document.getElementById('dungdenone').classList.add('d-none');
                 document.getElementById('editStatusSelect').disabled = true;
-            } else {  
-                document.getElementById('dungdenone').classList.remove('d-none');             
+            } else {
+                document.getElementById('dungdenone').classList.remove('d-none');
                 document.getElementById('editStatusSelect').disabled = false;
             }
             document.getElementById('editStatusSelect').value = importData.status;
@@ -550,7 +550,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
 
         console.log(importData);
         if (importData.status === 'complete') {
-            const confirmComplete = confirm('Bạn có chắc chắn muốn hoàn thành phiếu nhập này không? \nSau khi hoàn thành, bạn sẽ không thể sửa đổi phiếu nhập này.');
+            const confirmComplete = await showConfirm('Bạn có chắc chắn muốn hoàn thành phiếu nhập này không?');
             if (!confirmComplete) {
                 return;
             } else {
@@ -582,32 +582,31 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
                     console.error('Error updating product amounts:', error);
                 }
             }
-        }
+        } 
+            try {
+                const response = await fetch('../admin/api/product/updateimport.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(importData)
+                });
 
+                const result = await response.json();
 
-        try {
-            const response = await fetch('../admin/api/product/updateimport.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(importData)
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                showToast('Cập nhật phiếu nhập thành công', 'success');
-                const editImportModal = bootstrap.Modal.getInstance(document.getElementById('editImportModal'));
-                editImportModal.hide();
-                fetchImport();
-            } else {
-                showToast(result.message || 'Có lỗi xảy ra', 'error');
+                if (response.ok) {
+                    showToast('Cập nhật phiếu nhập thành công', 'success');
+                    const editImportModal = bootstrap.Modal.getInstance(document.getElementById('editImportModal'));
+                    editImportModal.hide();
+                    fetchImport();
+                } else {
+                    showToast(result.message || 'Có lỗi xảy ra', 'error');
+                }
+            } catch (error) {
+                console.error('Error updating import:', error);
+                showToast('Có lỗi xảy ra khi cập nhật phiếu nhập', 'error');
             }
-        } catch (error) {
-            console.error('Error updating import:', error);
-            showToast('Có lỗi xảy ra khi cập nhật phiếu nhập', 'error');
-        }
+        
     });
 
     document.getElementById('deleteImportBtn').addEventListener('click', async () => {
@@ -618,7 +617,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
             return;
         }
 
-        const confirmDelete = confirm('Bạn có chắc chắn muốn xóa phiếu nhập này không?');
+        const confirmDelete = showConfirm('Bạn có chắc chắn muốn xóa phiếu nhập này không? \nSau khi xóa, bạn sẽ không thể khôi phục lại phiếu nhập này.');
         if (!confirmDelete) {
             return;
         }
@@ -860,6 +859,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
                 document.getElementById('importDetailsContainer').innerHTML = '';
                 const addImportModal = bootstrap.Modal.getInstance(document.getElementById('addImportModal'));
                 addImportModal.hide();
+                document.getElementById('supplierSelect').disabled = false;
                 fetchImport();
             } else {
                 showToast(result.message || 'Có lỗi xảy ra', 'error');
@@ -869,7 +869,7 @@ $deletePermission = $result['delete'] ? '<button type="button" class="btn btn-da
             showToast('Có lỗi xảy ra khi lưu phiếu nhập', 'error');
         }
     });
-    document.getElementById("searchInputImport").addEventListener("input", function () {
+    document.getElementById("searchInputImport").addEventListener("input", function() {
         const searchTerm = this.value.toLowerCase();
         const rows = document.querySelectorAll("#tableBodyImport tr");
         rows.forEach(row => {

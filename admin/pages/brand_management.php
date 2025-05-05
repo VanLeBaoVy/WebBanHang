@@ -237,7 +237,7 @@ $deletePermission = $result['delete'] ? '<button class="btn btn-danger btn-sm">X
             const row = e.target.closest('tr');
             const brandId = row.children[0].textContent;
 
-            if (confirm('Bạn có chắc chắn muốn xóa thương hiệu này?')) {
+            if (showConfirm('Bạn có chắc chắn muốn xóa thương hiệu này không?')) {
                 const deleteApiUrl = '../admin/api/product/deletebrand.php'; // API xóa thương hiệu
 
                 fetch(`${deleteApiUrl}?brandId=${brandId}`, {

@@ -86,7 +86,7 @@ document.addEventListener('change', async function (e) {
         }
 
         // Hiển thị hộp thoại xác nhận cho các trạng thái khác
-        const confirmChange = confirm(`Bạn có chắc chắn muốn thay đổi trạng thái đơn hàng #${orderId} ?`);
+        const confirmChange = showConfirm(`Bạn có chắc chắn muốn thay đổi trạng thái đơn hàng từ "${getStatusLabel(currentStatus)}" thành "${getStatusLabel(newStatus)}"?`);
         if (!confirmChange) {
             select.value = currentStatus; // Reset về trạng thái cũ
             return;
@@ -186,11 +186,11 @@ async function fetchfullname(id) {
             return data.fullname;
         } else {
             console.error('Error fetching fullname:', data.message);
-            return null;
+            return id;
         }
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
-        return null;
+        return id;
     }
 }
 

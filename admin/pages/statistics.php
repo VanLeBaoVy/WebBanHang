@@ -381,11 +381,11 @@ if (!hasPagePermission($_SESSION['permissions'], 'index.php?page=statistics')) {
         document.getElementById('order-id').innerText = orderData.order_id;
         document.getElementById('status').innerText = getStatusLabel(orderData.status);
         document.getElementById('created-at').innerText = orderData.created_at;
-        document.getElementById('employee-id').innerText = orderData.employee_name;
+        document.getElementById('employee-id').innerText = orderData.employee_name == null ? orderData.employee_id : orderData.employee_name;
         document.getElementById('total').innerText = orderData.total;
 
         document.getElementById('address').innerText = orderData.full_address;
-        document.getElementById('customer-name').innerText = orderData.customer_name;
+        document.getElementById('customer-name').innerText = orderData.customer_name == null ? orderData.customer_id : orderData.customer_name;
         document.getElementById('phone-number').innerText = orderData.customer_phone;
         document.getElementById('payment-method').innerText = orderData.payment_method;
         document.getElementById('reason').innerText = orderData.reason;

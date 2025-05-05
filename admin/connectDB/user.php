@@ -78,7 +78,7 @@ class DatabaseUser
 
     public function getAllUsers()
     {
-        $sql = "SELECT u.id, u.username, u.email, r.name as role_name, u.status, u.created, u.updated
+        $sql = "SELECT u.id, u.username, u.email, r.id as role_id, r.name as role_name, u.status, u.created, u.updated
                 FROM webbanhang.account u
                 JOIN webbanhang.roles r ON u.role_id = r.id
                ";
@@ -91,6 +91,7 @@ class DatabaseUser
                 'id' => $row['id'],
                 'username' => $row['username'],
                 'email' => $row['email'],
+                'role_id' => $row['role_id'],
                 'role' => $row['role_name'],
                 'status' => $row['status'],
                 'created_at' => $row['created'],

@@ -21,6 +21,31 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
+function showConfirm(message) {
+    return new Promise((resolve, reject) => {
+      // Đặt thông điệp cho modal
+      document.getElementById('confirmMessage').textContent = message;
+
+      // Lấy modal instance
+      const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+
+      // Lắng nghe sự kiện khi người dùng nhấn "Xác nhận"
+      document.getElementById('confirmActionBtn').onclick = function () {
+        resolve(true); // Trả về true nếu người dùng xác nhận
+        modal.hide();
+      };
+
+      // Lắng nghe sự kiện khi người dùng nhấn "Hủy"
+      document.querySelector('.btn-secondary').onclick = function () {
+        resolve(false); // Trả về false nếu người dùng hủy
+        modal.hide();
+      };
+
+      // Hiển thị modal
+      modal.show();
+    });
+  }
+
 async function fetchDataFromAPI() {
     try {
         const response = await fetch('../admin/api/statistics/getallorder.php');

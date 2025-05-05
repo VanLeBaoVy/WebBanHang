@@ -20,6 +20,18 @@ $deletePermission = $result['delete'] ? '<button type="button" id="btn_edit_benn
   <div class="d-flex align-items-center gap-3 mb-3">
     <?php echo $addPermission; ?>
     <input type="text" id="searchInputAccount" class="form-control me-2" placeholder="Tìm Kiếm" style="width: 50%;">
+    <select id="sortAccount" class="form-select btn-primary" style="width: 15%; ">
+      <option value="">Lọc Theo Quyền</option>
+      <?php
+      // Lấy danh sách quyền từ API
+      $url = 'http://localhost/PHP-code/webbanhang/admin/api/role/getrole.php';
+      $response = file_get_contents($url);
+      $roles = json_decode($response, true);
+      foreach ($roles as $role) {
+        echo '<option value="' . htmlspecialchars($role['id']) . '">' . htmlspecialchars($role['name']) . '</option>';
+      }
+      ?>
+    </select>
   </div>
 
   <hr class="main-hr">

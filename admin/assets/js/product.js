@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById("deleteProductButton").addEventListener("click", function () {
     const productId = this.getAttribute("data-product-id");
     if (productId) {
-        const confirmDelete = confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?" + productId + "?");
+        const confirmDelete = showConfirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
         if (confirmDelete) {
             deleteProduct(productId);
         }
