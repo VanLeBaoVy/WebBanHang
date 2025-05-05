@@ -124,10 +124,6 @@ $deletePermission = $result['delete'] ? '<button type="button" id="btn_edit_benn
         <div class="modal-body">
           <form id="updateAccountForm">
             <div class="row g-3">
-              <div class="col-12 text-center">
-                <label for="updateAvatar" class="form-label">Avatar</label>
-                <input type="text" class="form-control w-50 mx-auto" id="updateAvatar" name="updateAvatar">
-              </div>
               <div class="col-md-6">
                 <label for="updateUsername" class="form-label">Username</label>
                 <input type="text" class="form-control" id="updateUsername" name="updateUsername" readonly>

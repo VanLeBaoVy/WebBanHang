@@ -193,7 +193,6 @@ async function rederAccountDetail(account) {
     document.getElementById("updatePhoneNumber").value = account.phone_number || "";
     document.getElementById("updateCreated").value = account.created || "";
     document.getElementById("updateUpdated").value = account.updated || "";
-    document.getElementById("updateAvatar").value = account.avatar || "";
     document.getElementById("updateStatus").value = account.status === "active" ? "Hoạt động" : "Khóa tài khoản";
     const data = await fetchRoles();
     const updateRoleElement = document.getElementById("updateRoleId");
@@ -245,9 +244,6 @@ function submitEdit(event) {
     const form = document.getElementById("updateAccountForm");
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries()); // Chuyển FormData → object 
-    if (data.updateAvatar === "") {
-        data.updateAvatar = "khong co avatar";
-    }
     console.log('Form data:', data);
     for (const key in data) {
         if (data[key] === '') {
