@@ -3,6 +3,7 @@
 ini_set('log_errors', 1);
 ini_set('error_log', 'C:/xampp/php/php_error.log');
 ?>
+</div>
 
 
 
@@ -545,7 +546,7 @@ function loadPage(page) {
     document.querySelector(`.page-btn[data-page='${page}']`)?.classList.add("active");
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/productList.php", true);
+    xhr.open("POST", "/WebBanHang/static/connectDB/SearchByName.php/productList.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
@@ -577,7 +578,7 @@ function loadPage(page) {
     let priceMax = document.getElementById("loctheogiaduoi").value || 999999999;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/filterProducts.php", true);
+    xhr.open("POST", "/WebBanHang/static/connectDB/SearchByName.php/filterProducts.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
@@ -625,7 +626,7 @@ function searchByName(page = 1) {
     let searchQuery = document.getElementById("input-search").value.trim() || "";
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/SearchByName.php", true);
+    xhr.open("POST", "/WebBanHang/static/connectDB/SearchByName.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     
     xhr.onreadystatechange = function () {
@@ -660,7 +661,7 @@ function sortByPrice(order, page = 1) {
     document.querySelector(".ProductList_pagination").style.display = "none";
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/SortByPrice.php", true);
+    xhr.open("POST", "/WebBanHang/static/connectDB/SortByPrice.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
