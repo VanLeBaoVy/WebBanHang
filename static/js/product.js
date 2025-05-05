@@ -1,284 +1,97 @@
-let productCategories = [
-    {
-      productCategoryId: "PC001",
-      name: "Giày Chạy Bộ",
-      brand: "Nike",
-      description: "Dòng giày chuyên dành cho hoạt động chạy bộ, êm ái và linh hoạt."
-    },
-    {
-      productCategoryId: "PC002",
-      name: "Giày Bóng Đá",
-      brand: "Adidas",
-      description: "Thiết kế đinh tán bám sân cỏ, hỗ trợ tăng tốc và đổi hướng nhanh."
-    },
-    {
-      productCategoryId: "PC003",
-      name: "Giày Bóng Rổ",
-      brand: "Jordan",
-      description: "Đệm khí, hỗ trợ bật nhảy và bảo vệ mắt cá dành cho vận động viên bóng rổ."
-    },
-    {
-      productCategoryId: "PC004",
-      name: "Giày Tennis",
-      brand: "Wilson",
-      description: "Giày nhẹ, linh hoạt, có độ bền cao phù hợp cho mặt sân cứng."
-    },
-    {
-      productCategoryId: "PC005",
-      name: "Giày Thời Trang",
-      brand: "Puma",
-      description: "Thiết kế hiện đại, phù hợp phối đồ streetwear, dạo phố hằng ngày."
-    },
-    {
-      productCategoryId: "PC006",
-      name: "Giày Chạy Địa Hình",
-      brand: "Salomon",
-      description: "Chống trơn trượt, bám đường tốt, phù hợp cho đường núi và địa hình gồ ghề."
-    }
-  ];
-  localStorage.setItem("productCategories", JSON.stringify(productCategories));
-products = [
-    {
-      id: "P001",
-      name: "Nike Air Zoom Mercurial Superfly 10 Academy TF Mad Ambition 2929000",
-      url: "../static/img/giay da bong/nike/Nike Air Zoom Mercurial Superfly 10 Academy TF Mad Ambition 2929000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 2590000,
-      quantity: 10,
-      description: "Phiên bản giày chạy bộ với công nghệ Air Zoom mới nhất.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P002",
-      name: "Nike Air Zoom Mercurial Superfly 10 Academy TF United 3003000",
-      url: "../static/img/giay da bong/nike/Nike Air Zoom Mercurial Superfly 10 Academy TF United 3003000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 2890000,
-      quantity: 12,
-      description: "Đệm React êm ái, Flyknit thoáng khí, hỗ trợ chạy đường dài.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P003",
-      name: "Nike Air Zoom Mercurial Superfly 9 Academy TF Dream Speed 8 2349000",
-      url: "../static/img/giay da bong/nike/Nike Air Zoom Mercurial Superfly 9 Academy TF Dream Speed 8 2349000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 2100000,
-      quantity: 8,
-      description: "Thiết kế vân 3D kiểm soát bóng tốt, phù hợp sân cỏ tự nhiên.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P004",
-      name: "Nike Air Zoom Mercurial Vapor 16 Academy TF Shadow 2629000",
-      url: "../static/img/giay da bong/nike/Nike Air Zoom Mercurial Vapor 16 Academy TF Shadow 2629000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 3200000,
-      quantity: 5,
-      description: "Trọng lượng siêu nhẹ, hỗ trợ tăng tốc tối đa trên sân cỏ.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P005",
-      name: "Nike Mercurial Vapor 15 Club TF Mad Ready 1669000.jpg",
-      url: "../static/img/giay da bong/nike/Nike Mercurial Vapor 15 Club TF Mad Ready 1669000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 3500000,
-      quantity: 6,
-      description: "Thiết kế cổ điển, da cao cấp, đệm khí êm ái cho bóng rổ.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P006",
-      name: "Nike Phantom GT Pro TF Spectrum 3519000",
-      url: "../static/img/giay da bong/nike/Nike Phantom GT Pro TF Spectrum 3519000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 2900000,
-      quantity: 9,
-      description: "Sử dụng đệm React, hỗ trợ bật nhảy, phù hợp lối chơi linh hoạt.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P007",
-      name: "Nike Phantom GX Academy DF TF Peak Ready 2929000",
-      url: "../static/img/giay da bong/nike/Nike Phantom GX Academy DF TF Peak Ready 2929000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 2400000,
-      quantity: 4,
-      description: "Công nghệ 4D Support Chassis, tăng độ ổn định khi di chuyển trên sân.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P008",
-      name: "Nike Phantom GX II Pro TF Mad Voltage 4109000",
-      url: "../static/img/giay da bong/nike/Nike Phantom GX II Pro TF Mad Voltage 4109000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 1900000,
-      quantity: 15,
-      description: "Thiết kế da lộn cổ điển, phù hợp phối đồ street style.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P009",
-      name: "Nike Tiempo Legend 10 Pro TF Mad Ambition 4103000.jpg",
-      url: "../static/img/giay da bong/nike/Nike Tiempo Legend 10 Pro TF Mad Ambition 4103000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 2100000,
-      quantity: 7,
-      description: "Dáng chunky hiện đại, đế cao su bền, thời trang và năng động.",
-      size: [36, 37, 38, 41, 42]
-    },
-    {
-      id: "P010",
-      name: "Nike Tiempo Legend 10 Pro TF Mad Voltage 4109000",
-      url: "../static/img/giay da bong/nike/Nike Tiempo Legend 10 Pro TF Mad Voltage 4109000.jpg",
-      productCategoryId: "PC001",
-      brand: "Nike",
-      price: 3300000,
-      quantity: 3,
-      description: "Đế vấu lớn, bám đường tốt, dành cho chạy địa hình và trail.",
-      size: [36, 37, 38, 41, 42]
-    }
-  ];
-  localStorage.setItem("products", JSON.stringify(products));
-let listProduct = []; 
-listProduct = products;
-let pageCurrent = 1;
-let totalPage = 1;
-const perPage = 5;
-
-window.onload = loadDataProduct();
-
-function loadDataProduct() {
-    totalPage = Math.ceil(listProduct.length / perPage);
-    //renderBtnPage();
-    renderProducts(listProduct);
-    let Size=0
-    let idLogin = localStorage.getItem("idLogin") || null;
-    let userCurrent = localStorage.getItem("userCurrent") ? JSON.parse(localStorage.getItem("userCurrent")) : null;
-    if(userCurrent !== null && idLogin !== null) {
-      userCurrent.cart.forEach(product => {
-        Size += product.quantity;
-      });
-    }
-    document.getElementById("bulbleLength").textContent = Size;
-}  
-
-function formatPrice(price) {
-    return price.toLocaleString('vi-VN') + " ₫";
-}
-
-// Hàm hiển thị sản phẩm
-function renderProducts(productsToRender) {
-    const productContainer = document.getElementsByClassName("sport-maincontent__show-product")[0];
-    productContainer.innerHTML = "";
-    let txtHtml = "";
-    let start = (pageCurrent - 1) * perPage;
-    let end = (pageCurrent - 1) * perPage + perPage;
-    if (end > productsToRender.length) { 
-        end = productsToRender.length;
-    }
-    for (let i = start; i < end; i++) {
-        const product = productsToRender[i];
-        txtHtml += `<div class="product-item" onclick="openProductDetail(${i})">
-            <div class="img-product">
-                <img src="${product.url}" alt="${product.name}">
-            </div>
-            <div class="info-product">
-            <h3 class="name-product">${product.name}</h3>
-                <div class="bottom-product">
-                    <h3 class="price-product">${formatPrice(product.price)}</h3>
-                    <button class="btn">
-                        <i class="fa-solid fa-cart-plus"></i> Thêm
-                    </button>
-                </div>
-            </div>
-        </div>`;
-    }
-    productContainer.innerHTML = txtHtml;
-    renderPagination(listProduct);
-}
-function renderPagination(productsToRender) {
-    const paginationContainer = document.querySelector(".pagination");
-    let txt = "";
-
-    for (let i = 1; i <= totalPage; i++) {
-        txt += `<button class="page-btn ${i === pageCurrent ? 'active' : ''}" data-page="${i}">${i}</button>`;
-    }
-
-    paginationContainer.innerHTML = txt;
-
-    // Gắn sự kiện chuyển trang
-    const pageButtons = document.querySelectorAll(".page-btn");
-    pageButtons.forEach(btn => {
-        btn.addEventListener("click", function () {
-            pageCurrent = parseInt(this.getAttribute("data-page"));
-            renderProducts(productsToRender);
-        });
-    });
-}
 
 // Hàm mở form chi tiết sản phẩm
-function openProductDetail(index) {
-    const product = listProduct[index];
-    if (product.quantity === 0) { 
-        alert("Sản phẩm đã hết hàng.");
-        return;
-    };
-    const txt = `
-        <div class="product-detail-content"
-            <div class="product-detail-left">
-                <img class="image-detail" id="product-image" src="${product.url}" alt="Product Image">
-            </div>
-            <div class="product-detail-right">
-                <h2 id="product-name">${product.name}</h2>
-                <p class="product-brand">Thương hiệu: ${product.brand}</p>
-                <p class="product-price" id="product-price">Giá: ${formatPrice(product.price)}</p>
-                <p id="product-description">${product.description}</p>
-                <label for="note">Ghi chú:</label>
-                <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
-                <div class="quantity-area">
-                    <div class="quantity-wrapper">
-                        <span>Số lượng:</span><br>
-                        <div class="btnCustom" value="details-product">
-                            <button class="btnCustomAsc" onclick="decreaseQuantity(this, ${index})">-</button>
-                            <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1" min="1"
-                                oninput="inputQuantity(this, ${index})">
-                            <button class="btnCustomDesc" onclick="increaseQuantity(this, ${index})">+</button>
-                        </div>
-                    </div>
-                    <div class="size-wrapper">
-                        <span>Size:</span>
-                        <select id="size-product-details">
-                            ${product.size.map(size => `<option value="${size}">${size}</option>`).join("")}
-                        </select>
-                </div>
-                </div>
-                <div class="total-price">
-                    <p>Thành tiền: <span id="total-price"></span></p>
-                </div>
-                <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
-                <button class="__foot__buy" onclick="buyNow(event, '${product.id}')">Mua ngay</button>
-            </div>
-            <span class="close-btn" onclick="closeProductDetail()">Trở lại</span>
-        </div>`;
-    
-    document.getElementById("container_infor").innerHTML = txt;
-    document.getElementById("container_infor").style.display = "flex";
-    document.getElementById("container").style.display = "none";
-    const basePrice = product.price;
-    updateTotalPrice(basePrice);
-``
-}
+    let listProduct = []; 
+    let pageCurrent = 1;
+    let totalPage = 1;
+    const perPage = 5;
+
+    // Load dữ liệu sản phẩm từ productList.php khi tải trang
+    window.onload = loadDataProduct;
+
+    function loadDataProduct() {
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "../static/connectDB/productList_JSON.php", true);
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+              
+  
+              if (xhr.status === 200) {
+                  try {
+                      let data = JSON.parse(xhr.responseText);
+                      
+                      listProduct = data;
+                      totalPage = Math.ceil(listProduct.length / perPage);
+                      xhr.open("GET", "../static/connectDB/productList.php", true);
+                  } catch (e) {
+                      console.error("❌ Lỗi khi parse JSON:", e);
+                  }
+              } else {
+                  console.error(`❌ Lỗi HTTP: ${xhr.status}`);
+              }
+          }
+      };
+      xhr.send();
+  }
+  
+
+
+    function formatPrice(price) {
+      return price.toLocaleString('vi-VN') + " ₫";
+    }
+
+    // Hàm mở form chi tiết sản phẩm
+    function openProductDetail(index) {
+      const product = listProduct[index - 1];
+      console.log("✅ sản phẩm", product.id);
+
+      if (product.quantity === 0) { 
+          alert("Sản phẩm đã hết hàng.");
+          return;
+      }
+      const txt = `
+          <div class="product-detail-content">
+              <div class="product-detail-left">
+                  <img class="image-detail" id="product-image" src="${product.url}" alt="Product Image">
+              </div>
+              <div class="product-detail-right">
+                  <h2 id="product-name">${product.name}</h2>
+                  <p class="product-brand">Thương hiệu: ${product.brand}</p>
+                  <p class="product-price" id="product-price">Giá: ${formatPrice(product.price)}</p>
+                  <p id="product-description">${product.description}</p>
+                  <label for="note">Ghi chú:</label>
+                  <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
+                  <div class="quantity-area">
+                      <div class="quantity-wrapper">
+                          <span>Số lượng:</span><br>
+                          <div class="btnCustom" value="details-product">
+                              <button class="btnCustomAsc" onclick="decreaseQuantity(this, ${index})">-</button>
+                              <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1" min="1"
+                                  oninput="inputQuantity(this, ${index})">
+                              <button class="btnCustomDesc" onclick="increaseQuantity(this, ${index})">+</button>
+                          </div>
+                      </div>
+                      <div class="size-wrapper">
+                          <span>Size:</span>
+                          <select id="size-product-details">
+                              ${product.size.map(size => `<option value="${size}">${size}</option>`).join("")}
+                          </select>
+                      </div>
+                  </div>
+                  <div class="total-price">
+                      <p>Thành tiền: <span id="total-price"></span></p>
+                  </div>
+                  <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
+                  <button class="__foot__buy" onclick="buyNow(event, '${product.id}')">Mua ngay</button>
+              </div>
+              <span class="close-btn" onclick="closeProductDetail()">Trở lại</span>
+          </div>`;
+      
+      document.getElementById("container_infor").innerHTML = txt;
+      document.getElementById("container_infor").style.display = "flex";
+      document.getElementById("container").style.display = "none";
+      const basePrice = product.price;
+      updateTotalPrice(basePrice);
+    }
 
 // Hàm tổng thanh toán
 function updateTotalPrice(basePrice) {
@@ -296,6 +109,8 @@ let userCurrent = {
     idLogin: localStorage.getItem("idLogin") || null,
     cart: []
 }
+console.log("✅ Biến userCurrent:", userCurrent);
+
 // Hàm tăng số lượng
 function increaseQuantity(obj, index) {
     const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
@@ -395,14 +210,15 @@ function inputQuantity(obj, index) {
 // Hàm thêm vào giỏ hàng
 function addToCart() {
     const account = accounts.find(account => account.accountId === userCurrent.idLogin);
+    console.log(account);
     if (userCurrent.idLogin === null) {
         alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
         return;
     }
-    else if (account.status === "Bị khoá") { 
+    /* else if (account.status === "Bị khoá") { 
         alert("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
         return;
-    }
+    } */
     const productCheckout = {};
     productCheckout.name = document.getElementById("product-name").textContent;
     productCheckout.quantity = parseInt(document.getElementById("quantity-product-details").value);
@@ -619,28 +435,15 @@ function toggleDropdown(idelement) {
     document.getElementById("totalPrice").textContent = formatPrice(totalPrice);
     document.getElementById("totalProduct").textContent = totalProduct;
   }
-  // function interface_cart(gia, sl, item) {
-  //   item.forEach((lengthProduct, id) => {
-  //     console.log(lengthProduct, "----------", id);
-  //   });
-  //   let idLogin = localStorage.getItem("idLogin") || null;
-  //   let customers = [];
-  //   customers = JSON.parse(localStorage.getItem("customers")) || [];
-  //   let user = customers.find(customer => customer.accountId === idLogin);
-  //     if (user.name === null || user.name === "" || user.phoneNumber === null || user.phoneNumber === "" || user.address === null || user.address === "") {
-  //       showNotification('Vui lòng cập nhật thông tin cá nhân để thanh toán', 'error');
-  //     } else {
-  //       printThanhToan(gia, sl, item);
-  //     }
-  // }
+
   function interface_cart(gia, sl, item) {
     if (!dataLoaded) {
       showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
       return false;
     }
-    item.forEach((lengthProduct, id) => {
+/*     item.forEach((lengthProduct, id) => {
       console.log(lengthProduct, "----------", id);
-    });
+    }); */
     let idLogin = localStorage.getItem("idLogin") || null;
     console.log(idLogin);
     // Tìm user theo accountId

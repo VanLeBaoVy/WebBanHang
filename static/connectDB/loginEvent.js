@@ -3,7 +3,7 @@ let profiles = [];
 let roles = [];
 let address = [];
 let role_permissions = [];
-dataLoaded = false;
+let dataLoaded = false;
 async function fetchLogin() {
 	accounts = [];
 	profiles = [];
@@ -49,7 +49,6 @@ async function fetchLogin() {
 }
 window.addEventListener("DOMContentLoaded", async () => {
 	await fetchLogin(); // đảm bảo xong rồi mới cho người dùng thao tác
-	await fetchPurchase();
 });
 function showSignUp(event) {
     if (!dataLoaded) {
@@ -136,7 +135,7 @@ function showSignIn(event) {
 		password: passwordSignIn.value,
 		username: fullNameSignIn.value,
         email: emailSignIn ? emailSignIn.value : '',
-        role_id: '1',
+        role_id: '16',
 		status: 'active',
         created: new Date().toISOString().slice(0, 19).replace('T', ' '),
         updated: new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -169,10 +168,6 @@ function showSignIn(event) {
 	closeFormLogin();
 }
 function changepassword1234(event) {
-	if (!dataLoaded) {
-        showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
-        return false;
-    }
 	event.preventDefault();
 	event.stopPropagation();
 	const oldpassword = document.forms['frmChangePassword']['password-infor'];
@@ -233,10 +228,6 @@ function changepassword1234(event) {
 }
 function upDateUserAddress(id, updatedUser, address) {
     // Cập nhật local
-	if (!dataLoaded) {
-        showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
-        return false;
-    }
     const accountIndex = accounts.findIndex(acc => acc.id === id);
 	console.log(accountIndex);
     if (accountIndex === -1) {
@@ -284,10 +275,7 @@ function updateinfor1234(event) {
 	event.preventDefault();
 	event.stopPropagation();
 	let check = true;
-	if (!dataLoaded) {
-        showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
-        return false;
-    }
+
 	const fullname = document.forms['frminfor']['fullname-infor'];
 	const email = document.forms['frminfor']['email-infor'];
 	const phone = document.forms['frminfor']['phone-infor'];
@@ -366,10 +354,6 @@ function updateinfor1234(event) {
 function saveNewPasswordToDatabase(accountId, newPassword) {
 	console.log("account cần đổi có id: " + accountId);
 	console.log("Pass mới: " + newPassword);
-	if (!dataLoaded) {
-        showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
-        return false;
-    }
 	fetch('../static/connectDB/update_password.php', {
 		method: 'POST',
 		headers: {
@@ -397,10 +381,7 @@ function saveNewPasswordToDatabase(accountId, newPassword) {
 function deleteaddress1234() {
 	const addressSelect = document.forms['frminfor']['addree-infor-1234'];
 	const addressId = addressSelect.value;
-	if (!dataLoaded) {
-        showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
-        return false;
-    }
+  
 	if (!addressId) {
 		showNotification('Vui lòng chọn địa chỉ để xóa', 'error');
 		return;
@@ -429,10 +410,7 @@ function deleteaddress1234() {
   function showaddress() {
 	  const addressSelect = document.forms['frminfor']['addree-infor-1234'];
 	  addressSelect.innerHTML = ``;
-	  if (!dataLoaded) {
-        showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
-        return false;
-      }
+  
 	  const idLogin = localStorage.getItem('idLogin');
 	  if (!idLogin) {
 		  console.error("Không tìm thấy idLogin trong localStorage");
