@@ -66,5 +66,49 @@
             }
             return $address;
         }
+        public function getAllOrder() {
+            $sql = "SELECT * FROM orders";
+            $result = $this->conn->query($sql);
+            $order = [];
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $order[] = $row;
+                }
+            }
+            return $order;
+        }
+        public function getAllOrderDetail() {
+            $sql = "SELECT * FROM order_detail";
+            $result = $this->conn->query($sql);
+            $orderDetail = [];
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $orderDetail[] = $row;
+                }
+            }
+            return $orderDetail;
+        }
+        public function getAllProduct() {
+            $sql = "SELECT * FROM product";
+            $result = $this->conn->query($sql);
+            $products = [];
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $products[] = $row;
+                }
+            }
+            return $products;
+        }
+        public function getAllSize() {
+            $sql = "SELECT * FROM size";
+            $result = $this->conn->query($sql);
+            $sizes = [];
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $sizes[] = $row;
+                }
+            }
+            return $sizes;
+        }
     }
 ?>

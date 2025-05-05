@@ -7,7 +7,7 @@ async function fetchPurchase() {
 	order = [];
     orderDetail = [];
     products = [];
-    sizes = [];
+    size = [];
     try {
         const [orderRes,orderDetailRes,productsRes,sizeRes] = await Promise.all([
             fetch('../static/connectDB/get_order.php'),

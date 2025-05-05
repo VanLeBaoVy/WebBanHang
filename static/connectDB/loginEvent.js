@@ -49,7 +49,7 @@ dataLoaded = false;
 	}
 	window.addEventListener("DOMContentLoaded", async () => {
 		await fetchLogin(); // đảm bảo xong rồi mới cho người dùng thao tác
-	await fetchPurchase();
+		await fetchPurchase();
 	});
 	function showSignUp(event) {
 		if (!dataLoaded) {
