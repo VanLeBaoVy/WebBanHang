@@ -136,7 +136,7 @@ function showSignIn(event) {
 		password: passwordSignIn.value,
 		username: fullNameSignIn.value,
         email: emailSignIn ? emailSignIn.value : '',
-        role_id: '10',
+        role_id: '1',
 		status: 'active',
         created: new Date().toISOString().slice(0, 19).replace('T', ' '),
         updated: new Date().toISOString().slice(0, 19).replace('T', ' ')
