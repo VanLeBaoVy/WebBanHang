@@ -327,8 +327,11 @@ function submitBanned(event) {
                     if (data.status === 'success') {
                         const account = data.data;
                         console.log('Account details:', account);
+                        showToast("Tài khoản đã được khóa thành công", "success");
                         rederAccountDetail(account);
                         fetchAccountData(); // Refresh the account data
+                        const modal = document.getElementById('updateAccountModal');
+                        closeModal(modal);
                     } else {
                         console.error('No account data found for ID:', accountId);
                     }

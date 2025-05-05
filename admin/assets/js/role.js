@@ -69,11 +69,12 @@ function renderTable(roles) {
     console.log("skjdhviuds",roles);
     roles.forEach(role => {
         const row = document.createElement('tr');
-        let roleBtn = role.role_id !== '1' ? `
+        let roleBtn = role.role_id !== '2' ? `
         <td class="text-center align-middle">
             <button class="btn btn-danger btn-sm delete-role-btn" onclick="deleteRole(${role.role_id}, '${role.role_name}', event)">Xóa</button>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editRoleModal" onclick="loadRoleDetails(${role.role_id}, '${role.role_name}', event)">Sửa</button>
-        </td>` : `<td class="text-center align-middle">hihi</td>`;
+        </td>` : `<td class="text-center align-middle">            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editRoleModal" onclick="loadRoleDetails(${role.role_id}, '${role.role_name}', event)">Sửa</button>
+</td>`;
         const roleCell = `<td>${role.role_name}</td>`;
         // const permissionsMap = Object.fromEntries(
         //     role.permissions.map(perm => [
