@@ -55,7 +55,7 @@ echo '
      <!-- Thêm Logout ở cuối -->
     <hr class="border-light">';
 
-if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {
+if (isset($_SESSION['role']) && $_SESSION['role'] == 2) {
         echo '<div class="nav"><a class="nav-link text-white" href="index.php?page=role_management">
                   <i class="bi bi-gear-fill"> Role</i>
               </a></div>';

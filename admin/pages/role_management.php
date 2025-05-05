@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-if ($_SESSION['role'] != 1) {
+if ($_SESSION['role'] != 2) {
     header("Location: login.php"); // Chuyển hướng đến trang đăng nhập
     exit();
 }
