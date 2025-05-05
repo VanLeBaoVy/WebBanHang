@@ -170,8 +170,13 @@ function purchaseHistoryOrderContent(orderID, element) {
     console.log(order);
     order.forEach((order1) => {
         if (order1.id == orderID && order1.account_id == idLogin) {
+          console.log(order1);
           console.log(profiles);
           let profile = profiles.find(pro => pro.id === idLogin);
+          console.log(order1.address_id);
+          let AD = address.find(ad => ad.id === order1.address_id);
+          console.log(AD);
+          let string = AD.street + ', ' + AD.ward + ', ' + AD.district + ', ' + AD.city;
           innerContainer.innerHTML = `
     <div style="padding: 0 10px;text-align: center;margin-top: 30px;font-size: 2.5rem; font-weight: bold;">Thông Tin Đơn Hàng</div>
     <div class="chitiet">
@@ -186,7 +191,7 @@ function purchaseHistoryOrderContent(orderID, element) {
               </div>
               <div class="chitiet-text">
               <i class="fa-solid fa-location-dot"></i>
-              <span  id="chitiet-address">${order1.address}</span>
+              <span  id="chitiet-address">${string}</span>
               </div>
           </div>
           <div class="inner-chitiet">
