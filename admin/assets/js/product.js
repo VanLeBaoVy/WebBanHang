@@ -372,10 +372,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-document.getElementById("deleteProductButton").addEventListener("click", function () {
+document.getElementById("deleteProductButton").addEventListener("click", async function () {
     const productId = this.getAttribute("data-product-id");
     if (productId) {
-        const confirmDelete = showConfirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+        const confirmDelete = await showConfirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
         if (confirmDelete) {
             deleteProduct(productId);
         }

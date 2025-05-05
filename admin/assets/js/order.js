@@ -86,7 +86,7 @@ document.addEventListener('change', async function (e) {
         }
 
         // Hiển thị hộp thoại xác nhận cho các trạng thái khác
-        const confirmChange = showConfirm(`Bạn có chắc chắn muốn thay đổi trạng thái đơn hàng từ "${getStatusLabel(currentStatus)}" thành "${getStatusLabel(newStatus)}"?`);
+        const confirmChange = await showConfirm(`Bạn có chắc chắn muốn thay đổi trạng thái đơn hàng từ "${getStatusLabel(currentStatus)}" thành "${getStatusLabel(newStatus)}"?`);
         if (!confirmChange) {
             select.value = currentStatus; // Reset về trạng thái cũ
             return;
