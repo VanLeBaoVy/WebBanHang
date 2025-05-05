@@ -448,6 +448,7 @@ $conn->close();
  
     <script src="../static/js/branchs.js"></script>
     <script src="../static/js/login3.js"></script>
+    <script src="../static/connectDB/purchaseHistoryEvent.js"></script>
     <script src="../static/connectDB/loginEvent.js"></script>
     <script src="../static/js/product.js"></script>
     <script src="../static/js/purchaseHistory2.js"></script>

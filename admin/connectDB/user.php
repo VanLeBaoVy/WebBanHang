@@ -186,13 +186,13 @@ class DatabaseUser
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    function updateUser($userId, $email, $role, $fullname, $phone_number, $avatar, $created)
+    function updateUser($userId, $email, $role, $fullname, $phone_number, $created)
     {
         $stmt = $this->connection->prepare("UPDATE webbanhang.account SET email = ?, role_id = ?, created = ?, updated = NOW() WHERE id = ?");
         $stmt->bind_param("sisi", $email, $role, $created, $userId);
         if ($stmt->execute()) {
-                $stmt2 = $this->connection->prepare("UPDATE webbanhang.profile SET fullname = ?, phone_number = ?, avatar = ? WHERE id = ?");
-                $stmt2->bind_param("sssi", $fullname, $phone_number, $avatar, $userId);
+                $stmt2 = $this->connection->prepare("UPDATE webbanhang.profile SET fullname = ?, phone_number = ?, avatar = null WHERE id = ?");
+                $stmt2->bind_param("ssi", $fullname, $phone_number, $userId);
                 if ($stmt2->execute()) {
                     return true; // Cập nhật thông tin cá nhân thành công
                 } else {

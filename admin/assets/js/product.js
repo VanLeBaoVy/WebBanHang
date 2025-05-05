@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const link = new URLSearchParams(window.location.search).get('page');
     console.log(link);
-    if (link === 'product_management' ) {
+    if (link === 'product_management') {
         fetchProducts();
     }
 });
@@ -43,7 +43,7 @@ async function renderDataProducts(data) {
     productTableBody.innerHTML = ''; // Clear existing rows
 
     data.forEach(product => {
-        
+
         let size = "";
         let amount = 0;
         product.size.forEach(item => {
@@ -52,12 +52,12 @@ async function renderDataProducts(data) {
         });
         size = size.slice(0, -2); // Remove trailing comma and space
         const row = document.createElement('tr');
-        row.addEventListener('click', () => 
+        row.addEventListener('click', () =>
             console.log('Row clicked:', product.product_id) ||
             fetch(`../admin/api/product/getproductbyid.php?id=${product.product_id}`)
-            .then(response => response.json())
-            .then(productData => openEditModal(productData.data))
-            .catch(error => console.error('Error fetching product details:', error))
+                .then(response => response.json())
+                .then(productData => openEditModal(productData.data))
+                .catch(error => console.error('Error fetching product details:', error))
         );
         row.innerHTML = `
             <td>${product.product_name}</td>
@@ -74,7 +74,7 @@ async function renderDataProducts(data) {
     });
 }
 
-document.getElementById('searchInputProduct').addEventListener('input', function() {
+document.getElementById('searchInputProduct').addEventListener('input', function () {
     const searchTerm = this.value.toLowerCase();
     const rows = document.querySelectorAll('#productTableBody tr');
     rows.forEach(row => {
@@ -92,7 +92,7 @@ document.getElementById('searchInputProduct').addEventListener('input', function
 document.getElementById('addSizeRow').addEventListener('click', function () {
     const container = document.getElementById('sizeQuantityContainer');
     const newRow = document.createElement('div');
-    newRow.classList.add('d-flex', 'mb-2', 'gap-2', 'size-row'); 
+    newRow.classList.add('d-flex', 'mb-2', 'gap-2', 'size-row');
     newRow.innerHTML = `
         <input type="text" class="form-control" name="sizes[]" placeholder="Size (ví dụ: 38, 39, M...)" required>
         <input type="number" class="form-control" name="amounts[]" value="0" required readonly>
@@ -115,13 +115,13 @@ function deleteRowIfZero(button) {
 document.getElementById('addEditSizeRow').addEventListener('click', function () {
     const container = document.getElementById('editSizeQuantityContainer');
     const sizeRow = document.createElement('div');
-        sizeRow.classList.add('d-flex', 'mb-2', 'gap-2');
-        sizeRow.innerHTML = `
+    sizeRow.classList.add('d-flex', 'mb-2', 'gap-2');
+    sizeRow.innerHTML = `
             <input type="number" class="form-control" name="sizes[]" placeholder="Size" value="" required>
             <input type="number" class="form-control" name="amounts[]" placeholder="Số lượng" value="0" readonly>
             <button type="button" class="btn btn-danger btn-sm" onclick="deleteRowIfZero(this)">X</button>
         `;
-        container.appendChild(sizeRow);
+    container.appendChild(sizeRow);
 });
 // Lắng nghe sự kiện xóa dòng size
 document.addEventListener('click', function (e) {
@@ -180,6 +180,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (result.success) {
                 showToast('Thêm sản phẩm thành công!', 'success');
                 addProductForm.reset();
+                addProductForm.reset();
+                document.getElementById('productImagePreview').src = '#'; // Reset ảnh preview
+                document.getElementById('productImagePreview').style.display = 'none'; // Ẩn ảnh preview
+                document.getElementById('sizeQuantityContainer').innerHTML = `
+                <div class="d-flex mb-2 gap-2 size-row">
+                                    <input type="text" class="form-control" name="sizes[]" placeholder="Size (ví dụ: 38, 39, M...)" required>
+                                    <input type="number" class="form-control" name="quantities[]" value="0" readonly>
+                                    <button type="button" class="btn btn-danger remove-size-row">X</button>
+                                </div>`;
+
                 const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
                 modal.hide();
                 fetchProducts(); // cập nhật danh sách sản phẩm
@@ -246,7 +256,7 @@ document.getElementById("editProductForm").addEventListener("submit", async func
     e.preventDefault();
 
     const form = e.target;
-    
+
     const productData = {
         id: form.id.value,
         name: form.name.value,
@@ -377,7 +387,10 @@ document.getElementById("deleteProductButton").addEventListener("click", async f
     if (productId) {
         const confirmDelete = await showConfirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
         if (confirmDelete) {
-            deleteProduct(productId);
+            await deleteProduct(productId);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
+            modal.hide();
+            fetchProducts();
         }
     } else {
         showToast("Không tìm thấy ID sản phẩm để xóa.", "error");
@@ -395,15 +408,13 @@ async function deleteProduct(productId) {
 
         const result = await response.json();
         if (result.success) {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
-            modal.hide();
-            fetchProducts(); // Cập nhật lại danh sách sản phẩm
+             // Cập nhật lại danh sách sản phẩm
         } else {
             showToast('Xóa sản phẩm thất bại: ' + result.message, 'error');
         }
     } catch (error) {
         console.error('Lỗi khi xóa sản phẩm:', error);
-        showToast('Đã xảy ra lỗi khi xóa sản phẩm.', 'error');
+        console.error('Đã xảy ra lỗi khi xóa sản phẩm.', error);
     }
 }
 
