@@ -103,9 +103,11 @@ function run_address() {
                                 const newAddress = diachi.value + ", " + data.data[index].name + ", " + data.data[index].level2s[index2].name + ", " + data.data[index].level2s[index2].level3s[index3].name;
                                 // console.log(newAddress);
                                 let customers = JSON.parse(localStorage.getItem('customers')) || [];
+                                console.log("NNNNNNNNNNNN"+customers);
                                 let userCurrent = localStorage.getItem("userCurrent");
                                 let idLogin = userCurrent.idLogin || null;
                                 let user = customers.find(customer => customer.accountId === idLogin);
+                                console.log("NNNNNNNNNNNN"+user);
                                 if (!user) {
                                     showNotification("Không tìm thấy người dùng trong danh sách", "error");
                                     return;
@@ -134,45 +136,12 @@ function run_address() {
         // Huyen(jsonAddress, index);
     });
 }
-// function payCart() {
-//     const chooesProduct = document.querySelectorAll(".choose-product");
-//     let idProduct = new Map();
-//     let userCurrent = localStorage.getItem('idLogin'), (user) => {
-//       if (user.cart instanceof Map) {
-//         chooesProduct.forEach((x) => {
-//           if (x.checked) {
-//             if (user.cart.has(x.value)) {
-//               idProduct.set(x.value, user.cart.get(x.value));
-//             }
-//           }
-//         });
-//         if (idProduct.size === 0) {
-//           showNotification('Vui lòng chọn sản phẩm cần thanh toán', 'error');
-//         } else {
-//           console.log(idProduct);
-//           // Thực hiện thanh toán
-//           // ...
-//           // Xóa sản phẩm đã thanh toán khỏi giỏ hàng
-//           simulateLoading(200);
-//           // printCart();
-  
-//           const tmpgia = document.getElementById("totalPrice").textContent;
-//           const tmpsl = document.getElementById("totalProduct").textContent;
-//           console.log(tmpgia, "hdkjsahjfkhákjh", tmpsl);
-//           interface_cart(tmpgia, tmpsl, idProduct);
-  
-//         }
-//       }
-//     };
-// }
+
 function payCart() {
     const userJSON = localStorage.getItem('userCurrent');
-    if (!userJSON) {
-      showNotification("Không tìm thấy thông tin người dùng", "error");
-      return;
-    }
-  
+
     const user = JSON.parse(userJSON);
+    
     const cartObject = user.cart || {};
   
     // Chuyển object -> Map để xử lý
@@ -186,10 +155,6 @@ function payCart() {
     const tmpgia = document.getElementById("totalPrice").textContent;
     const tmpsl = document.getElementById("totalProduct").textContent;
   
-    // In thông tin để kiểm tra
-    console.log("Dữ liệu giỏ hàng:", cart);
-    console.log("Tổng tiền:", tmpgia);
-    console.log("Tổng số lượng:", tmpsl);
   
     // Gọi hàm xử lý giao diện giỏ hàng (hoặc thanh toán)
     interface_cart(tmpgia, tmpsl, cart);
@@ -234,8 +199,8 @@ function thanhtoan__showitem(item_p, sl) {
 
 
 function thanhtoan__showlist(key, val) {
-    console.log("item: ", key);
-    console.log("value: ", val);
+/*     console.log("item: ", key);
+    console.log("value: ", val); */
     thanhtoan__showitem(val, val.quantity);
 }
 
@@ -414,7 +379,7 @@ function thanhtoan_showcard(){
 
 // / thnah toán 
 function printThanhToan(gia, sl, item) {
-    console.log("printThanhToan");
+/*     console.log("printThanhToan"); */
     const content = `
     <div id="thanhtoan">
         <div class="grid">
@@ -594,11 +559,11 @@ function printThanhToan(gia, sl, item) {
         ;
     document.getElementById("container").innerHTML = content;
     contentInfor();
-    console.log("gia", gia, "sl", sl, "item", item);
+/*     console.log("gia", gia, "sl", sl, "item", item); */
     // innerPurchaseSumary();
     // thanhtoan_showaddress();
     item.forEach((val, key) => {
-        console.log("item: ", key, val);
+    /*     console.log("item: ", key, val); */
         thanhtoan__showlist(key, val);
     });
     document.getElementById('thanhtoanSubmit').addEventListener('click', function () {
@@ -793,18 +758,10 @@ function submitthanhtoan(item, gia,sl) {
     } else if (phuongthuc === "tienmat") {
         chitietbank = "shipCOD";
     }
-    // console.log(address, phuongthuc, card, selectedRadio);
-    // if (phuongthuc === "visa" && chitietbank === undefined) {
-    //     showNotification("Vui lòng chọn thẻ", "warning");
-    //     return;
-    // }
-    // if (phuongthuc === "ck" && chitietbank === undefined) {
-    //     showNotification("Vui lòng chọn ngân hàng", "warning");
-    //     return;
-    // }
+    
 
     innerPurchaseSumary(gia, sl, item,chitietbank);
-    // xacNhanThanhToanThanhCong(chitietbank,phuongthuc,item,gia);
+
     
 }
 order = [];
