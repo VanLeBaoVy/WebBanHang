@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("sbckabsvsksjj")
     const link = new URLSearchParams(window.location.search).get('page');
     if (link === 'role_management') {
         fetchPermissions();
