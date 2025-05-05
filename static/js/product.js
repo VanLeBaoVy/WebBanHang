@@ -20,6 +20,7 @@
                       let data = JSON.parse(xhr.responseText);
                       
                       listProduct = data;
+                      
                       totalPage = Math.ceil(listProduct.length / perPage);
                       xhr.open("GET", "../static/connectDB/productList.php", true);
                   } catch (e) {
@@ -41,13 +42,10 @@
 
     // Hàm mở form chi tiết sản phẩm
     function openProductDetail(index) {
-      const product = listProduct[index - 1];
-      console.log("✅ sản phẩm", product.id);
+      const product = listProduct[index - 78];
+      
+      console.log("✅ sản phẩm", index);
 
-      if (product.quantity === 0) { 
-          alert("Sản phẩm đã hết hàng.");
-          return;
-      }
       const txt = `
           <div class="product-detail-content">
               <div class="product-detail-left">
@@ -87,6 +85,7 @@
           </div>`;
       
       document.getElementById("container_infor").innerHTML = txt;
+      console.log(txt);
       document.getElementById("container_infor").style.display = "flex";
       document.getElementById("container").style.display = "none";
       const basePrice = product.price;
