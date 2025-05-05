@@ -1,0 +1,27 @@
+.sidebar .nav-link {
+    color: white;
+}
+
+.active {
+    background-color: #fff !important;
+    /* Màu nền mới */
+    color: #000!important;
+    /* Màu chữ mới */
+    border-radius: 5px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #f8f4f4;
+    border-radius: 5px;
+    color: #000 !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.user-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.hover-pointer {
+    cursor: pointer;
+}
