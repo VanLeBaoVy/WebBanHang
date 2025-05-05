@@ -1,5 +1,14 @@
+<div?php
+// Kích hoạt ghi log lỗi PHP để debug
+ini_set('log_errors', 1);
+ini_set('error_log', 'C:/xampp/php/php_error.log');
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,34 +36,15 @@
           <button class="btn__Home_Logo" onclick="window.location.href='index.php'">
             <img src="../static/img/logo.jpg" alt="logo" class="img-logo" />
           </button>
-          <div class="area_sport-btn">
-            <button type="button" class="sport-dropdown-btn" id="sport-dropdown-btn" onclick="toggleDropdown('sport__dropdown--list')">
-              Các loại giày
-              <span class="dropdown-icon">&#9662;</span>
-            </button>
-            <button type="button" id="__back" style="display: none;" class="sport-dropdown-btn">
-              Trở lại
-            </button>
-            <ul class="sport__dropdown--list" id="sport__dropdown--list">
-              <li class="course__dropdown--item" onclick="sportDropDownBtn()">Tất cả các loại giày</li>
-              <li class="course__dropdown--item" id="course__dropdown--item1" onclick="clickSidebar('1')">Giày leo núi</li>
-              <li class="course__dropdown--item" id="course__dropdown--item2" onclick="clickSidebar('2')">Giày chạy bộ</li>
-              <li class="course__dropdown--item" id="course__dropdown--item3" onclick="clickSidebar('3')">Giày bóng đá</li>
-              <li class="course__dropdown--item" id="course__dropdown--item4" onclick="clickSidebar('4')">Giày bóng rổ</li>
-              <li class="course__dropdown--item" id="course__dropdown--item5" onclick="clickSidebar('5')">Giày đạp xe</li>
-              <li class="course__dropdown--item" id="course__dropdown--item6" onclick="clickSidebar('6')">Giày tập gym</li>
-            </ul>
-          </div>
+      
         </div>
         <div class="nav-list nav-list2">
           <div class="nav-search">
-            <button class="search-item icon-search" id="icon-search">
+            <button class="search-item icon-search" id="icon-search" onclick="searchByName()">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
             <input class="search-item input-search" id="input-search" type="text" placeholder="Tim Kiem" />
-            <button class="search-item filter-search" id="filter-search" onclick="modeFilter()">
-              <i class="fa-solid fa-filter"></i>
-            </button>
+
           </div>
         </div>
         <div class="nav-list nav-list3">
@@ -160,6 +150,7 @@
       </div>
       <!-- end login -->
     </div>
+    <!-- banner -->
     <div class="container" id="container">
         <div class="home-wrapper">
           <div class="banner">
@@ -179,105 +170,191 @@
             </div>
           </div>
         </div>
-        <div class="content-sport grid" id="content-sport">
+<!--end banner -->
+
+<!-- side bar -->
+    <div class="content-sport grid" id="content-sport">
           <div class="wrapper">
           <div class="sport-sidebar">
             <div class="sport-sidebar__title" id="sport-sidebar__title"><p onclick="showTopicOverview()">PHÂN LOẠI</p>
-              <div class="filter__select-box__all" id="filterrrrr" > 
-                <input type="checkbox" class="filter__select" id="filter__select-box__all" />
-                <p style="margin: 0;">chọn tất cả</p>
-              </div>
+            <button class="search-item filter-search" id="filter-search" onclick="modeFilter()">
+              <i class="fa-solid fa-filter"></i>
+            </button>
             </div>
             <div class="sport-sidebar__list" id="sport-sidebar__list">
+<!-- side bar - thương hiệu --> 
+
+<div>
+
+             
               <div class="sport-sidebar__item" id="sport-sidebar__item1">
-                <input type="checkbox" class="filter__select-box filter__select-box__item" id="filter__checkbox__1">
+                
                 <div onclick="toggleDropdown('1__list');changeColorMainSportOnSelect('1'); displayMainSportSidebarProduct('1')">
                   Thương hiệu 
                 </div>
               </div>
-              <ul class="sidebarlist 1__list" id="1__list">
-                <li class="sidebaritem 1__item" id="__item1_1">
-                  <input type="checkbox" value="1_1" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_1__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_1');changeColorMainSportOnSelect('1')">
-                    <div>Nike</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-                <li class="sidebaritem 1__item" id="__item1_2">
-                  <input type="checkbox" value="1_2" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_2__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_2');changeColorMainSportOnSelect('1')">
-                    <div>Balanciaga</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-                <li class="sidebaritem 1__item" id="__item1_3">
-                  <input type="checkbox" value="1_3" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_3__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_3');changeColorMainSportOnSelect('1')">
-                    <div>Adidas</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-                <li class="sidebaritem 1__item" id="__item1_4">
-                  <input type="checkbox" value="1_4" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_4__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('1_4');changeColorMainSportOnSelect('1')">
-                    <div>Jodan</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-              </ul>
-              <div class="sport-sidebar__item" id="sport-sidebar__item2">
-                <input type="checkbox" class="filter__select-box filter__select-box__item" id="filter__checkbox__2">
+
+  
+<?php
+// Kết nối tới cơ sở dữ liệu
+
+include("../static/connectDB/db.php");
+
+// Câu truy vấn SQL để lấy giá trị không trùng lặp
+
+$sql = "SELECT name FROM `brand`";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo '<ul class="sidebarlist 1__list" id="1__list">';
+    $idCounter = 1; // Biến đếm để tạo giá trị ID duy nhất
+    while ($row = $result->fetch_assoc()) {
+        $name = htmlspecialchars($row["name"]); // Xử lý an toàn dữ liệu
+        echo '
+        <li class="sidebaritem 1__item" id="__item1_' . $idCounter . '">
+            <input type="checkbox" value="1_' . $idCounter . '" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
+            <a class="sidebar_item--link" onclick="handleSportButtonClick(\'1_' . $idCounter . '\');changeColorMainSportOnSelect(\'1\')">
+                <div>' . $name . '</div>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </li>';
+        $idCounter++;
+    }
+    echo '</ul>';
+} else {
+    echo "<ul class='sidebarlist 1__list' id='1__list'><li>Không có dữ liệu!</li></ul>";
+}
+
+// Đóng kết nối
+$conn->close();
+?>
+</div>
+
+<!-- end side bar - thương hiệu --> 
+
+
+<!-- side bar - Loại Giày -->
+
+<div>
+              <div class="sport-sidebar__item" id="sport-sidebar__item1">
+                
                 <div onclick="toggleDropdown('2__list');changeColorMainSportOnSelect('2'); displayMainSportSidebarProduct('2')">
+                  Loại Giày 
+                </div>
+              </div>
+              <?php
+// Kết nối tới cơ sở dữ liệu
+
+include("../static/connectDB/db.php");
+
+// Câu truy vấn SQL để lấy giá trị không trùng lặp
+$sql = "SELECT name FROM category";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo '<ul class="sidebarlist 2__list" id="2__list">';
+    $idCounter = 1; // Biến đếm để tạo giá trị ID duy nhất
+    while ($row = $result->fetch_assoc()) {
+        $name = htmlspecialchars($row["name"]); // Xử lý an toàn dữ liệu
+        echo '
+        <li class="sidebaritem 2__item" id="__item2_' . $idCounter . '">
+            <input type="checkbox" value="2_' . $idCounter . '" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
+            <a class="sidebar_item--link" onclick="handleSportButtonClick(\'2_' . $idCounter . '\');changeColorMainSportOnSelect(\'2\')">
+                <div>' . $name . '</div>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </li>';
+        $idCounter++;
+    }
+    echo '</ul>';
+} else {
+    echo "<ul class='sidebarlist 2__list' id='2__list'><li>Không có dữ liệu!</li></ul>";
+}
+
+// Đóng kết nối
+$conn->close();
+?>
+</div>
+
+<!-- end side bar - Loại Giày --> 
+
+
+<!-- side bar - Kích thước -->
+
+<div> 
+              <div class="sport-sidebar__item" id="sport-sidebar__item3">
+                
+                <div onclick="toggleDropdown('3__list');changeColorMainSportOnSelect('3'); displayMainSportSidebarProduct('3')">
                   Kích thước
                 </div>
               </div>
-              <ul class="sidebarlist 2__list" id="2__list">
-                <li class="sidebaritem 2__item" id="__item2_1">
-                  <input type="checkbox" value="2_1" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_1__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('2_1');changeColorMainSportOnSelect('2')">
-                    <div>20</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-                <li class="sidebaritem 2__item" id="__item2_2">
-                  <input type="checkbox" value="2_2" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_2__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('2_2');changeColorMainSportOnSelect('2')">
-                    <div>21</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-                <li class="sidebaritem 2__item" id="__item2_3">
-                  <input type="checkbox" value="2_3" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_3__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('2_3');changeColorMainSportOnSelect('2')">
-                    <div>31</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-                <li class="sidebaritem 2__item" id="__item2_4">
-                  <input type="checkbox" value="2_4" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_4__child__checkbox" onclick="performSearch()">
-                  <a class="sidebar_item--link" onclick="handleSportButtonClick('2_4');changeColorMainSportOnSelect('2')">
-                    <div>21</div>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                </li>
-              </ul>
+              <?php
+// Kết nối tới cơ sở dữ liệu
+
+include("../static/connectDB/db.php");
+
+// Câu truy vấn SQL để lấy giá trị không trùng lặp
+$sql = "SELECT DISTINCT size_number FROM size";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo '<ul class="sidebarlist 3__list" id="3__list">';
+    $idCounter = 1; // Biến đếm để tạo giá trị ID duy nhất
+    while ($row = $result->fetch_assoc()) {
+        $size = htmlspecialchars($row["size_number"]);
+        echo '
+        <li class="sidebaritem 3__item" id="__item3_' . $idCounter . '">
+            <input type="checkbox" value="' . $size . '" class="filter__select-box child__checkbox__3 child__checkbox__" id="3_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
+            <a class="sidebar_item--link" onclick="handleSportButtonClick(\'3_' . $idCounter . '\');changeColorMainSportOnSelect(\'3\')">
+                <div>' . $size . '</div>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </li>';
+        $idCounter++;
+    }
+    echo '</ul>';
+} else {
+    echo "<ul class='sidebarlist 3__list' id='3__list'><li>Không có dữ liệu!</li></ul>";
+}
+
+// Đóng kết nối
+$conn->close();
+?>
+</div>
+
+<!-- end side bar - Kích thước --> 
             </div>
           </div>
           <div class="sport-maincontent">
             <div class="sport-maincontent__title" id="sport-maincontent__title">Các sản phẩm hiện có</div>
               <div class="filter--choose" id="filter--choose">
                 <div class="filter--choose__item"> Khoảng giá: <input class="filter--choose__input" type="number" id="loctheogiadau" placeholder="từ: vnd "/> - <input class="filter--choose__input" type="number" id="loctheogiaduoi" placeholder="Đến: vnd"/> </div>
-                <div class="filter--choose__item filter--choose__item2"> Giá: <i onclick="filterSortASC()" class="fa-solid fa-arrow-up-wide-short"></i><i onclick="filterSortDESC()" class="fa-solid fa-arrow-down-wide-short"></i></div>
+                <div class="filter--choose__item filter--choose__item2"> Giá: <i onclick="sortByPrice('ASC')" class="fa-solid fa-arrow-up-wide-short"></i><i onclick="sortByPrice('DESC')" class="fa-solid fa-arrow-down-wide-short"></i></div>
               </div>
-              <div class="sport-maincontent__show-product" id="product-list">
-              </div>
-            </div>
-            </div>
-            <div id="pagination" class="pagination"></div>
+
+
+<!-- danh sách sản phẩm -->
+<div class="ProductList" >
+  <div class="ProductList_pagination">
+    <?php include("../static/connectDB/pagination.php"); ?> 
+  </div>
+    <?php include("../static/connectDB/productList.php"); ?> 
+</div>
+<!-- end danh sach san pham -->
+
+<?php $conn->close(); ?>
+
           </div>
         </div>
-        <div class="view-product"></div>
     </div>
+</div>
+        <div class="view-product"></div>
+    
+    </div>
+    
+  <!-- end side bar -->
+
+  </div>
     <div id="container_infor"></div>
     <div id="puchase_sumary"></div>
     
@@ -366,22 +443,16 @@
     </div>
     
   
-
-    <!-- <div id="overlay" class="overlay"> 
-
-      <div class="loading-spinner"></div>
-
-    </div> -->
   </div>
-    <!-- <script src="../static/js/index.js"></script> -->
+ 
     <script src="../static/js/branchs.js"></script>
-    <script src="../static/connectDB/purchaseHistoryEvent.js"></script>
-    <script src="../static/connectDB/loginEvent.js"></script>
     <script src="../static/js/login3.js"></script>
+    <script src="../static/connectDB/loginEvent.js"></script>
     <script src="../static/js/product.js"></script>
     <script src="../static/js/purchaseHistory2.js"></script>
     <script src="../static/js/Payment.js"></script>
     <script src="../static/js/toast-msg.js"></script>
+    <!-- Nghĩa - xử lý giao diện -->
     <script>
         const dots = document.querySelectorAll(".dot");
         const slidesContainer = document.querySelector(".banner-slide");
@@ -447,23 +518,6 @@
 
     // Tự động chuyển slide mỗi 3 giây
     setInterval(nextSlide, 3000);
-        // document.addEventListener("DOMContentLoaded", function () {
-        //   const cartIcon = document.querySelector(".icon__cart-shopping");
-        //   const modal = document.querySelector(".modal");
-        //   const cart = document.querySelector(".cart");
-
-        //   // Khi nhấn vào icon giỏ hàng, hiển thị modal
-        //   cartIcon.addEventListener("click", function () {
-        //     modal.classList.add("show-modal");
-        //   });
-
-        //   // Khi nhấn ra ngoài giỏ hàng thì ẩn đi
-        //   modal.addEventListener("click", function (event) {
-        //     if (!cart.contains(event.target)) {
-        //         modal.classList.remove("show-modal");
-        //     }
-        //   });
-        // });
 
         const filterProduct = document.getElementById("filter-search");
         filterProduct.addEventListener("click", () => {
@@ -472,6 +526,172 @@
             window.scrollTo({ top: fixedPosition, behavior: "smooth" });  
         });
     </script>
+
+    <!-- Vy - xử lý phân trang + lọc sản phẩm --> 
+
+
+
+<script>
+
+/* hàm hiển thị danh sách sản phẩm mặc định */
+function loadPage(page) {
+    console.log(`🔹 Đang tải sản phẩm cho trang ${page}`);
+
+    // Loại bỏ class "active" của tất cả nút phân trang
+    document.querySelectorAll(".page-btn").forEach(btn => btn.classList.remove("active"));
+
+    // Thêm class "active" vào nút được click
+    document.querySelector(`.page-btn[data-page='${page}']`)?.classList.add("active");
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/productList.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("✅ Trả về từ server (loadPage):", xhr.responseText);
+            document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.send(`page=${page}`);
+}
+
+
+ /* hàm lọc sản phẩm theo lựa chọn */
+ function filterProducts(page = 1) {
+    console.log(`🔹 Đang gửi request lọc sản phẩm... Trang: ${page}`);
+    document.querySelector(".ProductList_pagination").style.display = "none";
+
+
+    let brandElements = document.querySelectorAll('.child__checkbox__1:checked');
+    let categoryElements = document.querySelectorAll('.child__checkbox__2:checked');
+    let sizeElements = document.querySelectorAll('.child__checkbox__3:checked');
+
+    let brand = [...brandElements].map(el => el.getAttribute("value").split("_")[1]).join(",") || "";
+    let category = [...categoryElements].map(el => el.getAttribute("value").split("_")[1]).join(",") || "";
+    let size = [...sizeElements].map(el => el.getAttribute("value")).join(",") || "";
+
+    let priceMin = document.getElementById("loctheogiadau").value || 0;
+    let priceMax = document.getElementById("loctheogiaduoi").value || 999999999;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/filterProducts.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("✅ Trả về từ server:", xhr.responseText);
+            document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.send(`page=${page}&brand=${brand}&category=${category}&size=${size}&priceMin=${priceMin}&priceMax=${priceMax}`);
+
+    console.log("🛠️ Dữ liệu gửi đi:", { page, brand, category, size, priceMin, priceMax });
+}
+
+/* hàm xử lý phân trang cho filterProduct */
+function loadPage_filterProduct(page) {
+    console.log(`🔹 Đang tải sản phẩm đã lọc - Trang: ${page}`);
+    document.querySelector(".ProductList_pagination").style.display = "none";
+    // Loại bỏ class "active" của tất cả nút phân trang
+    document.querySelectorAll(".page-btn").forEach(btn => btn.classList.remove("active"));
+
+    // Thêm class "active" vào nút được click
+    document.querySelector(`.page-btn[data-page='${page}']`)?.classList.add("active");
+
+    // Gọi lại `filterProducts()` với trang mới
+    filterProducts(page);
+}
+
+// Kiểm tra xem hàm có thực sự được gọi
+document.querySelectorAll('input[name="brand"], input[name="category"], input[name="size"], #loctheogiadau, #loctheogiaduoi').forEach(input => {
+    input.addEventListener("change", () => {
+        console.log("🔹 Bộ lọc thay đổi, gọi filterProducts()");
+        filterProducts();
+    });
+});
+
+
+
+/* hàm tìm kiếm sản phẩm theo tên */
+function searchByName(page = 1) {
+    console.log(`🔹 Đang tìm kiếm sản phẩm... Trang: ${page}`);
+
+    document.querySelector(".ProductList_pagination").style.display = "none";
+    
+    let searchQuery = document.getElementById("input-search").value.trim() || "";
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/SearchByName.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("✅ Trả về từ server:", xhr.responseText);
+            document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
+
+            // Hiển thị lại phân trang sau khi có dữ liệu
+            
+        }
+    };
+
+    xhr.send(`searchQuery=${searchQuery}&page=${page}`);
+}
+/* hàm xử lý phân trang cho searchByName */
+function loadPage_searchByName(page) {
+    console.log(`🔹 Đang tải sản phẩm cho trang ${page}`);
+    document.querySelector(".ProductList_pagination").style.display = "none";
+    // Loại bỏ class "active" của tất cả nút phân trang
+    document.querySelectorAll(".page-btn").forEach(btn => btn.classList.remove("active"));
+
+    // Thêm class "active" vào nút được click
+    document.querySelector(`.page-btn[data-page='${page}']`)?.classList.add("active");
+
+    searchByName(page);
+}
+
+/* hàm sắp xếp theo giá sản phẩm */
+function sortByPrice(order, page = 1) {
+    console.log(`🔹 Đang sắp xếp sản phẩm theo giá (${order}) - Trang: ${page}`);
+
+    document.querySelector(".ProductList_pagination").style.display = "none";
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/WebBanHang/WebBanHang-NGHIA/WebBanHang-NGHIA/static/connectDB/SortByPrice.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("✅ Trả về danh sách sản phẩm đã sắp xếp:", xhr.responseText);
+            document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
+
+            // Hiển thị lại phân trang sau khi có dữ liệu
+           
+        }
+    };
+
+    xhr.send(`sortOrder=${order}&page=${page}`);
+}
+/* hàm xử lý phân trang cho sortByPrice */
+function loadPage_sortByPrice(order, page) {
+    console.log(`🔹 Đang tải sản phẩm được sắp xếp theo giá (${order}) - Trang: ${page}`);
+
+    // Loại bỏ class "active" của tất cả nút phân trang
+    document.querySelectorAll(".page-btn").forEach(btn => btn.classList.remove("active"));
+
+    // Thêm class "active" vào nút được click
+    document.querySelector(`.page-btn[data-page='${page}']`)?.classList.add("active");
+
+    // Gọi lại `sortByPrice()` với trang mới
+    sortByPrice(order, page);
+}
+
+
+
+
+</script>
     
 </body>
 
