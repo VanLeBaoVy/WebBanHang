@@ -1,0 +1,441 @@
+/* resposive */
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 1em;
+    }
+
+    p {
+        font-size: 0.8em;
+    }
+
+    .header {
+        height: 150px;
+    }
+
+    .home-content {
+        margin-top: 150px;
+    }
+
+    .header-nav {
+        padding: 0;
+        flex-direction: column;
+    }
+
+    .sport-sidebar {
+        width: 20%;
+    }
+
+    .sport-maincontent {
+        width: 80%;
+    }
+
+    .__infor__price {
+        justify-content: end;
+    }
+
+    .nav-list {
+        width: 90%;
+        margin: 2px 0;
+    }
+
+    .nav-list3-item {
+        display: flex;
+        justify-content: center;
+    }
+
+    .area_sport-btn {
+        flex: none;
+    }
+
+    .filter--choose {
+        margin-top: 10px;
+    }
+
+    .high-product {
+        min-width: 50%;
+    }
+
+    .sport__dropdown--list {
+        margin: 0;
+        width: unset;
+    }
+
+    .inner-login-container {
+        margin: 0;
+        top: 50%;        
+        left: 50%;       
+        transform: translate(-50%, -50%);
+        font-size: 1.8rem;
+    }
+
+    .form-infor-group > div:first-child , .form-infor-group > div:last-child{
+        flex-direction: column;
+    }
+
+    #saveaddress-1234 {
+        width: 100% !important;
+    }
+
+    .address-item-infor {
+        width: 100%;
+    }
+
+    .homepage__newHomeBanner {
+        margin-bottom: 100px;
+    }
+
+    .homepage__bannerContent {
+        width: 52%;
+    }
+
+    .homepage__bannerImg {
+        width: 48%;
+    }
+
+    .homepage__contentInfor {
+        font-size: 3rem;
+    }
+
+    .homepage__steps {
+        margin-bottom: 0;
+    }
+
+    .homepage__stepsDetail {
+        width: 100%;
+    }
+
+    .homepage__stepsItem1 , .homepage__stepsItem5 {
+        left: -450px;
+    }
+
+    .homepage__stepsItem3 {
+        left: 0;
+    }
+
+    #thanhtoan {
+        min-height: 50vh;
+    }
+
+    .thanhtoan_item__location {
+        flex-direction: column;
+    }
+
+    .thanhtoan_item__address {
+        margin: 0;   
+        width: 100%;
+    }
+
+    .thanhtoan_item__address select {
+        width: 100%;
+    }
+
+    .thanhtoan_item__address_select > div{
+        padding: 0 !important;
+    }
+
+    #popup_thanhtoan, #popup-addVisa, #address_popup-thanhtoan {
+        top: 20%;
+    }
+
+    .giohang {
+        margin-top: 170px;
+        min-height: 65vh;
+    }
+
+    .pagination {
+        background-color: white;
+        height: 40px;
+        margin: 20px 0;
+    }
+
+    .homepage__companys img {
+        width: 100%;
+        height: auto;
+    }
+
+    .homepage__reason {
+        margin-bottom: 50px;
+    }
+
+    .border-product {
+        width: 50%;
+    }
+
+    .contain {
+        margin-top: 150px;
+    }
+
+    .chude {
+        overflow: auto;
+    }
+
+    .hover-cart {
+        display: none !important;
+    }
+
+    .wrapper {
+        min-height: 0;
+    }
+
+    .col2 {
+        min-height: 60vh;
+    }
+
+    .container > div:first-child {
+        margin-top: 150px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .footer {
+        flex-wrap: wrap;
+        min-height: 350px;
+    }
+
+    .ft-item {
+        width: 33%;
+    }
+
+    .thongtin {
+        width: 80%;
+    }
+
+    .title {
+        font-size: 25px;
+    }
+    .sport__dropdown--list {
+        width: auto;
+        left: 70%;
+    }
+    .sport-maincontent__show-product .product-item {
+        width: calc(100% / 2 - 10px);
+    }
+}
+
+@media (max-width: 600px) {
+    .img-logo {
+        height: 30px;
+    }
+
+    .sport-sidebar {
+        display: none;
+    }
+
+    .border-product {
+        width: 100%;
+    }
+
+    .row {
+        display: block;
+    }
+
+    .col1 {
+        width: 100%;
+    }
+
+    .col2 {
+        width: 100%;
+        min-height: 0;
+    }
+
+    .high-product {
+        min-width: 100%;
+    }
+
+    .infor-overview > p{
+        font-size: 2rem;
+    }
+
+    .purchase-order__state {
+        justify-content: left;
+    }
+
+    .order__infor__price {
+        flex-direction: column;
+    }
+
+    .thanhtoan_item__address select {
+        width: 100%;
+    }
+
+    #address_popup-thanhtoan {
+        margin: 0;
+        top: 50%;        
+        left: 50%;       
+        transform: translate(-50%, -50%);
+    }
+
+    .thanhtoan-item__product__inforPr {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .thanhtoan-item__product__inforPr * {
+        width: 100%;
+    }
+
+    .__listProduct__header1 {
+        width: 40%;
+    }
+
+    .__infor__name>strong {
+        white-space: unset;
+    }
+
+    .sport-maincontent {
+        width: 100%;
+    }
+
+    .__infor__price {
+        justify-content: start;
+    }
+
+    .thanhtoan-item__product {
+        padding: 20px 0;
+    }
+
+    .__listProduct__header1 {
+        width: 40%;
+    }
+
+    .__listProduct__header2, .__listProduct__header4 {
+        width: 25%;
+    }
+
+    .__listProduct__header3 {
+        width: 10%;
+    }
+
+    .thanhtoan-item__product__price, .thanhtoan-item__product__thanhtien {
+        width: 25%;
+    }
+
+    #popup-addVisa, #popup_thanhtoan {
+        width: 400px;
+    }
+
+    .col-1 > div{
+        flex-direction: column;
+    }
+ 
+    .homepage__sectionContainer, .homepage__reasonList {
+        flex-direction: column;
+    }
+
+    .homepage__sectionContainer--item, .homepage__reasonItem {
+        width: 100%;
+        padding: 0 10px;
+        padding-top: 50px;
+    }
+
+    .homepage__learnSection > h2 {
+        margin: 0;
+    }
+
+    .homepage__reason > h1 {
+        margin: 0;
+    }
+
+    .purchase-order__infor {
+        margin: 0;
+        padding: 10px;
+    }
+
+    .purchase-order__explore {
+        padding: 20px 0;
+        flex-wrap: wrap;
+    }
+
+    .order__explore--totalPrice {
+        width: 100%;
+        text-align: right;
+    }
+
+    .__infor__product--img {
+        width: 40%;
+        height: fit-content;
+        margin-right: 10px;
+    }
+
+    .homepage__contentHead > h2 {
+        font-size: 6.8rem;
+    }
+
+    .homepage__companys {
+        margin-bottom: 70px;
+    }
+
+    .homepage__stepsItem1 , .homepage__stepsItem5 {
+        left: -200px;
+    }
+
+    .homepage__stepsItem2 , .homepage__stepsItem4 {
+        left: -100px;
+    }
+
+    .purchaseBadge {
+        position: static;
+    }
+
+    .giohang_header {
+        margin: 0;
+        padding: 0 10px;
+        width: 100%;
+    }
+
+    .giohang_content > div:last-child {
+        margin-right: 0 !important; 
+    }
+
+    .div-btn-infor1234 {
+        padding: 10px 20px;
+        width: 55%;
+    }
+
+    .target-List {
+        height: auto;
+    }
+
+    .form-infor-ac {
+        padding: 0;
+    }
+
+    .div-btn-infor1234 {
+        padding: 10px 2px;
+        width: 50%;
+        margin: 10px 0;
+    }
+
+    .footer .grid{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer {
+        padding: 40px 0;
+    }
+
+    .ft_item {
+        width: 100%;
+    }
+
+    .ft_item > p {
+        font-size: 1.5rem;
+    }
+
+    .ft-copyrightLast {
+       margin-left: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+    .sport__dropdown--list {
+        width: auto;
+        left: 50%;
+    }
+    .sport-maincontent__show-product .product-item {
+        width: calc(100% - 10px);
+    }
+}

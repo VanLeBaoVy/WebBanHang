@@ -1,0 +1,105 @@
+:root {
+  --highText__banner: #00b67a;
+  --btn__color: #21253c;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .large-image img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .thumbnail-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .thumbnail {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  
+  .thumbnail:hover {
+    transform: scale(1.1);
+    border-color: var(--selected__color);
+  }
+  
+  .price {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .price__ {
+    padding: 10px;
+  }
+  
+  .oldprice {
+    font-size: 2rem;
+    text-decoration: line-through;
+  }
+  
+  .newprice {
+    font-size: 2.4rem;
+    color: red;
+  }
+  
+  .buynow {
+    font-size: 2.4rem;
+    color: white;
+    background-color: #ff4d00;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .topicList {
+    /* list-style-type: none; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* display: none; */
+  }
+  
+  .topicItem {
+    /* padding: 10px;
+     */
+    padding: 14px 30px 14px 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    margin: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  .textContent {
+    padding: 10px;
+  }
+  .topicItem>div {
+    padding: 0 10px;
+  }
+  .topicItem>span {
+    color: var(--highText__banner) ;
+    font-size: 1.3rem;
+  }
