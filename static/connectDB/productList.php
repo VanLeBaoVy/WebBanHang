@@ -33,7 +33,7 @@ while ($row = $result->fetch_assoc()) {
         "price" => (int) $row["price"],
         "description" => $row["description"],
         "size" => explode(", ", $row["sizes"]),
-        "quantity" => 1
+        
     ];
 }
 

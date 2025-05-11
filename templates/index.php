@@ -279,51 +279,6 @@ $conn->close();
 
 <!-- end side bar - Loại Giày --> 
 
-
-<!-- side bar - Kích thước -->
-
-<div> 
-              <div class="sport-sidebar__item" id="sport-sidebar__item3">
-                
-                <div onclick="toggleDropdown('3__list');changeColorMainSportOnSelect('3'); displayMainSportSidebarProduct('3')">
-                  Kích thước
-                </div>
-              </div>
-              <?php
-// Kết nối tới cơ sở dữ liệu
-
-include("../static/connectDB/db.php");
-
-// Câu truy vấn SQL để lấy giá trị không trùng lặp
-$sql = "SELECT DISTINCT size_number FROM size";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    echo '<ul class="sidebarlist 3__list" id="3__list">';
-    $idCounter = 1; // Biến đếm để tạo giá trị ID duy nhất
-    while ($row = $result->fetch_assoc()) {
-        $size = htmlspecialchars($row["size_number"]);
-        echo '
-        <li class="sidebaritem 3__item" id="__item3_' . $idCounter . '">
-            <input type="checkbox" value="' . $size . '" class="filter__select-box child__checkbox__3 child__checkbox__" id="3_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
-            <a class="sidebar_item--link" onclick="handleSportButtonClick(\'3_' . $idCounter . '\');changeColorMainSportOnSelect(\'3\')">
-                <div>' . $size . '</div>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </li>';
-        $idCounter++;
-    }
-    echo '</ul>';
-} else {
-    echo "<ul class='sidebarlist 3__list' id='3__list'><li>Không có dữ liệu!</li></ul>";
-}
-
-// Đóng kết nối
-$conn->close();
-?>
-</div>
-
-<!-- end side bar - Kích thước --> 
             </div>
           </div>
           <div class="sport-maincontent">
@@ -546,12 +501,12 @@ function loadPage(page) {
     document.querySelector(`.page-btn[data-page='${page}']`)?.classList.add("active");
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/static/connectDB/SearchByName.php/productList.php", true);
+    xhr.open("POST", "../static/connectDB/SearchByName.php/productList.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("✅ Trả về từ server (loadPage):", xhr.responseText);
+            
             document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
         }
     };
@@ -562,35 +517,35 @@ function loadPage(page) {
 
  /* hàm lọc sản phẩm theo lựa chọn */
  function filterProducts(page = 1) {
-    console.log(`🔹 Đang gửi request lọc sản phẩm... Trang: ${page}`);
+    
     document.querySelector(".ProductList_pagination").style.display = "none";
 
 
     let brandElements = document.querySelectorAll('.child__checkbox__1:checked');
     let categoryElements = document.querySelectorAll('.child__checkbox__2:checked');
-    let sizeElements = document.querySelectorAll('.child__checkbox__3:checked');
+
 
     let brand = [...brandElements].map(el => el.getAttribute("value").split("_")[1]).join(",") || "";
     let category = [...categoryElements].map(el => el.getAttribute("value").split("_")[1]).join(",") || "";
-    let size = [...sizeElements].map(el => el.getAttribute("value")).join(",") || "";
+
 
     let priceMin = document.getElementById("loctheogiadau").value || 0;
     let priceMax = document.getElementById("loctheogiaduoi").value || 999999999;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/static/connectDB/SearchByName.php/filterProducts.php", true);
+    xhr.open("POST", "../static/connectDB/filterProducts.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("✅ Trả về từ server:", xhr.responseText);
+            
             document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
         }
     };
 
-    xhr.send(`page=${page}&brand=${brand}&category=${category}&size=${size}&priceMin=${priceMin}&priceMax=${priceMax}`);
+    xhr.send(`page=${page}&brand=${brand}&category=${category}&priceMin=${priceMin}&priceMax=${priceMax}`);
 
-    console.log("🛠️ Dữ liệu gửi đi:", { page, brand, category, size, priceMin, priceMax });
+    console.log("🛠️ Dữ liệu gửi đi:", { page, brand, category, priceMin, priceMax });
 }
 
 /* hàm xử lý phân trang cho filterProduct */
@@ -626,16 +581,13 @@ function searchByName(page = 1) {
     let searchQuery = document.getElementById("input-search").value.trim() || "";
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/static/connectDB/SearchByName.php", true);
+    xhr.open("POST", "../static/connectDB/SearchByName.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log("✅ Trả về từ server:", xhr.responseText);
             document.querySelector(".sport-maincontent__show-product").innerHTML = xhr.responseText;
-
-            // Hiển thị lại phân trang sau khi có dữ liệu
-            
         }
     };
 
@@ -661,7 +613,7 @@ function sortByPrice(order, page = 1) {
     document.querySelector(".ProductList_pagination").style.display = "none";
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/WebBanHang/static/connectDB/SortByPrice.php", true);
+    xhr.open("POST", "../static/connectDB/SortByPrice.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {

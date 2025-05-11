@@ -9,8 +9,9 @@ $start = ($pageCurrent - 1) * $perPage;
 
 // Lấy sản phẩm từ cơ sở dữ liệu
 $sql = "SELECT p.ID AS product_id, p.Name AS product_name, p.url AS product_url, 
-        b.Name AS brand_name, p.price, 
-        GROUP_CONCAT(s.size_number ORDER BY s.size_number SEPARATOR ', ') AS sizes, 
+        b.Name AS brand_name, p.price,
+        GROUP_CONCAT(s.size_number ORDER BY s.size_number SEPARATOR ', ') AS sizes,
+        GROUP_CONCAT(s.amount ORDER BY s.amount SEPARATOR ', ') AS amount, 
         p.description 
         FROM product p 
         JOIN brand b ON p.brand = b.ID 
@@ -30,7 +31,7 @@ while ($row = $result->fetch_assoc()) {
         "price" => (int) $row["price"],
         "description" => $row["description"],
         "size" => explode(", ", $row["sizes"]),
-        "quantity" => 1
+        "amount" => explode(", ", $row["amount"]),
     ];
 }
 

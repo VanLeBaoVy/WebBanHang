@@ -26,10 +26,15 @@ function showNotification(message, type = 'success') {
 		notification.remove();
 	}, 4000);
 }
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    const getUserByUsername = (id) => {
-        return accounts.find(account => account.id === id);
-    };
+const getUserByUsername = (id) => {
+    const user = accounts.find(account => account.id === id);
+    console.log(user); 
+    return user;
+};
+
     // Kiểm tra xem đã đăng nhập hay chưa
     const idLogin = localStorage.getItem('idLogin');
     if (idLogin !== null) {
@@ -480,7 +485,9 @@ function openinfor1234() {
 	const idLogin = localStorage.getItem('idLogin');
 	// Tìm user trong mảng accounts	
 	const account = accounts.find(acc => acc.id === idLogin);
+	console.log( account);
 	const profile = profiles.find(cus => cus.id === idLogin);
+	console.log(profile);
 	document.forms['frminfor']['username-infor'].value = account.username;
 	const user = {
         fullname: (profile && profile.fullname) ? profile.fullname : '',

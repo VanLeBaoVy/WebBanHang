@@ -745,7 +745,6 @@ function submitthanhtoan(item, gia,sl) {
             return;
         }
         const index = document.querySelector('input[name="visa"]:checked').value;
-        // console.log(user);
         chitietbank = index;
         console.log(chitietbank);
     } else if (phuongthuc === "ck") {
@@ -777,9 +776,7 @@ function themDonHangVaoDB(item, gia, chitietbank) {
         if (phuongthuc === "visa") {
             chitietbank = user.cards[chitietbank];
         }
-        // if (phone === undefined) {
-        //     phone = user.phone;
-        // }
+
         Object = {
             id: Date.now(),
             name: user.fullname,

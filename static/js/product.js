@@ -85,7 +85,6 @@
           </div>`;
       
       document.getElementById("container_infor").innerHTML = txt;
-      console.log(txt);
       document.getElementById("container_infor").style.display = "flex";
       document.getElementById("container").style.display = "none";
       const basePrice = product.price;
@@ -115,7 +114,7 @@ function increaseQuantity(obj, index) {
     const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
     newQuantity = quantityInput + 1;
     userCurrent = localStorage.getItem("userCurrent") ? JSON.parse(localStorage.getItem("userCurrent")) : null;
-    if (newQuantity > listProduct[index].quantity) {
+    if (newQuantity > listProduct[index-78].amount) {
         alert("Số lượng sản phẩm không đủ.");
         return;
     }
@@ -126,7 +125,7 @@ function increaseQuantity(obj, index) {
         updateTotalPrice(basePrice);
     }
     else if (obj.parentNode.getAttribute('value') === 'checkout-product') {
-        userCurrent.cart[index].quantity = newQuantity;
+        userCurrent.cart[index-78].quantity = newQuantity;
         let totalPrice = 0;
         userCurrent.cart.forEach((product) => {
             totalPrice += product.quantity * product.price;
@@ -440,15 +439,14 @@ function toggleDropdown(idelement) {
       showNotification("Đang tải dữ liệu, vui lòng đợi...", "warning");
       return false;
     }
-/*     item.forEach((lengthProduct, id) => {
-      console.log(lengthProduct, "----------", id);
-    }); */
+
     let idLogin = localStorage.getItem("idLogin") || null;
     console.log(idLogin);
     // Tìm user theo accountId
     let user = profiles.find(pro => pro.id === idLogin);
+    console.log(user);
     if (!user) {
-      showNotification('Không tìm thấy thông tin người dùng', 'error');
+      showNotification('Không tìm thấy thông tin người dùnng', 'error');
       return;
     }
     
