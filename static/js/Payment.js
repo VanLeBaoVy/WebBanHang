@@ -143,22 +143,34 @@ function payCart() {
     const user = JSON.parse(userJSON);
     
     const cartObject = user.cart || {};
-  
+    console.log(user.cart);
     // Chuyển object -> Map để xử lý
     const cart = new Map(Object.entries(cartObject));
-  
-    if (cart.size === 0) {
-      showNotification('Giỏ hàng đang trống', 'error');
-      return;
-    }
-  
-    const tmpgia = document.getElementById("totalPrice").textContent;
-    const tmpsl = document.getElementById("totalProduct").textContent;
-  
-  
-    // Gọi hàm xử lý giao diện giỏ hàng (hoặc thanh toán)
-    interface_cart(tmpgia, tmpsl, cart);
-    document.querySelector(".modal").classList.remove("show-modal");
+    fetch('../static/connectDB/insertCart.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            cart: user.cart          
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            // Gọi xử lý giao diện
+            const tmpgia = document.getElementById("totalPrice").textContent;
+            const tmpsl = document.getElementById("totalProduct").textContent;
+            interface_cart(tmpgia, tmpsl, cart);
+
+            document.querySelector(".modal").classList.remove("show-modal");
+            closeFormLogin();
+        } else {
+            alert("Lỗi khi thêm giỏ hàng: " + data.error);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Đã xảy ra lỗi khi gửi dữ liệu.");
+    });
   }
   
 function changecontent() {
@@ -188,9 +200,9 @@ function thanhtoan__showitem(item_p, sl) {
                     <img class="thanhtoan-item__product__img" src="${item_p.url}" alt="">
                     <div class="thanhtoan-item__product__name">${item_p.name}</div>
                 </div>
-                <div class="thanhtoan-item__product__price">${formatPrice(item_p.price)}đ</div>
+                <div class="thanhtoan-item__product__price">${item_p.price}đ</div>
                 <div class="thanhtoan-item__product__soluong">${sl}</div>
-                <div class="thanhtoan-item__product__thanhtien">${formatPrice(item_p.price * sl)}đ</div>
+                <div class="thanhtoan-item__product__thanhtien">${item_p.price * sl}đ</div>
             </div>
     `;
 
@@ -289,11 +301,6 @@ function contentInfor() {
     userCurrent = localStorage.getItem("userCurrent") 
         ? JSON.parse(localStorage.getItem("userCurrent")) 
         : null;
-
-    if (!userCurrent) {
-        showNotification("Không tìm thấy thông tin người dùng", "error");
-        return;
-    }
     let idLogin = userCurrent.idLogin || null;
     let user = customers.find(customer => customer.accountId === idLogin);
     if (!user) {
