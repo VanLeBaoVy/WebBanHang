@@ -566,9 +566,6 @@ function printThanhToan(gia, sl, item) {
         ;
     document.getElementById("container").innerHTML = content;
     contentInfor();
-/*     console.log("gia", gia, "sl", sl, "item", item); */
-    // innerPurchaseSumary();
-    // thanhtoan_showaddress();
     item.forEach((val, key) => {
     /*     console.log("item: ", key, val); */
         thanhtoan__showlist(key, val);
@@ -582,23 +579,72 @@ function printThanhToan(gia, sl, item) {
 
 function buyNow(event, idProduct) {
     window.scrollTo(0, 0);
-    reset_None_Container_infor();
-    // const container = document.getElementById("container"); 
-    // container.style.display = "unset"; 
-    // container.innerHTML="";
     event.stopPropagation();
-    if (localStorage.getItem('idLogin') === null) {
+    const idLogin = localStorage.getItem('idLogin');
+    if (idLogin === null) {
         showNotification("Vui lòng đăng nhập để mua hàng", "warning");
         return;
     }
-    queryByID(idProduct, function (er, item) {
-        if (er) {
-            showNotification("Không tìm thấy sản phẩm", "error");
-            return;
+
+    fetch('../static/connectDB/getProductById.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: idProduct })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            const item = data.product;
+            const productCheckout = {};
+            productCheckout.name = item.name;
+            productCheckout.quantity = 1;
+            // alert(document.getElementById("quantity").value);
+            // productCheckout.price = parsePrice(document.getElementById("product-price").textContent);
+            productCheckout.price = parsePrice(document.getElementById("product-price").textContent);
+            productCheckout.url = item.url;
+            productCheckout.product_id = item.id;
+            productCheckout.profile_id = idLogin;
+            let size = parseInt(document.getElementById('size-product-details').value);
+            fetch('../static/connectDB/getSizeId.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                product_id: item.id,
+                size_number: size
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                productCheckout.size = data.size_id;
+                // Tiếp tục thêm sản phẩm vào giỏ như ban đầu
+                const findProduct = userCurrent.cart.find(p => p.name === productCheckout.name && p.size === data.size_id);
+                if (findProduct !== undefined) {
+                    findProduct.quantity += productCheckout.quantity;
+                } else {
+                    userCurrent.cart.push(productCheckout);
+                }
+
+                alert(`Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
+                localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
+
+                // Cập nhật số lượng hiển thị
+                userCurrent = JSON.parse(localStorage.getItem("userCurrent"));
+                let totalProduct = 0;
+                userCurrent.cart.forEach(product => {
+                totalProduct += product.quantity;
+                });
+                document.getElementById("bulbleLength").textContent = totalProduct;
+            } else {
+                alert("Lỗi khi tìm size: " + data.error);
+            }
+            interface_cart(item.sale_price, 1, cart); // hoặc item.price nếu không có sale
+        } else {
+            showNotification(data.error || "Không tìm thấy sản phẩm", "error");
         }
-        const cart = new Map();
-        cart.set(idProduct, 1);
-        interface_cart(item.getSalePrice(), 1, cart);
+    })
+    .catch(() => {
+        showNotification("Lỗi khi truy vấn sản phẩm", "error");
     });
 }
     
