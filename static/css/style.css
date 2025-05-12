@@ -1375,8 +1375,8 @@
 /*--------------------------- PRODUCT-DETAIL -------------------------------------*/
 .product-detail-content {
     background-color: white;
-    width: 70%;
-    max-width: 700px;
+    width: 100%;
+    max-width: 100%;
     padding: 20px;
     display: flex;
     border-radius: 8px;
@@ -1403,7 +1403,7 @@
   line-height: 1.5;
 }
 textarea#note {
-  width: 75%;
+  width: 98%;
   height: 100px;
 }
 .product-detail-left img {
