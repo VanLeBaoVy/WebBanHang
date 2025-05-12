@@ -9,7 +9,6 @@ include("db.php");
 $pageCurrent = isset($_POST["page"]) ? (int)$_POST["page"] : 1;
 $brandFilter = isset($_POST["brand"]) ? explode(",", $_POST["brand"]) : [];
 $categoryFilter = isset($_POST["category"]) ? explode(",", $_POST["category"]) : [];
-$sizeFilter = isset($_POST["size"]) ? explode(",", $_POST["size"]) : [];
 $priceMin = isset($_POST["priceMin"]) ? (int)$_POST["priceMin"] : 0;
 $priceMax = isset($_POST["priceMax"]) ? (int)$_POST["priceMax"] : 999999999;
 
@@ -26,13 +25,8 @@ if (!empty($brandFilter) && $brandFilter[0] !== "") {
 }
 
 if (!empty($categoryFilter) && $categoryFilter[0] !== "") {
-    $categoryConditions = array_map(fn($c) => "c.ID = '$c'", $categoryFilter);
+    $categoryConditions = array_map(fn($c) => "c.id = '$c'", $categoryFilter);
     $whereConditions[] = "(" . implode(" OR ", $categoryConditions) . ")";
-}
-
-if (!empty($sizeFilter) && $sizeFilter[0] !== "") {
-    $sizeConditions = array_map(fn($s) => "s.size_number = '$s'", $sizeFilter);
-    $whereConditions[] = "(" . implode(" OR ", $sizeConditions) . ")";
 }
 
 $whereSQL = !empty($whereConditions) ? implode(" AND ", $whereConditions) : "1=1";
@@ -42,6 +36,7 @@ $sqlTotal = "SELECT COUNT(DISTINCT p.ID) AS total
              FROM product p
              JOIN brand b ON p.brand = b.ID
              JOIN size s ON p.ID = s.product_id
+             JOIN category c ON p.category_id = c.id
              WHERE $whereSQL";
 
 $totalResult = $conn->query($sqlTotal);
@@ -52,12 +47,13 @@ $totalPage = ceil($totalRow["total"] / $perPage);
 $sql = "SELECT p.ID AS product_id, p.Name AS product_name, p.url AS product_url, 
         b.Name AS brand_name, p.price, 
         GROUP_CONCAT(s.size_number ORDER BY s.size_number SEPARATOR ', ') AS sizes, 
-        p.description 
+        p.description, c.id
         FROM product p 
         JOIN brand b ON p.brand = b.ID 
         JOIN size s ON p.ID = s.product_id 
+        JOIN category c ON p.category_id = c.id
         WHERE $whereSQL 
-        GROUP BY p.ID, p.Name, p.url, b.Name, p.price, p.description
+        GROUP BY p.ID, p.Name, p.url, b.Name, p.price, p.description, c.id
         LIMIT $start, $perPage";
 
 error_log("🛠️ SQL Query: " . $sql);
