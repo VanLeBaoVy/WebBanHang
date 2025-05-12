@@ -213,7 +213,7 @@ if ($result->num_rows > 0) {
         $name = htmlspecialchars($row["name"]); // Xử lý an toàn dữ liệu
         echo '
         <li class="sidebaritem 1__item" id="__item1_' . $idCounter . '">
-            <input type="checkbox" value="1_' . $idCounter . '" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
+            <input type="checkbox" value="1_' . $name . '" class="filter__select-box child__checkbox__1 child__checkbox__" id="1_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
             <a class="sidebar_item--link" onclick="handleSportButtonClick(\'1_' . $idCounter . '\');changeColorMainSportOnSelect(\'1\')">
                 <div>' . $name . '</div>
                 <i class="fa-solid fa-arrow-right"></i>
@@ -259,7 +259,7 @@ if ($result->num_rows > 0) {
         $name = htmlspecialchars($row["name"]); // Xử lý an toàn dữ liệu
         echo '
         <li class="sidebaritem 2__item" id="__item2_' . $idCounter . '">
-            <input type="checkbox" value="2_' . $idCounter . '" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
+            <input type="checkbox" value="2_' . $name . '" class="filter__select-box child__checkbox__2 child__checkbox__" id="2_' . $idCounter . '__child__checkbox" onclick="filterProducts()">
             <a class="sidebar_item--link" onclick="handleSportButtonClick(\'2_' . $idCounter . '\');changeColorMainSportOnSelect(\'2\')">
                 <div>' . $name . '</div>
                 <i class="fa-solid fa-arrow-right"></i>
@@ -522,12 +522,14 @@ function loadPage(page) {
 
 
     let brandElements = document.querySelectorAll('.child__checkbox__1:checked');
+    console.log("fpbe "+ brandElements);
     let categoryElements = document.querySelectorAll('.child__checkbox__2:checked');
-
+    console.log("fpce "+ categoryElements);
 
     let brand = [...brandElements].map(el => el.getAttribute("value").split("_")[1]).join(",") || "";
+    
     let category = [...categoryElements].map(el => el.getAttribute("value").split("_")[1]).join(",") || "";
-
+    console.log("fpc "+ category);
 
     let priceMin = document.getElementById("loctheogiadau").value || 0;
     let priceMax = document.getElementById("loctheogiaduoi").value || 999999999;

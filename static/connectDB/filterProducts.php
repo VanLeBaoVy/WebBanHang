@@ -20,12 +20,12 @@ $start = ($pageCurrent - 1) * $perPage;
 $whereConditions = ["p.price BETWEEN $priceMin AND $priceMax"];
 
 if (!empty($brandFilter) && $brandFilter[0] !== "") {
-    $brandConditions = array_map(fn($b) => "b.ID = '$b'", $brandFilter);
+    $brandConditions = array_map(fn($b) => "b.name = '$b'", $brandFilter);
     $whereConditions[] = "(" . implode(" OR ", $brandConditions) . ")";
 }
 
 if (!empty($categoryFilter) && $categoryFilter[0] !== "") {
-    $categoryConditions = array_map(fn($c) => "c.id = '$c'", $categoryFilter);
+    $categoryConditions = array_map(fn($c) => "c.name = '$c'", $categoryFilter);
     $whereConditions[] = "(" . implode(" OR ", $categoryConditions) . ")";
 }
 
@@ -44,16 +44,16 @@ $totalRow = $totalResult->fetch_assoc();
 $totalPage = ceil($totalRow["total"] / $perPage);
 
 // Truy vấn chính để lấy sản phẩm theo bộ lọc
-$sql = "SELECT p.ID AS product_id, p.Name AS product_name, p.url AS product_url, 
-        b.Name AS brand_name, p.price, 
-        GROUP_CONCAT(s.size_number ORDER BY s.size_number SEPARATOR ', ') AS sizes, 
-        p.description, c.id
-        FROM product p 
-        JOIN brand b ON p.brand = b.ID 
-        JOIN size s ON p.ID = s.product_id 
-        JOIN category c ON p.category_id = c.id
-        WHERE $whereSQL 
-        GROUP BY p.ID, p.Name, p.url, b.Name, p.price, p.description, c.id
+$sql = "SELECT p.ID AS product_id, p.Name AS product_name, p.url AS product_url,  
+        b.ID AS brand_id, b.Name AS brand_name, p.price,  
+        GROUP_CONCAT(s.size_number ORDER BY s.size_number SEPARATOR ', ') AS sizes,  
+        p.description, c.ID AS category_id, c.Name AS category_name  
+        FROM product p  
+        JOIN brand b ON p.brand = b.ID  
+        JOIN size s ON p.ID = s.product_id  
+        JOIN category c ON p.category_id = c.id  
+        WHERE $whereSQL  
+        GROUP BY p.ID, p.Name, p.url, b.ID, b.Name, p.price, p.description, c.ID, c.Name  
         LIMIT $start, $perPage";
 
 error_log("🛠️ SQL Query: " . $sql);
@@ -69,6 +69,8 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="info-product">
                     <h3 class="name-product">' . htmlspecialchars($row["product_name"]) . '</h3>
+                    <p>Thương hiệu: ' . htmlspecialchars($row["brand_name"]) . ' (ID: ' . $row["brand_id"] . ')</p>
+                    <p>Danh mục: ' . htmlspecialchars($row["category_name"]) . ' (ID: ' . $row["category_id"] . ')</p>
                     <div class="bottom-product">
                         <h3 class="price-product">' . number_format($row["price"], 0, ",", ".") . ' ₫</h3>
                         <button class="btn">
