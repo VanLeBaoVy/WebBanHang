@@ -52,6 +52,7 @@
                   <img class="image-detail" id="product-image" src="${product.url}" alt="Product Image">
               </div>
               <div class="product-detail-right">
+                  <h2 id="product-id">${product.id}</h2>
                   <h2 id="product-name">${product.name}</h2>
                   <p class="product-brand">Thương hiệu: ${product.brand}</p>
                   <p class="product-price" id="product-price">Giá: ${formatPrice(product.price)}</p>
@@ -68,12 +69,19 @@
                               <button class="btnCustomDesc" onclick="increaseQuantity(this, ${index})">+</button>
                           </div>
                       </div>
-                      <div class="size-wrapper">
-                          <span>Size:</span>
-                          <select id="size-product-details">
-                              ${product.size.map(size => `<option value="${size}">${size}</option>`).join("")}
-                          </select>
-                      </div>
+<div class="size-wrapper">
+    <span>Size:</span>
+    <select id="size-product-details">
+        ${product.size.map(size => `<option value="${size}">${size}</option>`).join("")}
+    </select>
+</div>
+
+<script>
+document.getElementById("size-product-details").addEventListener("change", function() {
+    console.log("Size mới được chọn:", this.value);
+});
+</script>
+
                   </div>
                   <div class="total-price">
                       <p>Thành tiền: <span id="total-price"></span></p>
@@ -207,48 +215,70 @@ function inputQuantity(obj, index) {
 
 // Hàm thêm vào giỏ hàng
 function addToCart() {
-    const account = accounts.find(account => account.accountId === userCurrent.idLogin);
-    console.log(account);
-    if (userCurrent.idLogin === null) {
-        alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
-        return;
-    }
-    /* else if (account.status === "Bị khoá") { 
-        alert("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
-        return;
-    } */
-    const productCheckout = {};
-    productCheckout.name = document.getElementById("product-name").textContent;
-    productCheckout.quantity = parseInt(document.getElementById("quantity-product-details").value);
-    // alert(document.getElementById("quantity").value);
-    // productCheckout.price = parsePrice(document.getElementById("product-price").textContent);
-    productCheckout.price = parsePrice(document.getElementById("product-price").textContent);
-    productCheckout.url = document.getElementById("product-image").src;
-
-    findProduct = userCurrent.cart.find(product => product.name === productCheckout.name);
-    findProductInList = listProduct.find(product => product.name === productCheckout.name);
-    console.log(findProductInList);
-    if (findProduct !== undefined) {
-
-        findProduct.quantity += productCheckout.quantity;
-    }
-    else {
-        userCurrent.cart.push(productCheckout);
-    }
-
-    alert(`Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
-    localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
-    userCurrent = JSON.parse(localStorage.getItem("userCurrent"));
-    let totalPrice = 0;
-    userCurrent.cart.forEach(product => {
-      totalProduct += product.quantity;
-    });
-    document.getElementById("bulbleLength").textContent = totalProduct;
-    closeProductDetail();
+if (userCurrent.idLogin === null) {
+    alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+    return;
 }
+
+// Tạo đối tượng giỏ hàng
+const productCheckout = {
+    id: document.getElementById("product-id").textContent,
+    name: document.getElementById("product-name").textContent,
+    quantity: parseInt(document.getElementById("quantity-product-details").value),
+    price: parsePrice(document.getElementById("product-price").textContent),
+    url: document.getElementById("product-image").src,
+    size: document.getElementById("size-product-details").value
+};
+
+// Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
+let findProduct = userCurrent.cart.find(product => product.id === productCheckout.id);
+if (findProduct) {
+    findProduct.quantity += productCheckout.quantity;
+} else {
+    userCurrent.cart.push(productCheckout);
+}
+
+// Gửi giỏ hàng lên server để cập nhật database
+
+const requestData = {
+    userId: userCurrent.idLogin,
+    cart: userCurrent.cart
+};
+
+console.log("Dữ liệu đang gửi:", requestData);
+console.log("Dữ liệu đang gửi:", userCurrent.cart);
+
+fetch('../static/connectDB/update_cart.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        userId: userCurrent.idLogin,
+        cart: userCurrent.cart
+    })
+})
+.then(response => response.json())
+.then(data => console.log('Cập nhật giỏ hàng:', data))
+.catch(error => console.error('Lỗi:', error));
+
+alert(`Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
+
+// Cập nhật tổng số sản phẩm hiển thị
+let totalProduct = 0;
+userCurrent.cart.forEach(product => {
+    totalProduct += product.quantity;
+});
+document.getElementById("bulbleLength").textContent = totalProduct;
+
+// Đóng giao diện chi tiết sản phẩm
+closeProductDetail();
+
+// Hàm chuyển đổi giá tiền từ chuỗi
 function parsePrice(priceString) {
-  const price = priceString.replace(/[^\d]/g, '');
-  return parseInt(price); 
+    return parseInt(priceString.replace(/[^\d]/g, ''));
+}
+
 }
 // Xử lý hiển thị giỏ hàng
 const btnCart = document.querySelector(".icon__cart-shopping");
